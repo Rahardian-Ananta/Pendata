@@ -1,0 +1,23 @@
+ID_Karyawan,Departemen,Tingkat_Pendidikan,Status_Pernikahan,Tahun_Lahir,Gaji_Per_Bulan
+K001,IT,S1,Menikah,1990,8500000
+K002,HR,S1,Belum Menikah,1995,6000000
+K003,Keuangan,S2,Menikah,1988,12000000
+K004,IT,D3,Belum Menikah,1998,5500000
+K005,Marketing,S1,Menikah,1992,7500000
+K006,Operasional,SMA,Menikah,1985,4500000
+K007,IT,S2,Menikah,1989,15000000
+K008,Marketing,D3,Belum Menikah,1997,5000000
+K009,HR,S2,Menikah,1987,11000000
+K010,Keuangan,S1,Belum Menikah,1996,7000000
+K011,Operasional,S1,Menikah,1991,6500000
+K012,IT,SMA,Belum Menikah,2000,4000000
+K013,HR,D3,Menikah,1993,5500000
+K014,Marketing,S1,Menikah,1990,8000000
+K015,Keuangan,SMA,Belum Menikah,1999,4000000
+K016,Operasional,D3,Menikah,1994,5000000
+K017,IT,S1,Belum Menikah,1997,7500000
+K018,HR,S1,Menikah,1992,6500000
+K019,Keuangan,S2,Menikah,1986,13000000
+K020,Marketing,S2,Menikah,1988,14000000
+K021,Operasional,SMA,Belum Menikah,2001,3800000
+K022,IT,D3,Menikah,1995,6000000

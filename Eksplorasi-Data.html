@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Data Understanding &#8212; My sample book</title>
+    <title>Eksplorasi Data &#8212; My sample book</title>
   
   
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Eksplorasi-Data';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Pertemuan 1" href="pertemuan1.html" />
+    <link rel="prev" title="Data Understanding" href="data-understanding.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,7 +180,10 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pertemuan1.html"><strong>Pertemuan 1</strong></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Data</strong> <strong>Understanding</strong></a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#"><strong>Eksplorasi Data</strong></a></li>
+</ul>
+</details></li>
 </ul>
 
     </div>
@@ -366,7 +369,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Data Understanding</h1>
+    <h1>Eksplorasi Data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -376,18 +379,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-memahami-data">pentingnya Memahami Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#komponen-utama-memahami-data">komponen Utama Memahami Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macam-macam-data">Macam - Macam Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut">Atribut</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-iris">menampilkan data iris</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-dataset">Persiapan Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-tipe-data-setiap-fitur">menampilkan tipe data setiap fitur</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-untuk-tiap-fitur">Histogram untuk tiap fitur</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-fitur-dataset-iris-histogram"><strong>Analisis Fitur Dataset Iris (Histogram)</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-untuk-tiap-fitur">Histogram untuk tiap fitur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-untuk-tiap-fitur">Boxplot untuk tiap fitur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-antara-fitur">Scatter plot antara fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-univariat-mendalam">1. Analisis Univariat Mendalam</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-bivariat-fitur-vs-spesies">2. Analisis Bivariat (Fitur vs Spesies)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-multivariat-korelasi">3. Analisis Multivariat (Korelasi)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-untuk-tiap-fitur">Boxplot untuk tiap fitur</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-antara-fitur">Scatter plot antara fitur</a></li>
 </ul>
             </nav>
         </div>
@@ -399,68 +400,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="data-understanding">
-<h1><strong>Data</strong> <strong>Understanding</strong><a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h1>
-<ul class="simple">
-<li><p>mengumpulkan data awal dan dilanjutkan dengan kegiatan untuk mendapatkan data yang lazim</p></li>
-<li><p>identifikasi data yang berkualitas</p></li>
-<li><p>pemahaman data yang sangat diperlukan untuk mengidentifikasi bagian yang menarik dari data</p></li>
-</ul>
-<section id="pentingnya-memahami-data">
-<h2>pentingnya Memahami Data<a class="headerlink" href="#pentingnya-memahami-data" title="Link to this heading">#</a></h2>
-<p>membantu memilih teknik data mining yang tepat, meningkatkan akurasi model prediksi, menghindari kesalahan interpretasi, memastikan hasil yang dapat diandalkan dan dapat ditindaklanjuti.</p>
-</section>
-<section id="komponen-utama-memahami-data">
-<h2>komponen Utama Memahami Data<a class="headerlink" href="#komponen-utama-memahami-data" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Komponen: Pengumpulan Data Awal
-Penjelasan:
-Mengidentifikasi dan mengumpulkan semua sumber data yang relevan
-(database, file CSV, API, dll).</p></li>
-<li><p>Komponen: Deskripsi Data
-Penjelasan:
-Memahami struktur data seperti jumlah baris/kolom, jenis variabel
-(numerik, kategorikal), nama atribut, serta contoh data.</p></li>
-<li><p>Komponen: Eksplorasi Data (Exploratory Data Analysis / EDA)
-Penjelasan:
-Mencari pola, tren, korelasi, atau anomali dalam data.</p></li>
-<li><p>Komponen: Kualitas Data
-Penjelasan:
-Memeriksa kelengkapan, keakuratan, dan konsistensi data.</p></li>
-</ol>
-</section>
-<section id="macam-macam-data">
-<h2>Macam - Macam Data<a class="headerlink" href="#macam-macam-data" title="Link to this heading">#</a></h2>
-<p>Dalam data data mining dan maha datar, Anda akan menemukan banyak jenis data yang berbeda, dan masing-masing cenderung membutuhkan alat dan teknik yang berbeda. Macam macam data dikelompokkan sebagai berikut:</p>
-<ul class="simple">
-<li><p>Data terstruktur (structured)</p></li>
-<li><p>Data tidak terstruktur(unstructured</p></li>
-<li><p>Data bahasa alami(Natural Language)</p></li>
-<li><p>Data yang dibangkit oleh Mesin (Machined-Generated)</p></li>
-<li><p>Data Audio, Video,Citra</p></li>
-<li><p>Data Streamming</p></li>
-<li><p>Data berbasis Graph(Graph-based)</p></li>
-</ul>
-</section>
-<section id="atribut">
-<h2>Atribut<a class="headerlink" href="#atribut" title="Link to this heading">#</a></h2>
-<p>atribut (dimensi) adalah menyatakan karakteristik atau fitur dari sata objek tipe-tipe :</p>
-<ul class="simple">
-<li><p>nominal/kategorikal</p></li>
-<li><p>ordinal</p></li>
-<li><p>biner</p></li>
-<li><p>numerik(interval-scaled, ratio-scaled)</p></li>
-</ul>
-</section>
-<section id="menampilkan-data-iris">
-<h2>menampilkan data iris<a class="headerlink" href="#menampilkan-data-iris" title="Link to this heading">#</a></h2>
-<p>Kumpulan data bunga Iris adalah kumpulan data multivariat yang diperkenalkan oleh ahli statistik dan biologi Inggris, Ronald Fisher, dalam makalahnya tahun 1936 yang berjudul “The use of multiple measurements in taxonomic problems”. Kumpulan data ini terkadang disebut sebagai kumpulan data Iris Anderson karena Edgar Anderson mengumpulkan data tersebut untuk mengukur variasi morfologi bunga Iris dari tiga spesies yang berkerabat. Kumpulan data ini terdiri dari 50 sampel dari masing-masing tiga spesies Iris (Iris Setosa, Iris virginica, dan Iris versicolor). Empat fitur diukur dari setiap sampel: panjang dan lebar sepal dan petal, dalam sentimeter.</p>
-<ul class="simple">
-<li><p>sepal_length → panjang kelopak</p></li>
-<li><p>sepal_width → lebar kelopak</p></li>
-<li><p>petal_length → panjang mahkota</p></li>
-<li><p>petal_width → lebar mahkota</p></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="eksplorasi-data">
+<h1><strong>Eksplorasi Data</strong><a class="headerlink" href="#eksplorasi-data" title="Link to this heading">#</a></h1>
+<p>Bagian ini berfokus pada implementasi praktis dari Exploratory Data Analysis (EDA) menggunakan dataset Iris sebagai studi kasus.</p>
+<section id="persiapan-dataset">
+<h2>Persiapan Dataset<a class="headerlink" href="#persiapan-dataset" title="Link to this heading">#</a></h2>
+<p>Menggunakan dataset Iris untuk demonstrasi eksplorasi data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -966,35 +911,6 @@ Fitur petal_width:
 </div>
 </div>
 </div>
-<ol class="arabic simple">
-<li><p>Fitur: sepal_length
-Penjelasan:
-Nilai rata-rata (5.84) dan median (5.80) yang hampir sama menunjukkan distribusi data cukup seimbang (tidak terlalu miring).
-Modus sebesar 5.00 menandakan nilai yang paling sering muncul berada di sekitar angka tersebut.
-Rentang data cukup lebar, dari 4.30 hingga 7.90.
-Kuartil (Q1 = 5.10, Q3 = 6.40) menunjukkan sebagian besar data berada di antara nilai tersebut.
-Artinya, panjang sepal umumnya berada di kisaran sedang.</p></li>
-<li><p>Fitur: sepal_width
-Penjelasan:
-Rata-rata (3.05), median (3.00), dan modus (3.00) sangat berdekatan, menunjukkan distribusi data yang stabil dan simetris.
-Nilai minimum 2.00 dan maksimum 4.40 menunjukkan variasi tidak terlalu ekstrem.
-Kuartil (Q1 = 2.80, Q3 = 3.30) menunjukkan sebagian besar data terkonsentrasi di sekitar nilai tengah.
-Artinya, lebar sepal cenderung konsisten di sekitar angka 3.</p></li>
-<li><p>Fitur: petal_length
-Penjelasan:
-Rata-rata (3.76) cukup berbeda dengan median (4.35), menandakan distribusi data cenderung tidak simetris (miring).
-Modus 1.50 menunjukkan banyak data berada di nilai rendah.
-Rentang data sangat lebar (1.00 hingga 6.90), menandakan variasi tinggi.
-Kuartil menunjukkan perbedaan yang cukup besar antara Q1 (1.60) dan Q3 (5.10).
-Artinya, fitur ini memiliki pemisahan yang jelas (kemungkinan antar kelas bunga).</p></li>
-<li><p>Fitur: petal_width
-Penjelasan:
-Rata-rata (1.20) dan median (1.30) cukup dekat, namun modus sangat kecil (0.20).
-Ini menunjukkan banyak data di nilai rendah, tetapi juga ada nilai tinggi.
-Rentang data dari 0.10 hingga 2.50 menunjukkan variasi cukup besar.
-Kuartil (Q1 = 0.30, Q3 = 1.80) menunjukkan distribusi data cukup menyebar.
-Artinya, lebar petal juga memiliki variasi tinggi dan berpotensi membedakan kelas data.</p></li>
-</ol>
 </section>
 <section id="histogram-untuk-tiap-fitur">
 <h2>Histogram untuk tiap fitur<a class="headerlink" href="#histogram-untuk-tiap-fitur" title="Link to this heading">#</a></h2>
@@ -1010,35 +926,6 @@ Artinya, lebar petal juga memiliki variasi tinggi dan berpotensi membedakan kela
 <img alt="_images/b293dddaac53008daab2f2c085b2b79977c586fe801b97bb14781ac451a4d8a5.png" src="_images/b293dddaac53008daab2f2c085b2b79977c586fe801b97bb14781ac451a4d8a5.png" />
 </div>
 </div>
-<section id="analisis-fitur-dataset-iris-histogram">
-<h3><strong>Analisis Fitur Dataset Iris (Histogram)</strong><a class="headerlink" href="#analisis-fitur-dataset-iris-histogram" title="Link to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p><strong>Sepal Length (Panjang Kelopak)</strong></p>
-<ul class="simple">
-<li><p><strong>Rentang:</strong> Sekitar 4.3 cm hingga 7.9 cm.</p></li>
-<li><p><strong>Analisis:</strong> Distribusinya cukup menyebar dan bersifat multimodal (memiliki beberapa puncak). Hal ini menunjukkan adanya tumpang tindih (overlap) nilai yang besar antara ketiga spesies Iris pada fitur ini.</p></li>
-</ul>
-</li>
-<li><p><strong>Sepal Width (Lebar Kelopak)</strong></p>
-<ul class="simple">
-<li><p><strong>Rentang:</strong> Sekitar 2.0 cm hingga 4.4 cm.</p></li>
-<li><p><strong>Analisis:</strong> Fitur ini memiliki distribusi yang paling mendekati Distribusi Normal (Bell Curve). Mayoritas sampel berkumpul di angka 3.0 cm. Fitur ini paling sulit digunakan untuk membedakan antar spesies karena datanya sangat berhimpit.</p></li>
-</ul>
-</li>
-<li><p><strong>Petal Length (Panjang Mahkota)</strong></p>
-<ul class="simple">
-<li><p><strong>Rentang:</strong> Sekitar 1.0 cm hingga 6.9 cm.</p></li>
-<li><p><strong>Analisis:</strong> Terlihat adanya pemisahan (gap) yang sangat jelas antara angka 2 dan 3. Kelompok di sisi kiri (1–2 cm) adalah spesies <strong>Setosa</strong>, sedangkan kelompok di sisi kanan adalah gabungan <strong>Versicolor</strong> dan <strong>Virginica</strong>.</p></li>
-</ul>
-</li>
-<li><p><strong>Petal Width (Lebar Mahkota)</strong></p>
-<ul class="simple">
-<li><p><strong>Rentang:</strong> Sekitar 0.1 cm hingga 2.5 cm.</p></li>
-<li><p><strong>Analisis:</strong> Mirip dengan Petal Length, terdapat pemisahan kelompok yang jelas. Nilai yang sangat rendah (0.1–0.6 cm) merupakan ciri khas utama spesies <strong>Setosa</strong>, memudahkan proses klasifikasi dibandingkan fitur Sepal.</p></li>
-</ul>
-</li>
-</ol>
-</section>
 </section>
 <section id="boxplot-untuk-tiap-fitur">
 <h2>Boxplot untuk tiap fitur<a class="headerlink" href="#boxplot-untuk-tiap-fitur" title="Link to this heading">#</a></h2>
@@ -1072,6 +959,79 @@ Artinya, lebar petal juga memiliki variasi tinggi dan berpotensi membedakan kela
 <img alt="_images/5818a9de7586bf442177e25cd8bbc2bbc2a00436cdc03731470812d5c54b3d7d.png" src="_images/5818a9de7586bf442177e25cd8bbc2bbc2a00436cdc03731470812d5c54b3d7d.png" />
 </div>
 </div>
+<section id="analisis-univariat-mendalam">
+<h3>1. Analisis Univariat Mendalam<a class="headerlink" href="#analisis-univariat-mendalam" title="Link to this heading">#</a></h3>
+<p>Kita akan melihat distribusi setiap fitur secara individu menggunakan KDE (Kernel Density Estimate) dan menghitung statistik bentuk distribusi (Skewness &amp; Kurtosis).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menampilkan KDE Plot untuk setiap fitur numerik</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">numerical_cols</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">iris_data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;skyblue&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distribusi </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="n">skew</span> <span class="o">=</span> <span class="n">iris_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>
+    <span class="n">kurt</span> <span class="o">=</span> <span class="n">iris_data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">kurt</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> -&gt; Skewness: </span><span class="si">{</span><span class="n">skew</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Kurtosis: </span><span class="si">{</span><span class="n">kurt</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Observasi Univariat:</strong></p>
+<ul class="simple">
+<li><p><strong>Sepal Width</strong> mendekati distribusi normal (skewness dekat 0).</p></li>
+<li><p><strong>Petal Length</strong> dan <strong>Petal Width</strong> menunjukkan distribusi bimodal (dua puncak), yang mengindikasikan adanya pemisahan alami antar kelompok data (spesies).</p></li>
+</ul>
+</section>
+<section id="analisis-bivariat-fitur-vs-spesies">
+<h3>2. Analisis Bivariat (Fitur vs Spesies)<a class="headerlink" href="#analisis-bivariat-fitur-vs-spesies" title="Link to this heading">#</a></h3>
+<p>Melihat bagaimana fitur-fitur ini membedakan spesies satu dengan yang lain menggunakan Violin Plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">numerical_cols</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">iris_data</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2"> per Spesies&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Observasi Bivariat:</strong></p>
+<ul class="simple">
+<li><p><strong>Iris-setosa</strong> sangat mudah dibedakan karena memiliki Petal Length dan Petal Width yang jauh lebih kecil dibanding spesies lain.</p></li>
+<li><p><strong>Iris-versicolor</strong> dan <strong>Iris-virginica</strong> memiliki beberapa tumpang tindih (overlap) pada fitur Sepal, namun lebih terpisah pada fitur Petal.</p></li>
+</ul>
+</section>
+<section id="analisis-multivariat-korelasi">
+<h3>3. Analisis Multivariat (Korelasi)<a class="headerlink" href="#analisis-multivariat-korelasi" title="Link to this heading">#</a></h3>
+<p>Melihat hubungan linear antar fitur numerik menggunakan Heatmap.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="c1"># Menghitung korelasi (hanya fitur numerik)</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">iris_data</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">correlation_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Heatmap Korelasi Fitur Iris&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Observasi Multivariat:</strong></p>
+<ul class="simple">
+<li><p>Terapat korelasi positif yang sangat kuat antara <strong>Petal Length</strong> dan <strong>Petal Width</strong> (0.96).</p></li>
+<li><p><strong>Petal Length</strong> juga berkorelasi kuat dengan <strong>Sepal Length</strong> (0.87).</p></li>
+<li><p>Hal ini menunjukkan bahwa dimensi petal adalah faktor pembeda utama dalam dataset ini.</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -1106,12 +1066,12 @@ Artinya, lebar petal juga memiliki variasi tinggi dan berpotensi membedakan kela
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="pertemuan1.html"
+       href="data-understanding.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><strong>Pertemuan 1</strong></p>
+        <p class="prev-next-title">Data Understanding</p>
       </div>
     </a>
 </div>
@@ -1130,18 +1090,16 @@ Artinya, lebar petal juga memiliki variasi tinggi dan berpotensi membedakan kela
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-memahami-data">pentingnya Memahami Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#komponen-utama-memahami-data">komponen Utama Memahami Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macam-macam-data">Macam - Macam Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atribut">Atribut</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-iris">menampilkan data iris</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-dataset">Persiapan Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-tipe-data-setiap-fitur">menampilkan tipe data setiap fitur</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-untuk-tiap-fitur">Histogram untuk tiap fitur</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-fitur-dataset-iris-histogram"><strong>Analisis Fitur Dataset Iris (Histogram)</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-untuk-tiap-fitur">Histogram untuk tiap fitur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-untuk-tiap-fitur">Boxplot untuk tiap fitur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-antara-fitur">Scatter plot antara fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-univariat-mendalam">1. Analisis Univariat Mendalam</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-bivariat-fitur-vs-spesies">2. Analisis Bivariat (Fitur vs Spesies)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-multivariat-korelasi">3. Analisis Multivariat (Korelasi)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-untuk-tiap-fitur">Boxplot untuk tiap fitur</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-antara-fitur">Scatter plot antara fitur</a></li>
 </ul>
   </nav></div>
 
