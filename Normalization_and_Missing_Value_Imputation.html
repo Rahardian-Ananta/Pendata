@@ -1,0 +1,879 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Normalisasi dan Pengisian Missing Value dalam Penambangan Data &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Normalization_and_Missing_Value_Imputation';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Menghitung Jarak" href="menghitung-jarak.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Rahardian Ananta , 240411100071
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html"><strong>Pertemuan 1</strong></a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Eksplorasi-Data.html"><strong>Eksplorasi Data</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menghitung-jarak.html">Menghitung Jarak</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FNormalization_and_Missing_Value_Imputation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Normalization_and_Missing_Value_Imputation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Normalisasi dan Pengisian Missing Value dalam Penambangan Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-dataset">Download Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-1-kolom-a-f-dataset-asli-data-mentah">Blok 1 (Kolom A-F): Dataset Asli (Data Mentah)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik">Blok 2 (Kolom G-H): Hasil Normalisasi Min-Max untuk Atribut Numerik</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-3-kolom-i-k-perhitungan-jarak-kategorikal">Blok 3 (Kolom I-K): Perhitungan Jarak Kategorikal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-4-kolom-l-jarak-kategorikal-gabungan">Blok 4 (Kolom L): Jarak Kategorikal Gabungan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-5-kolom-m-perhitungan-jarak-numerik-euclidean">Blok 5 (Kolom M): Perhitungan Jarak Numerik (Euclidean)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-6-kolom-n-jarak-gabungan-final-distance">Blok 6 (Kolom N): Jarak Gabungan (Final Distance)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-7-kolom-p-v-penanganan-missing-value-metode-knn">Blok 7 (Kolom P-V): Penanganan Missing Value (Metode KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013">Langkah 1: Hitung Jarak Kategorikal Setiap Karyawan ke K013</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-numerik-khusus-kolom-t">Langkah 2: Hitung Jarak Numerik Khusus (Kolom T)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-jarak-final-ke-k013-kolom-u">Langkah 3: Hitung Jarak Final ke K013 (Kolom U)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-urutkan-dan-pilih-2-tetangga-terdekat">Langkah 4: Urutkan dan Pilih 2 Tetangga Terdekat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga">Langkah 5: Estimasi Missing Value (Rata-rata Gaji Tetangga)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="normalisasi-dan-pengisian-missing-value-dalam-penambangan-data">
+<h1>Normalisasi dan Pengisian Missing Value dalam Penambangan Data<a class="headerlink" href="#normalisasi-dan-pengisian-missing-value-dalam-penambangan-data" title="Link to this heading">#</a></h1>
+<p>Dalam pengolahan data untuk data mining, seringkali kita dihadapkan pada atribut dengan skala yang berbeda atau bahkan adanya data yang hilang (missing value). Bab ini akan menjelaskan secara rinci proses normalisasi data dengan metode Min-Max dan penanganan <em>missing value</em> menggunakan algoritma K-Nearest Neighbors (KNN). Pembagian tahapan disesuaikan dengan struktur perhitungan dataset Anda.</p>
+<hr class="docutils" />
+<section id="download-dataset">
+<h2>Download Dataset<a class="headerlink" href="#download-dataset" title="Link to this heading">#</a></h2>
+<p>Untuk mempermudah pemahaman, Anda dapat mengunduh dataset yang digunakan dalam bab ini:</p>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="_downloads/62768cd8f6dfd3e05c7e5e1733beeb48/dataset_karyawan.csv"><span class="xref download myst">📩 Download Dataset Karyawan (Mentah)</span></a></p></li>
+<li><p><a class="reference internal" href="#./files/dataset_karyawan_processed.csv"><span class="xref myst">📩 Download Dataset Karyawan (Hasil Proses)</span></a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="blok-1-kolom-a-f-dataset-asli-data-mentah">
+<h2>Blok 1 (Kolom A-F): Dataset Asli (Data Mentah)<a class="headerlink" href="#blok-1-kolom-a-f-dataset-asli-data-mentah" title="Link to this heading">#</a></h2>
+<p>Blok ini berisi rancangan data awal sebelum diproses. Format data tabular ini terdiri dari atribut-atribut dasar karyawan:</p>
+<ul class="simple">
+<li><p><strong>Kolom A:</strong> ID Karyawan</p></li>
+<li><p><strong>Kolom B:</strong> Departemen (Kategorikal)</p></li>
+<li><p><strong>Kolom C:</strong> Tingkat Pendidikan (Kategorikal)</p></li>
+<li><p><strong>Kolom D:</strong> Status Pernikahan (Kategorikal)</p></li>
+<li><p><strong>Kolom E:</strong> Tahun Lahir (Numerik)</p></li>
+<li><p><strong>Kolom F:</strong> Gaji Per Bulan (Numerik)</p></li>
+</ul>
+<p>Data ini memiliki berbagai macam skala, misalnya atribut <code class="docutils literal notranslate"><span class="pre">Tahun_Lahir</span></code> berkisar di angka ribuan (1985 - 2001), dan <code class="docutils literal notranslate"><span class="pre">Gaji_Per_Bulan</span></code> dalam skala jutaan Rupiah (3.800.000 - 15.000.000). Nilai minimum (Min) dan maksimum (Max) dari atribut numerik ini akan menjadi dasar perhitungan Normalisasi pada tahap selanjutnya.</p>
+</section>
+<hr class="docutils" />
+<section id="blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik">
+<h2>Blok 2 (Kolom G-H): Hasil Normalisasi Min-Max untuk Atribut Numerik<a class="headerlink" href="#blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik" title="Link to this heading">#</a></h2>
+<p>Perbedaan jarak (skala) antara tahun lahir dan gaji per bulan yang sangat jauh dapat mengacaukan perhitungan ketetanggaan (Euclidean distance). Oleh karena itu, kita perlu menyamakan rentang skalanya menjadi rentang standar antara 0 hingga 1 menggunakan <strong>Normalisasi Min-Max</strong>.</p>
+<ul class="simple">
+<li><p><strong>Kolom G:</strong> Normalisasi Tahun Lahir</p></li>
+<li><p><strong>Kolom H:</strong> Normalisasi Gaji</p></li>
+</ul>
+<p><strong>Rumus Min-Max Normalization:</strong>
+$<span class="math notranslate nohighlight">\(X_{baru} = \frac{X - X_{min}}{X_{max} - X_{min}}\)</span>$</p>
+<p><em>Keterangan:</em></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X\)</span>: Nilai atribut numerik asli saat ini.</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_{min}\)</span>, <span class="math notranslate nohighlight">\(X_{max}\)</span>: Nilai minimum dan maksimum seluruh sampel dari kolom atribut tersebut.</p></li>
+</ul>
+<p><strong>Contoh Perhitungan untuk Karyawan K001:</strong></p>
+<ul class="simple">
+<li><p><strong>Normalisasi Tahun Lahir</strong> (Data Asli: Tahun = 1990, Min = 1985, Max = 2001)
+$<span class="math notranslate nohighlight">\(X_{baru} = \frac{1990 - 1985}{2001 - 1985} = \frac{5}{16} = 0,3125\)</span>$</p></li>
+<li><p><strong>Normalisasi Gaji</strong> (Data Asli: Gaji = 8.500.000, Min = 3.800.000, Max = 15.000.000)
+$<span class="math notranslate nohighlight">\(X_{baru} = \frac{8.500.000 - 3.800.000}{15.000.000 - 3.800.000} = \frac{4.700.000}{11.200.000} \approx 0,4196...\)</span>$</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="blok-3-kolom-i-k-perhitungan-jarak-kategorikal">
+<h2>Blok 3 (Kolom I-K): Perhitungan Jarak Kategorikal<a class="headerlink" href="#blok-3-kolom-i-k-perhitungan-jarak-kategorikal" title="Link to this heading">#</a></h2>
+<p>Pada proses pencarian jarak (distansi), atribut berjenis kategorikal tidak bisa diproses menggunakan pengurangan angka biasa. Jarak kategorikal dihitung menggunakan logika perbandingan kesamaan <strong>Simple Matching Coefficient</strong>:</p>
+<ul class="simple">
+<li><p>Jika dua nilai kategorikal <strong>Sama</strong>, maka Jarak = <strong>0</strong></p></li>
+<li><p>Jika dua nilai kategorikal <strong>Berbeda</strong>, maka Jarak = <strong>1</strong></p></li>
+</ul>
+<p>Ketiga kolom ini mewakili setiap variabel kategorikal:</p>
+<ul class="simple">
+<li><p><strong>Kolom I:</strong> Jarak Pendidikan (<em>S1 vs S2, dll</em>)</p></li>
+<li><p><strong>Kolom J:</strong> Jarak Departemen (<em>IT vs Keuangan, dll</em>)</p></li>
+<li><p><strong>Kolom K:</strong> Jarak Status Pernikahan (<em>Menikah vs Belum Menikah</em>)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="blok-4-kolom-l-jarak-kategorikal-gabungan">
+<h2>Blok 4 (Kolom L): Jarak Kategorikal Gabungan<a class="headerlink" href="#blok-4-kolom-l-jarak-kategorikal-gabungan" title="Link to this heading">#</a></h2>
+<p>Setelah nilai per-kolom kategorikal didapatkan, semua skor jarak kategorikal ini digabungkan dan dirata-rata.</p>
+<p><strong>Rumus Jarak Kategorikal Gabungan:</strong>
+$<span class="math notranslate nohighlight">\(d_{kategorikal} = \frac{\sum \text{Jarak Atribut Kategorikal}}{\text{Jumlah Atribut Kategorikal}}\)</span>$</p>
+<p><strong>Contoh Perhitungan (K001 vs rujukan tertentu):</strong>
+Misalkan antara K001 (S1, IT, Menikah) dan Target rujukan (S1, HR, Belum Menikah):</p>
+<ul class="simple">
+<li><p>Jarak Pendidikan saling sama (S1 vs S1) = 0</p></li>
+<li><p>Jarak Departemen berbeda (IT vs HR) = 1</p></li>
+<li><p>Jarak Status Pernikahan berbeda (Menikah vs Belum Menikah) = 1</p></li>
+<li><p><strong>Jarak Gabungan Kategorikal</strong> = <span class="math notranslate nohighlight">\(\frac{0 + 1 + 1}{3} = \frac{2}{3} \approx 0,6666...\)</span></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="blok-5-kolom-m-perhitungan-jarak-numerik-euclidean">
+<h2>Blok 5 (Kolom M): Perhitungan Jarak Numerik (Euclidean)<a class="headerlink" href="#blok-5-kolom-m-perhitungan-jarak-numerik-euclidean" title="Link to this heading">#</a></h2>
+<p>Atribut numerik yang telah dinormalisasi (Kolom G dan Kolom H) lalu dihitung selisih jaraknya menggunakan <strong>Euclidean Distance</strong>.</p>
+<p><strong>Rumus Jarak Numerik Euclidean:</strong>
+$<span class="math notranslate nohighlight">\(d_{numerik} = \sqrt{(X_{norm_1} - Y_{norm_1})^2 + (X_{norm_2} - Y_{norm_2})^2}\)</span>$</p>
+<p><em>Contoh Aplikasi:</em> Dimana <span class="math notranslate nohighlight">\(X\)</span> adalah nilai normalisasi data 1 dan <span class="math notranslate nohighlight">\(Y\)</span> adalah nilai normalisasi rujukan target. Pengkuadratan digunakan untuk menghilangkan nilai negatif dan mengakumulasi keseluruhan perbedaan jarak multidimensinya.</p>
+</section>
+<hr class="docutils" />
+<section id="blok-6-kolom-n-jarak-gabungan-final-distance">
+<h2>Blok 6 (Kolom N): Jarak Gabungan (Final Distance)<a class="headerlink" href="#blok-6-kolom-n-jarak-gabungan-final-distance" title="Link to this heading">#</a></h2>
+<p>Langkah terakhir dari pengukuran kemiripan antar baris data (instance) adalah dengan menggabungkan komputasi Jarak Kategorikal (Kolom L) dan Jarak Numerik (Kolom M). Ini akan menjadi nilai referensi utama dari total deviasi / kemiripan dari target.</p>
+<p><strong>Rumus Jarak Final:</strong>
+$<span class="math notranslate nohighlight">\(Distance_{total} = \sqrt{(d_{kategorikal})^2 + (d_{numerik})^2}\)</span>$</p>
+<p>Semakin kecil nilai di kolom ini, maka semakin “<strong>mirip / dekat</strong>” sifat antar-karyawan tersebut secara holistik (baik dari segi umur, status gaji, dan properti posisinya di kantor).</p>
+</section>
+<hr class="docutils" />
+<section id="blok-7-kolom-p-v-penanganan-missing-value-metode-knn">
+<h2>Blok 7 (Kolom P-V): Penanganan Missing Value (Metode KNN)<a class="headerlink" href="#blok-7-kolom-p-v-penanganan-missing-value-metode-knn" title="Link to this heading">#</a></h2>
+<p>Kolom P hingga V digunakan untuk mempraktikkan pengisian <strong>Missing Value</strong> menggunakan algoritma <strong>K-Nearest Neighbors (KNN)</strong> dengan <span class="math notranslate nohighlight">\(K=2\)</span> (2 Tetangga Terdekat).</p>
+<p>Pada dataset ini, Gaji karyawan <strong>K013</strong> (HR, D3, Menikah, Tahun 1993) sengaja dihilangkan untuk disimulasikan sebagai <em>missing value</em>. Nilai asli Gaji K013 sebelum dihapus adalah <strong>5.500.000</strong>. Semua jarak pada Blok 7 dihitung terhadap <strong>K013</strong> sebagai titik rujukan (target). Berikut struktur kolomnya:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Isi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>P</strong></p></td>
+<td><p>Jarak Departemen (ke K013)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Q</strong></p></td>
+<td><p>Jarak Pendidikan (ke K013)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>R</strong></p></td>
+<td><p>Jarak Status Pernikahan (ke K013)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>S</strong></p></td>
+<td><p>Jarak Kategorikal Gabungan</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>T</strong></p></td>
+<td><p>Jarak Numerik Khusus (hanya Tahun Lahir, karena Gaji = missing)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>U</strong></p></td>
+<td><p>Jarak Final ke K013</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>V</strong></p></td>
+<td><p>Hasil Missing Value (2 Tetangga Terdekat / KNN)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr class="docutils" />
+<section id="langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013">
+<h3>Langkah 1: Hitung Jarak Kategorikal Setiap Karyawan ke K013<a class="headerlink" href="#langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013" title="Link to this heading">#</a></h3>
+<p>Data K013: <strong>HR, D3, Menikah, Tahun 1993</strong></p>
+<p>Setiap karyawan dibandingkan kategorinya dengan K013 menggunakan <strong>Simple Matching</strong> (sama = 0, beda = 1).</p>
+<p><strong>Contoh K001</strong> (IT, S1, Menikah) vs K013 (HR, D3, Menikah):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Atribut</p></th>
+<th class="head"><p>K001</p></th>
+<th class="head"><p>K013</p></th>
+<th class="head"><p>Sama/Beda</p></th>
+<th class="head"><p>Jarak</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Departemen (P)</p></td>
+<td><p>IT</p></td>
+<td><p>HR</p></td>
+<td><p>Beda</p></td>
+<td><p><strong>1</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Pendidikan (Q)</p></td>
+<td><p>S1</p></td>
+<td><p>D3</p></td>
+<td><p>Beda</p></td>
+<td><p><strong>1</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Status (R)</p></td>
+<td><p>Menikah</p></td>
+<td><p>Menikah</p></td>
+<td><p>Sama</p></td>
+<td><p><strong>0</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Kolom S (Jarak Kategorikal Gabungan):</strong>
+$<span class="math notranslate nohighlight">\(S = \frac{P + Q + R}{3} = \frac{1 + 1 + 0}{3} = \frac{2}{3} \approx 0,6667\)</span>$</p>
+<p><strong>Contoh K016</strong> (Operasional, D3, Menikah) vs K013 (HR, D3, Menikah):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Atribut</p></th>
+<th class="head"><p>K016</p></th>
+<th class="head"><p>K013</p></th>
+<th class="head"><p>Sama/Beda</p></th>
+<th class="head"><p>Jarak</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Departemen (P)</p></td>
+<td><p>Operasional</p></td>
+<td><p>HR</p></td>
+<td><p>Beda</p></td>
+<td><p><strong>1</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Pendidikan (Q)</p></td>
+<td><p>D3</p></td>
+<td><p>D3</p></td>
+<td><p>Sama</p></td>
+<td><p><strong>0</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Status (R)</p></td>
+<td><p>Menikah</p></td>
+<td><p>Menikah</p></td>
+<td><p>Sama</p></td>
+<td><p><strong>0</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[S = \frac{1 + 0 + 0}{3} = \frac{1}{3} \approx 0,3333\]</div>
+<p><strong>Contoh K018</strong> (HR, S1, Menikah) vs K013 (HR, D3, Menikah):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Atribut</p></th>
+<th class="head"><p>K018</p></th>
+<th class="head"><p>K013</p></th>
+<th class="head"><p>Sama/Beda</p></th>
+<th class="head"><p>Jarak</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Departemen (P)</p></td>
+<td><p>HR</p></td>
+<td><p>HR</p></td>
+<td><p>Sama</p></td>
+<td><p><strong>0</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Pendidikan (Q)</p></td>
+<td><p>S1</p></td>
+<td><p>D3</p></td>
+<td><p>Beda</p></td>
+<td><p><strong>1</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Status (R)</p></td>
+<td><p>Menikah</p></td>
+<td><p>Menikah</p></td>
+<td><p>Sama</p></td>
+<td><p><strong>0</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[S = \frac{0 + 1 + 0}{3} = \frac{1}{3} \approx 0,3333\]</div>
+<p><strong>K013 terhadap dirinya sendiri:</strong>
+Semua kategori identik, maka <span class="math notranslate nohighlight">\(P = 0, Q = 0, R = 0, S = 0\)</span>.</p>
+</section>
+<hr class="docutils" />
+<section id="langkah-2-hitung-jarak-numerik-khusus-kolom-t">
+<h3>Langkah 2: Hitung Jarak Numerik Khusus (Kolom T)<a class="headerlink" href="#langkah-2-hitung-jarak-numerik-khusus-kolom-t" title="Link to this heading">#</a></h3>
+<p>Karena atribut <strong>Gaji diasumsikan hilang</strong> (<em>missing</em>), maka jarak numerik <strong>hanya dihitung berdasarkan Tahun Lahir</strong> (yang sudah dinormalisasi).</p>
+<p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(T = | \text{Norm\_Tahun\_Karyawan} - \text{Norm\_Tahun\_K013} |\)</span>$</p>
+<p>Normalisasi Tahun K013: <span class="math notranslate nohighlight">\(\frac{1993 - 1985}{2001 - 1985} = \frac{8}{16} = 0,5\)</span></p>
+<p><strong>Contoh K001</strong> (Norm Tahun = 0,3125):
+$<span class="math notranslate nohighlight">\(T = | 0,3125 - 0,5 | = 0,1875\)</span>$</p>
+<p><strong>Contoh K016</strong> (Norm Tahun = 0,5625):
+$<span class="math notranslate nohighlight">\(T = | 0,5625 - 0,5 | = 0,0625\)</span>$</p>
+<p><strong>Contoh K018</strong> (Norm Tahun = 0,4375):
+$<span class="math notranslate nohighlight">\(T = | 0,4375 - 0,5 | = 0,0625\)</span>$</p>
+</section>
+<hr class="docutils" />
+<section id="langkah-3-hitung-jarak-final-ke-k013-kolom-u">
+<h3>Langkah 3: Hitung Jarak Final ke K013 (Kolom U)<a class="headerlink" href="#langkah-3-hitung-jarak-final-ke-k013-kolom-u" title="Link to this heading">#</a></h3>
+<p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(U = \sqrt{S^2 + T^2}\)</span>$</p>
+<p><strong>Contoh K001:</strong>
+$<span class="math notranslate nohighlight">\(U = \sqrt{(0,6667)^2 + (0,1875)^2} = \sqrt{0,4444 + 0,0352} = \sqrt{0,4796} \approx 0,6925\)</span>$
+<em>(Cocok dengan spreadsheet: <code class="docutils literal notranslate"><span class="pre">0,6925320891</span></code> ✓)</em></p>
+<p><strong>Contoh K016:</strong>
+$<span class="math notranslate nohighlight">\(U = \sqrt{(0,3333)^2 + (0,0625)^2} = \sqrt{0,1111 + 0,0039} = \sqrt{0,1150} \approx 0,3391\)</span>$
+<em>(Cocok dengan spreadsheet: <code class="docutils literal notranslate"><span class="pre">0,3391420958</span></code> ✓)</em></p>
+<p><strong>Contoh K018:</strong>
+$<span class="math notranslate nohighlight">\(U = \sqrt{(0,3333)^2 + (0,0625)^2} = \sqrt{0,1111 + 0,0039} = \sqrt{0,1150} \approx 0,3391\)</span>$
+<em>(Cocok dengan spreadsheet: <code class="docutils literal notranslate"><span class="pre">0,3391420958</span></code> ✓)</em></p>
+<p><strong>Contoh K022</strong> (IT, D3, Menikah, Norm Tahun = 0,625):</p>
+<ul class="simple">
+<li><p>P=1, Q=0, R=0 → S = 1/3 = 0,3333</p></li>
+<li><p>T = |0,625 - 0,5| = 0,125
+$<span class="math notranslate nohighlight">\(U = \sqrt{(0,3333)^2 + (0,125)^2} = \sqrt{0,1111 + 0,0156} = \sqrt{0,1267} \approx 0,3560\)</span>$
+<em>(Cocok dengan spreadsheet: <code class="docutils literal notranslate"><span class="pre">0,3560001561</span></code> ✓)</em></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="langkah-4-urutkan-dan-pilih-2-tetangga-terdekat">
+<h3>Langkah 4: Urutkan dan Pilih 2 Tetangga Terdekat<a class="headerlink" href="#langkah-4-urutkan-dan-pilih-2-tetangga-terdekat" title="Link to this heading">#</a></h3>
+<p>Setelah semua nilai Kolom U dihitung, kita urutkan dari yang terkecil (paling mirip dengan K013):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Peringkat</p></th>
+<th class="head"><p>Karyawan</p></th>
+<th class="head"><p>Jarak Final (U)</p></th>
+<th class="head"><p>Gaji</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>—</p></td>
+<td><p>K013 (target)</p></td>
+<td><p>0 (diri sendiri)</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>1</strong></p></td>
+<td><p><strong>K016</strong></p></td>
+<td><p><strong>0,3391</strong></p></td>
+<td><p><strong>5.000.000</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>2</strong></p></td>
+<td><p><strong>K018</strong></p></td>
+<td><p><strong>0,3391</strong></p></td>
+<td><p><strong>6.500.000</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>K022</p></td>
+<td><p>0,3560</p></td>
+<td><p>6.000.000</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>K004</p></td>
+<td><p>0,3560</p></td>
+<td><p>5.500.000</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>K009</p></td>
+<td><p>0,5017</p></td>
+<td><p>11.000.000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Karena <span class="math notranslate nohighlight">\(K=2\)</span>, kita ambil <strong>K016</strong> (Operasional, D3, Menikah, 1994) dan <strong>K018</strong> (HR, S1, Menikah, 1992) sebagai 2 tetangga terdekat.</p>
+</section>
+<hr class="docutils" />
+<section id="langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga">
+<h3>Langkah 5: Estimasi Missing Value (Rata-rata Gaji Tetangga)<a class="headerlink" href="#langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga" title="Link to this heading">#</a></h3>
+<p>Karena atribut yang hilang bersifat <strong>Numerik</strong> (Gaji), maka kita gunakan <strong>rata-rata (Mean)</strong> dari gaji 2 tetangga terdekat:</p>
+<div class="math notranslate nohighlight">
+\[Gaji_{imputasi} = \frac{Gaji_{K016} + Gaji_{K018}}{2} = \frac{5.000.000 + 6.500.000}{2} = 5.750.000\]</div>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h3>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h3>
+<p>Nilai Gaji K013 yang awalnya hilang diestimasi menjadi <strong>Rp 5.750.000</strong> berdasarkan rata-rata gaji dari 2 karyawan yang paling mirip karakteristiknya (departemen, pendidikan, status, dan usia) dengan K013. Nilai asli Gaji K013 sebelum dihapus adalah <strong>5.500.000</strong>, sehingga selisih antara tebakan KNN dan nilai asli hanya <strong>250.000</strong> — menunjukkan bahwa metode KNN cukup akurat dalam memperkirakan data yang hilang.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="menghitung-jarak.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Menghitung Jarak</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-dataset">Download Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-1-kolom-a-f-dataset-asli-data-mentah">Blok 1 (Kolom A-F): Dataset Asli (Data Mentah)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik">Blok 2 (Kolom G-H): Hasil Normalisasi Min-Max untuk Atribut Numerik</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-3-kolom-i-k-perhitungan-jarak-kategorikal">Blok 3 (Kolom I-K): Perhitungan Jarak Kategorikal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-4-kolom-l-jarak-kategorikal-gabungan">Blok 4 (Kolom L): Jarak Kategorikal Gabungan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-5-kolom-m-perhitungan-jarak-numerik-euclidean">Blok 5 (Kolom M): Perhitungan Jarak Numerik (Euclidean)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-6-kolom-n-jarak-gabungan-final-distance">Blok 6 (Kolom N): Jarak Gabungan (Final Distance)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-7-kolom-p-v-penanganan-missing-value-metode-knn">Blok 7 (Kolom P-V): Penanganan Missing Value (Metode KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013">Langkah 1: Hitung Jarak Kategorikal Setiap Karyawan ke K013</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-numerik-khusus-kolom-t">Langkah 2: Hitung Jarak Numerik Khusus (Kolom T)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-jarak-final-ke-k013-kolom-u">Langkah 3: Hitung Jarak Final ke K013 (Kolom U)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-urutkan-dan-pilih-2-tetangga-terdekat">Langkah 4: Urutkan dan Pilih 2 Tetangga Terdekat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga">Langkah 5: Estimasi Missing Value (Rata-rata Gaji Tetangga)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
