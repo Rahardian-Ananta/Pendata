@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Pertemuan 1 &#8212; My sample book</title>
+    <title>2. Feature Scaling (Normalisasi Data) &#8212; My sample book</title>
   
   
   
@@ -57,11 +57,13 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'pertemuan1';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'feature-scaling';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data Understanding" href="data-understanding.html" />
-    <link rel="prev" title="Rahardian Ananta , 240411100071" href="intro.html" />
+    <link rel="next" title="3. Implementasi Normalisasi Data (Tugas Code)" href="implementasi-normalisasi-data.html" />
+    <link rel="prev" title="1. Handling Missing Value" href="handling-missing-value.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,7 +182,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Pertemuan 1</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html"><strong>Pertemuan 1</strong></a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="Eksplorasi-Data.html"><strong>Eksplorasi Data</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
@@ -188,9 +190,9 @@
 <li class="toctree-l2"><a class="reference internal" href="Normalization_and_Missing_Value_Imputation.html">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="handling-missing-value.html">1. Handling Missing Value</a></li>
-<li class="toctree-l2"><a class="reference internal" href="feature-scaling.html">2. Feature Scaling (Normalisasi Data)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2. Feature Scaling (Normalisasi Data)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implementasi-normalisasi-data.html">3. Implementasi Normalisasi Data (Tugas Code)</a></li>
 </ul>
 </details></li>
@@ -265,7 +267,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpertemuan1.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffeature-scaling.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -295,7 +297,7 @@
       
       
       
-      <li><a href="_sources/pertemuan1.md" target="_blank"
+      <li><a href="_sources/feature-scaling.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -379,7 +381,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Pertemuan 1</h1>
+    <h1>2. Feature Scaling (Normalisasi Data)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -389,9 +391,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-penambangan-data">Apa itu Penambangan Data?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-aplikasi-tools-data-mining">Pengertian Aplikasi Tools Data Mining</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-aplikasi-database-penyimpanan-data">Pengertian Aplikasi Database (Penyimpanan Data)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-normalization">2.1 Min-Max Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standarisasi-z-score">2.2 Standarisasi (Z-Score)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scaling">2.3 Decimal Scaling</a></li>
 </ul>
             </nav>
         </div>
@@ -403,24 +405,112 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pertemuan-1">
-<h1><strong>Pertemuan 1</strong><a class="headerlink" href="#pertemuan-1" title="Link to this heading">#</a></h1>
-<section id="apa-itu-penambangan-data">
-<h2>Apa itu Penambangan Data?<a class="headerlink" href="#apa-itu-penambangan-data" title="Link to this heading">#</a></h2>
-<p>Penambangan Data (atau Data Mining) adalah proses teknik dan metode untuk menggali informasi serta pola tersembunyi dari sekumpulan data yang besar. Tujuannya adalah untuk mengubah data mentah menjadi wawasan berharga yang dapat mendukung pengambilan keputusan secara lebih akurat dan efektif.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="feature-scaling-normalisasi-data">
+<h1>2. Feature Scaling (Normalisasi Data)<a class="headerlink" href="#feature-scaling-normalisasi-data" title="Link to this heading">#</a></h1>
+<p><strong>Feature Scaling</strong> (Penyekalaan Fitur) adalah salah satu tahapan krusial dalam prapemrosesan data yang bertujuan untuk mendesak / menempatkan seluruh variabel bebas (<em>independent features</em>) dari suatu himpunan data ke dalam rentang rasio angka matematika yang setara dan seragam.</p>
+<p><strong>Alasan Mengapa Skala Fitur Harus Seragam:</strong>
+Mayoritas model algoritma <em>Machine Learning</em>, di antaranya seperti <em>K-Nearest Neighbors (KNN)</em> atau <em>Support Vector Machines (SVM)</em>, beroperasi berdasarkan perhitungan <strong>jarak</strong> (<em>Euclidean distance</em>). Apabila sebuah himpunan data mencakup atribut dengan rentang nilai yang tajam perbedaannya — contohnya fitur <strong>“Umur”</strong> berkisar belasan hingga puluhan sentimeter, sedangkan <strong>“Harga Rumah”</strong> berada di kisaran ratusan juta hingga miliaran — maka kalkulasi jarak algoritma akan secara teknis didominasi secara masif oleh rentang fitur yang nilainya raksasa (dalam hal ini <em>Harga Rumah</em>). Hal ini bisa membutakan model analitik. Itulah sebab mengapa meredam seluruh rentang menjadi porsi seimbang sangat mutlak dibutuhkan demi memastikan keadilan sumbangsih bobot evaluasi data (<em>equal weight contribution</em>).</p>
+<p>Berikut adalah jenis-jenis metode standarisasi matematis yang paling sering diterapkan. Untuk mempermudah pemahaman, bayangkan kita memiliki sebuah <em>dataset mini</em> (<em>dummy data</em>) tentang <strong>Pendapatan Bersih</strong> (dalam nominal jutaan) dari 4 orang pemuda:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nama</p></th>
+<th class="head"><p>Pendapatan (X)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p>6</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Dari data di atas, kita dapat menyarikan fakta-fakta statistik awalnya:</p>
+<ul class="simple">
+<li><p><strong>Min</strong> = 2</p></li>
+<li><p><strong>Max</strong> = 8</p></li>
+<li><p><strong>Mean (Rata-rata / <span class="math notranslate nohighlight">\(\mu\)</span>)</strong> = <span class="math notranslate nohighlight">\(\frac{(2 + 4 + 8 + 6)}{4} = 5\)</span></p></li>
+<li><p><strong>Standar Deviasi (<span class="math notranslate nohighlight">\(\sigma\)</span>) populasi</strong> = <span class="math notranslate nohighlight">\(2.236\)</span></p></li>
+<li><p><strong>Nilai Absolut Max</strong> = 8</p></li>
+</ul>
+<hr class="docutils" />
+<section id="min-max-normalization">
+<h2>2.1 Min-Max Normalization<a class="headerlink" href="#min-max-normalization" title="Link to this heading">#</a></h2>
+<p><em>Min-Max Scaling</em> adalah teknik yang menekan pergeseran nilai minimum dan nilai maksimum dari sampel data ke dalam proporsi rasional baru yang relatif lebih mungil. Formasi yang paling disukai adalah menyematkan rentang skala konversi menjadi area eksklusif antara batas <code class="docutils literal notranslate"><span class="pre">0</span></code> hingga batas mentok <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<ul class="simple">
+<li><p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(X_{new} = \frac{X - X_{min}}{X_{max} - X_{min}}\)</span>$</p></li>
+<li><p><strong>Keterangan:</strong></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(X\)</span>: Nilai data orisinil observasi saat ini.</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_{min}, X_{max}\)</span>: Nilai terkecil dan terbesar dalam fitur tersebut.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Contoh Perhitungan Min-Max:</strong>
+Penyebut (Jarak Min ke Max) = <span class="math notranslate nohighlight">\(8 - 2 = 6\)</span></p>
+<ul class="simple">
+<li><p>Pendapatan A (<span class="math notranslate nohighlight">\(X=2\)</span>): <span class="math notranslate nohighlight">\(X_{new} = \frac{2 - 2}{6} = \frac{0}{6} = \mathbf{0}\)</span></p></li>
+<li><p>Pendapatan B (<span class="math notranslate nohighlight">\(X=4\)</span>): <span class="math notranslate nohighlight">\(X_{new} = \frac{4 - 2}{6} = \frac{2}{6} \approx \mathbf{0.333}\)</span></p></li>
+<li><p>Pendapatan C (<span class="math notranslate nohighlight">\(X=8\)</span>): <span class="math notranslate nohighlight">\(X_{new} = \frac{8 - 2}{6} = \frac{6}{6} = \mathbf{1}\)</span></p></li>
+<li><p>Pendapatan D (<span class="math notranslate nohighlight">\(X=6\)</span>): <span class="math notranslate nohighlight">\(X_{new} = \frac{6 - 2}{6} = \frac{4}{6} \approx \mathbf{0.667}\)</span></p></li>
+</ul>
+<p><em>Hasil:</em> Seluruh nilai pendapatan kini bertransformasi rata berada secara padat di petak jangkauan <span class="math notranslate nohighlight">\(0\)</span> hingga <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<hr class="docutils" />
 </section>
-<section id="pengertian-aplikasi-tools-data-mining">
-<h2>Pengertian Aplikasi Tools Data Mining<a class="headerlink" href="#pengertian-aplikasi-tools-data-mining" title="Link to this heading">#</a></h2>
-<p>Aplikasi-aplikasi ini digunakan untuk memproses, menganalisis, dan memodelkan data :</p>
-<p>KNIME (Konstanz Information Miner): Platform analisis data berbasis “drag-and-drop”. Kamu bisa membuat alur kerja (workflow) data dari mulai pembersihan data, manipulasi, hingga pemodelan statistik tanpa harus mahir menulis kode pemrograman yang rumit.</p>
-<p>Orange: Mirip dengan KNIME, Orange adalah perangkat lunak sumber terbuka (open-source) untuk visualisasi data dan pembelajaran mesin (machine learning). Tampilannya sangat visual, sehingga cocok bagi pemula untuk melihat pola data secara langsung.</p>
+<section id="standarisasi-z-score">
+<h2>2.2 Standarisasi (Z-Score)<a class="headerlink" href="#standarisasi-z-score" title="Link to this heading">#</a></h2>
+<p>Metode ini memfokuskan pusat distribusi data sedemikian rupa agar mendapati letak rata-rata (<em>Mean</em>) di titik <strong>0</strong> dan memancarkan standar deviasi berjumlah <strong>1</strong>. Standarisasi <em>Z-Score</em> berkhasiat karena ia tidak terlalu sesak memberangus nilai ekstrem pinggiran (<em>outlier</em>) menjadi sekadar desimal mungil.</p>
+<ul class="simple">
+<li><p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(Z = \frac{X - \mu}{\sigma}\)</span>$</p></li>
+<li><p><strong>Keterangan:</strong></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mu\)</span> (Mu): Nilai titik pusat rata-rata.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> (Sigma): Deviasi standar (rentang jangkauan pergerakan simpangan).</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Contoh Perhitungan Z-Score:</strong>
+Diketahui <span class="math notranslate nohighlight">\(\mu = 5\)</span> dan <span class="math notranslate nohighlight">\(\sigma = 2.236\)</span></p>
+<ul class="simple">
+<li><p>Pendapatan A (<span class="math notranslate nohighlight">\(X=2\)</span>): <span class="math notranslate nohighlight">\(Z = \frac{2 - 5}{2.236} = \frac{-3}{2.236} \approx \mathbf{-1.341}\)</span></p></li>
+<li><p>Pendapatan B (<span class="math notranslate nohighlight">\(X=4\)</span>): <span class="math notranslate nohighlight">\(Z = \frac{4 - 5}{2.236} = \frac{-1}{2.236} \approx \mathbf{-0.447}\)</span></p></li>
+<li><p>Pendapatan C (<span class="math notranslate nohighlight">\(X=8\)</span>): <span class="math notranslate nohighlight">\(Z = \frac{8 - 5}{2.236} = \frac{3}{2.236} \approx \mathbf{1.341}\)</span></p></li>
+<li><p>Pendapatan D (<span class="math notranslate nohighlight">\(X=6\)</span>): <span class="math notranslate nohighlight">\(Z = \frac{6 - 5}{2.236} = \frac{1}{2.236} \approx \mathbf{0.447}\)</span></p></li>
+</ul>
+<p><em>Hasil:</em> Nilai pendapatan kini berpusat persis seimbang di angka <span class="math notranslate nohighlight">\(0\)</span>, di mana subjek yang berpendapatan di bawah rata-rata mendapatkan identitas deviasi bernilai negatif.</p>
+<hr class="docutils" />
 </section>
-<section id="pengertian-aplikasi-database-penyimpanan-data">
-<h2>Pengertian Aplikasi Database (Penyimpanan Data)<a class="headerlink" href="#pengertian-aplikasi-database-penyimpanan-data" title="Link to this heading">#</a></h2>
-<p>Aplikasi ini digunakan untuk menyimpan dan mengelola data dalam skala besar:</p>
-<p>PostgreSQL: Sistem manajemen database relasional (RDBMS) yang sangat canggih dan bersifat open-source. PostgreSQL dikenal karena ketangguhannya dalam menangani data yang kompleks dan besar dengan sangat stabil.</p>
-<p>MySQL: Database relasional yang paling populer di dunia karena kecepatannya dan kemudahan penggunaannya. MySQL banyak digunakan untuk aplikasi web dan server
-ini tambahan</p>
+<section id="decimal-scaling">
+<h2>2.3 Decimal Scaling<a class="headerlink" href="#decimal-scaling" title="Link to this heading">#</a></h2>
+<p><em>Decimal Scaling</em> memperpendek jangkauan dengan mekanisme memundurkan titik posisi desimal dari setiap angka asli menuju kiri, didasarkan murni pada tingkat digit absolut (ukuran panjang nol) yang menempel lekat dari nilai paling maksimal yang ada dalam observasi.</p>
+<ul class="simple">
+<li><p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(X_{new} = \frac{X}{10^j}\)</span>$</p></li>
+<li><p><strong>Keterangan:</strong></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(j\)</span> adalah unit kekuatan absolut (<em>power</em>) eksponen letak sepuluh yang merepresentasikan jumlah digit maksimal.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Contoh Perhitungan Decimal Scaling:</strong>
+Di antara angka <span class="math notranslate nohighlight">\(2, 4, 8, 6\)</span>, angka mutlak tertinggi adalah <strong><span class="math notranslate nohighlight">\(8\)</span></strong>. Angka 8 hanya memiliki <strong>1 digit</strong>, sehingga nilai pangkat <span class="math notranslate nohighlight">\(j = 1\)</span>. Pembaginya akan jatuh pada <span class="math notranslate nohighlight">\(10^1 = 10\)</span>.</p>
+<ul class="simple">
+<li><p>Pendapatan A (<span class="math notranslate nohighlight">\(X=2\)</span>): <span class="math notranslate nohighlight">\(X_{new} = \frac{2}{10^1} = \mathbf{0.2}\)</span></p></li>
+<li><p>Pendapatan B (<span class="math notranslate nohighlight">\(X=4\)</span>): <span class="math notranslate nohighlight">\(X_{new} = \frac{4}{10^1} = \mathbf{0.4}\)</span></p></li>
+<li><p>Pendapatan C (<span class="math notranslate nohighlight">\(X=8\)</span>): <span class="math notranslate nohighlight">\(X_{new} = \frac{8}{10^1} = \mathbf{0.8}\)</span></p></li>
+<li><p>Pendapatan D (<span class="math notranslate nohighlight">\(X=6\)</span>): <span class="math notranslate nohighlight">\(X_{new} = \frac{6}{10^1} = \mathbf{0.6}\)</span></p></li>
+</ul>
+<p><em>(Catatan bonus: Andaikata ada pemuda E berpendapatan <span class="math notranslate nohighlight">\(150\)</span> (berjumlah 3 digit), maka <span class="math notranslate nohighlight">\(j=3\)</span> alias <span class="math notranslate nohighlight">\(1000\)</span> dan seluruh angka barisan dari A hingga E wajib diseragamkan dibagi dengan angka seribu <code class="docutils literal notranslate"><span class="pre">1000</span></code>).</em></p>
 </section>
 </section>
 
@@ -455,20 +545,20 @@ ini tambahan</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="handling-missing-value.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Rahardian Ananta , 240411100071</p>
+        <p class="prev-next-title">1. Handling Missing Value</p>
       </div>
     </a>
     <a class="right-next"
-       href="data-understanding.html"
+       href="implementasi-normalisasi-data.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Understanding</p>
+        <p class="prev-next-title">3. Implementasi Normalisasi Data (Tugas Code)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -488,9 +578,9 @@ ini tambahan</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-penambangan-data">Apa itu Penambangan Data?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-aplikasi-tools-data-mining">Pengertian Aplikasi Tools Data Mining</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-aplikasi-database-penyimpanan-data">Pengertian Aplikasi Database (Penyimpanan Data)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-normalization">2.1 Min-Max Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standarisasi-z-score">2.2 Standarisasi (Z-Score)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scaling">2.3 Decimal Scaling</a></li>
 </ul>
   </nav></div>
 

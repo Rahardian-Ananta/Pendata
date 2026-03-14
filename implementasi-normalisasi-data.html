@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Pertemuan 1 &#8212; My sample book</title>
+    <title>3. Implementasi Normalisasi Data (Tugas Code) &#8212; My sample book</title>
   
   
   
@@ -57,11 +57,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'pertemuan1';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'implementasi-normalisasi-data';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Data Understanding" href="data-understanding.html" />
-    <link rel="prev" title="Rahardian Ananta , 240411100071" href="intro.html" />
+    <link rel="prev" title="2. Feature Scaling (Normalisasi Data)" href="feature-scaling.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,7 +179,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Pertemuan 1</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html"><strong>Pertemuan 1</strong></a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="Eksplorasi-Data.html"><strong>Eksplorasi Data</strong></a></li>
 <li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
@@ -188,10 +187,10 @@
 <li class="toctree-l2"><a class="reference internal" href="Normalization_and_Missing_Value_Imputation.html">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="handling-missing-value.html">1. Handling Missing Value</a></li>
 <li class="toctree-l2"><a class="reference internal" href="feature-scaling.html">2. Feature Scaling (Normalisasi Data)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implementasi-normalisasi-data.html">3. Implementasi Normalisasi Data (Tugas Code)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3. Implementasi Normalisasi Data (Tugas Code)</a></li>
 </ul>
 </details></li>
 </ul>
@@ -265,7 +264,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpertemuan1.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fimplementasi-normalisasi-data.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -295,7 +294,7 @@
       
       
       
-      <li><a href="_sources/pertemuan1.md" target="_blank"
+      <li><a href="_sources/implementasi-normalisasi-data.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -305,7 +304,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -379,7 +378,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Pertemuan 1</h1>
+    <h1>3. Implementasi Normalisasi Data (Tugas Code)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -389,9 +388,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-penambangan-data">Apa itu Penambangan Data?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-aplikasi-tools-data-mining">Pengertian Aplikasi Tools Data Mining</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-aplikasi-database-penyimpanan-data">Pengertian Aplikasi Database (Penyimpanan Data)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-normalization">3.1 Min-Max Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score-standardization">3.2 Z-Score Standardization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scaling">3.3 Decimal Scaling</a></li>
 </ul>
             </nav>
         </div>
@@ -403,24 +402,111 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pertemuan-1">
-<h1><strong>Pertemuan 1</strong><a class="headerlink" href="#pertemuan-1" title="Link to this heading">#</a></h1>
-<section id="apa-itu-penambangan-data">
-<h2>Apa itu Penambangan Data?<a class="headerlink" href="#apa-itu-penambangan-data" title="Link to this heading">#</a></h2>
-<p>Penambangan Data (atau Data Mining) adalah proses teknik dan metode untuk menggali informasi serta pola tersembunyi dari sekumpulan data yang besar. Tujuannya adalah untuk mengubah data mentah menjadi wawasan berharga yang dapat mendukung pengambilan keputusan secara lebih akurat dan efektif.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="implementasi-normalisasi-data-tugas-code">
+<h1>3. Implementasi Normalisasi Data (Tugas Code)<a class="headerlink" href="#implementasi-normalisasi-data-tugas-code" title="Link to this heading">#</a></h1>
+<p>Bagian ini mendemonstrasikan hasil praktik kode (<em>code experimen</em>) untuk menormalisasi data menggunakan ketiga metode yang telah dijelaskan pada sub-bab teori: <strong>Min-Max</strong>, <strong>Z-Score</strong>, dan <strong>Decimal Scaling</strong>.</p>
+<p>Kita akan meracik perbandingan hasil antara membuat fungsi kalkulasi formula murni dengan Python (<em>from scratch</em>) berhadapan dengan output hasil komputasi otomatis bawaan alat prapemrosesan terkemuka: <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># 1. Membuat Dummy Dataset</span>
+<span class="n">data_karyawan</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Umur&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span>
+    <span class="s1">&#39;Gaji_Pokok&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5000000</span><span class="p">,</span> <span class="mi">8000000</span><span class="p">,</span> <span class="mi">15000000</span><span class="p">,</span> <span class="mi">4500000</span><span class="p">,</span> <span class="mi">22000000</span><span class="p">,</span> <span class="mi">6000000</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_karyawan</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Data Sebelum Normalisasi ---&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="min-max-normalization">
+<h2>3.1 Min-Max Normalization<a class="headerlink" href="#min-max-normalization" title="Link to this heading">#</a></h2>
+<p>Mentransformasikan data Gaji dan Umur agar memiliki bentangan rasio ketat di antara skala <code class="docutils literal notranslate"><span class="pre">0</span></code> hingga <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fungsi Manual (From Scratch) Min-Max</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">manual_min_max_scaler</span><span class="p">(</span><span class="n">kolom</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">kolom</span> <span class="o">-</span> <span class="n">kolom</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">kolom</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">kolom</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+<span class="c1"># Eksekusi Manual</span>
+<span class="n">df_minmax_manual</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_minmax_manual</span><span class="p">[</span><span class="s1">&#39;Umur&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">manual_min_max_scaler</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Umur&#39;</span><span class="p">])</span>
+<span class="n">df_minmax_manual</span><span class="p">[</span><span class="s1">&#39;Gaji_Pokok&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">manual_min_max_scaler</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gaji_Pokok&#39;</span><span class="p">])</span>
+
+<span class="c1"># Eksekusi Menggunakan Library [Sklearn]</span>
+<span class="n">scaler_mm</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">df_minmax_sklearn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaler_mm</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Hasil Komputasi Manual Min-Max ---&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_minmax_manual</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Hasil Sklearn MinMaxScaler ---&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_minmax_sklearn</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="pengertian-aplikasi-tools-data-mining">
-<h2>Pengertian Aplikasi Tools Data Mining<a class="headerlink" href="#pengertian-aplikasi-tools-data-mining" title="Link to this heading">#</a></h2>
-<p>Aplikasi-aplikasi ini digunakan untuk memproses, menganalisis, dan memodelkan data :</p>
-<p>KNIME (Konstanz Information Miner): Platform analisis data berbasis “drag-and-drop”. Kamu bisa membuat alur kerja (workflow) data dari mulai pembersihan data, manipulasi, hingga pemodelan statistik tanpa harus mahir menulis kode pemrograman yang rumit.</p>
-<p>Orange: Mirip dengan KNIME, Orange adalah perangkat lunak sumber terbuka (open-source) untuk visualisasi data dan pembelajaran mesin (machine learning). Tampilannya sangat visual, sehingga cocok bagi pemula untuk melihat pola data secara langsung.</p>
+<section id="z-score-standardization">
+<h2>3.2 Z-Score Standardization<a class="headerlink" href="#z-score-standardization" title="Link to this heading">#</a></h2>
+<p>Pemusatan distribusi Gaji dan Umur menuju kurva nol (Mean=0) diiringi rentang standar deviasi satu.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fungsi Manual (From Scratch) Z-Score</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">manual_z_score_scaler</span><span class="p">(</span><span class="n">kolom</span><span class="p">):</span>
+    <span class="c1"># Populasi standar deviasi menggunakan `ddof=0` sama seperti parameter bawaan Sklearn</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">kolom</span> <span class="o">-</span> <span class="n">kolom</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">kolom</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Eksekusi Manual</span>
+<span class="n">df_zscore_manual</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_zscore_manual</span><span class="p">[</span><span class="s1">&#39;Umur&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">manual_z_score_scaler</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Umur&#39;</span><span class="p">])</span>
+<span class="n">df_zscore_manual</span><span class="p">[</span><span class="s1">&#39;Gaji_Pokok&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">manual_z_score_scaler</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gaji_Pokok&#39;</span><span class="p">])</span>
+
+<span class="c1"># Eksekusi Menggunakan Library [Sklearn]</span>
+<span class="n">scaler_z</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">df_zscore_sklearn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaler_z</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Hasil Komputasi Manual Z-Score ---&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_zscore_manual</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Hasil Sklearn StandardScaler ---&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_zscore_sklearn</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="pengertian-aplikasi-database-penyimpanan-data">
-<h2>Pengertian Aplikasi Database (Penyimpanan Data)<a class="headerlink" href="#pengertian-aplikasi-database-penyimpanan-data" title="Link to this heading">#</a></h2>
-<p>Aplikasi ini digunakan untuk menyimpan dan mengelola data dalam skala besar:</p>
-<p>PostgreSQL: Sistem manajemen database relasional (RDBMS) yang sangat canggih dan bersifat open-source. PostgreSQL dikenal karena ketangguhannya dalam menangani data yang kompleks dan besar dengan sangat stabil.</p>
-<p>MySQL: Database relasional yang paling populer di dunia karena kecepatannya dan kemudahan penggunaannya. MySQL banyak digunakan untuk aplikasi web dan server
-ini tambahan</p>
+<section id="decimal-scaling">
+<h2>3.3 Decimal Scaling<a class="headerlink" href="#decimal-scaling" title="Link to this heading">#</a></h2>
+<p>Penyesuaian pergeseran rentang nominal titik desimal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fungsi Manual (From Scratch) Decimal Scaling</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">manual_decimal_scaling</span><span class="p">(</span><span class="n">kolom</span><span class="p">):</span>
+    <span class="c1"># Mengambil nilai absolut terbesar dan menghitung jumlah panjang digitnya</span>
+    <span class="n">max_absolut</span> <span class="o">=</span> <span class="n">kolom</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">digit_j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">max_absolut</span><span class="p">)))</span>
+    <span class="c1"># Penggeseran titik dengan pembagi kelipatan 10 berdasar penentuan j (10^j)</span>
+    <span class="k">return</span> <span class="n">kolom</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="n">digit_j</span><span class="p">)</span>
+
+<span class="c1"># Catatan: Scikit-learn tidak mendistribusikan library bawaan untuk pergerakan desimal murni,</span>
+<span class="c1"># Sehingga performa perumusan custom akan dieksekusi independen.</span>
+<span class="n">df_decimal_manual</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_decimal_manual</span><span class="p">[</span><span class="s1">&#39;Umur&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">manual_decimal_scaling</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Umur&#39;</span><span class="p">])</span>
+<span class="n">df_decimal_manual</span><span class="p">[</span><span class="s1">&#39;Gaji_Pokok&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">manual_decimal_scaling</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gaji_Pokok&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Hasil Komputasi Manual Decimal Scaling ---&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_decimal_manual</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -455,22 +541,13 @@ ini tambahan</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="feature-scaling.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Rahardian Ananta , 240411100071</p>
+        <p class="prev-next-title">2. Feature Scaling (Normalisasi Data)</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="data-understanding.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Data Understanding</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -488,9 +565,9 @@ ini tambahan</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-penambangan-data">Apa itu Penambangan Data?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-aplikasi-tools-data-mining">Pengertian Aplikasi Tools Data Mining</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengertian-aplikasi-database-penyimpanan-data">Pengertian Aplikasi Database (Penyimpanan Data)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#min-max-normalization">3.1 Min-Max Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score-standardization">3.2 Z-Score Standardization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scaling">3.3 Decimal Scaling</a></li>
 </ul>
   </nav></div>
 

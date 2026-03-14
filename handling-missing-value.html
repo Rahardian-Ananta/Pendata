@@ -1,0 +1,910 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1. Handling Missing Value &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'handling-missing-value';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Feature Scaling (Normalisasi Data)" href="feature-scaling.html" />
+    <link rel="prev" title="Pre-Processing Data" href="pre-processing-data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Rahardian Ananta , 240411100071
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html"><strong>Pertemuan 1</strong></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Eksplorasi-Data.html"><strong>Eksplorasi Data</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menghitung-jarak.html">Menghitung Jarak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Normalization_and_Missing_Value_Imputation.html">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1. Handling Missing Value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scaling.html">2. Feature Scaling (Normalisasi Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementasi-normalisasi-data.html">3. Implementasi Normalisasi Data (Tugas Code)</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fhandling-missing-value.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/handling-missing-value.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1. Handling Missing Value</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-missing-value">Penjelasan Missing Value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tugas-proyek-missing-value-imputation">Tugas / Proyek: Missing Value Imputation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-wknn-manual-berdasarkan-file-excel">1. Perhitungan WKNN Manual (Berdasarkan File Excel)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-algoritma-dengan-python">2. Implementasi Algoritma dengan Python</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="handling-missing-value">
+<h1>1. Handling Missing Value<a class="headerlink" href="#handling-missing-value" title="Link to this heading">#</a></h1>
+<p>Penanganan data yang hilang (<em>Handling Missing Value</em>) merupakan salah satu tahapan krusial dalam <em>Pre-Processing Data</em>. Data set di dunia nyata seringkali tidak lengkap, dan ketidaktersediaan data ini bisa berakibat fatal pada keakuratan algoritma <em>Machine Learning</em> dan <em>Data Mining</em>.</p>
+<section id="penjelasan-missing-value">
+<h2>Penjelasan Missing Value<a class="headerlink" href="#penjelasan-missing-value" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Apa itu <em>missing value</em>?</strong>
+<em>Missing value</em> adalah informasi atau sel data yang kosong/tidak memiliki nilai pada suatu observasi (baris data). Di lingkungan komputasi, ia sering direpresentasikan dengan istilah <code class="docutils literal notranslate"><span class="pre">Null</span></code>, <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (Not a Number), atau kadang diisi dengan simbol penanda seperti <code class="docutils literal notranslate"><span class="pre">?</span></code> dan <code class="docutils literal notranslate"><span class="pre">N/A</span></code>.</p></li>
+<li><p><strong>Penyebab Terjadi:</strong>
+Data hilang bisa terjadi karena berbagai alasan, di antaranya: kegagalan sensor dalam merekam data, keengganan responden mengisi formulir (seperti data gaji), <em>human error</em> saat entri data, atau kesalahan saat proses transfer dan integrasi data antara dua sistem.</p></li>
+<li><p><strong>Cara Mengatasi:</strong>
+Ada beberapa pendekatan standar untuk menangani <em>missing value</em>:</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p><strong>Menghapus baris data (Listwise/Pairwise Deletion):</strong> Sangat disarankan hanya jika data yang hilang sangat sedikit (kurang dari 5% total data) dan penghapusan tidak merusak distribusi (<em>Missing Completely at Random</em>).</p></li>
+<li><p><strong>Mengisi nilai (Imputasi/Imputation):</strong> Menebak atau mengestimasi nilai yang hilang. Estimasi ini bisa sangat sederhana, seperti mengganti dengan nilai rata-rata (<em>Mean</em>), median, atau modus. Namun bisa juga dilakukan menggunakan model prediksi atau algoritma ketetanggaan seperti K-Nearest Neighbors (KNN).</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="tugas-proyek-missing-value-imputation">
+<h2>Tugas / Proyek: Missing Value Imputation<a class="headerlink" href="#tugas-proyek-missing-value-imputation" title="Link to this heading">#</a></h2>
+<p>Dalam kasus eksperimental ini, kita akan menyelesaikan masalah <em>missing value</em> menggunakan metode algoritma <strong>WKNN (Weighted K-Nearest Neighbors)</strong>. WKNN merupakan ekstensi dari KNN biasa, di mana kita memperhitungkan <strong>bobot jarak</strong>. Semakin dekat sebuah data latihan terhadap data yang hilang tebakannya, semakin besar pengaruhnya terhadap estimasi nilainya.</p>
+<p>Tugas ini dibagi dalam dua submisi:</p>
+<ol class="arabic simple">
+<li><p>Perhitungan WKNN secara manual menggunakan tabel/Excel.</p></li>
+<li><p>Implementasi <em>code</em> Python untuk menghitung imputasi WKNN</p></li>
+</ol>
+<section id="perhitungan-wknn-manual-berdasarkan-file-excel">
+<h3>1. Perhitungan WKNN Manual (Berdasarkan File Excel)<a class="headerlink" href="#perhitungan-wknn-manual-berdasarkan-file-excel" title="Link to this heading">#</a></h3>
+<p>Berikut adalah <em>dataset</em> dasar yang bersumber dari <code class="docutils literal notranslate"><span class="pre">Tugas_Missing_Value_Imputation.xlsx</span></code>. Terdapat satu <em>missing value</em> pada atribut <strong>JML</strong> untuk <strong>ID 7</strong>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>IPK</p></th>
+<th class="head"><p>PO (Pendapatan Orang Tua)</p></th>
+<th class="head"><p>JML (Jumlah Motor)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>200,000</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>300,000</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>200,000</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>200,000</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>300,000</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>400,000</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>7</strong></p></td>
+<td><p><strong>2</strong></p></td>
+<td><p><strong>300,000</strong></p></td>
+<td><p><strong>?</strong> <em>(Target Imputasi)</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Langkah 1: Normalisasi Data (Min-Max Scaling)</strong>
+Karena variabel <strong>IPK</strong> (skala 2-4) dan <strong>PO</strong> (skala ratusan ribu) memiliki perbandingan numerik yang terlalu timpang, kita harus mengubahnya ke rentang <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> menggunakan formula:</p>
+<ul class="simple">
+<li><p><strong>Rumus Asli:</strong> <span class="math notranslate nohighlight">\(X_{new} = \frac{X - X_{min}}{X_{max} - X_{min}}\)</span></p></li>
+<li><p><strong>Rumus Excel:</strong> <code class="docutils literal notranslate"><span class="pre">=(B2-MIN($B$2:$B$7))/(MAX($B$2:$B$7)-MIN($B$2:$B$7))</span></code> <em>(Contoh formula untuk sel Normalisasi IPK - ID 1)</em></p></li>
+</ul>
+<p>Diketahui dari data referensi (ID 1-6):</p>
+<ul class="simple">
+<li><p><em>Min IPK = 2</em>, <em>Max IPK = 4</em></p></li>
+<li><p><em>Min PO = 200,000</em>, <em>Max PO = 400,000</em></p></li>
+</ul>
+<p><strong>Tabel Hasil Normalisasi:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Normalisasi IPK</p></th>
+<th class="head"><p>Normalisasi PO</p></th>
+<th class="head"><p>Nilai JML Asli</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(2-2)</span> <span class="pre">/</span> <span class="pre">(4-2)</span> <span class="pre">=</span> <span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(200k-200k)</span> <span class="pre">/</span> <span class="pre">(400k-200k)</span> <span class="pre">=</span> <span class="pre">0</span></code></p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(3-2)</span> <span class="pre">/</span> <span class="pre">(4-2)</span> <span class="pre">=</span> <span class="pre">0.5</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(300k-200k)</span> <span class="pre">/</span> <span class="pre">(400k-200k)</span> <span class="pre">=</span> <span class="pre">0.5</span></code></p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(4-2)</span> <span class="pre">/</span> <span class="pre">(4-2)</span> <span class="pre">=</span> <span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(200k-200k)</span> <span class="pre">/</span> <span class="pre">(400k-200k)</span> <span class="pre">=</span> <span class="pre">0</span></code></p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(2-2)</span> <span class="pre">/</span> <span class="pre">(4-2)</span> <span class="pre">=</span> <span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(200k-200k)</span> <span class="pre">/</span> <span class="pre">(400k-200k)</span> <span class="pre">=</span> <span class="pre">0</span></code></p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(3-2)</span> <span class="pre">/</span> <span class="pre">(4-2)</span> <span class="pre">=</span> <span class="pre">0.5</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(300k-200k)</span> <span class="pre">/</span> <span class="pre">(400k-200k)</span> <span class="pre">=</span> <span class="pre">0.5</span></code></p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(4-2)</span> <span class="pre">/</span> <span class="pre">(4-2)</span> <span class="pre">=</span> <span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(400k-200k)</span> <span class="pre">/</span> <span class="pre">(400k-200k)</span> <span class="pre">=</span> <span class="pre">1</span></code></p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>7</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(2-2)</span> <span class="pre">/</span> <span class="pre">(4-2)</span> <span class="pre">=</span> <span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(300k-200k)</span> <span class="pre">/</span> <span class="pre">(400k-200k)</span> <span class="pre">=</span> <span class="pre">0.5</span></code></p></td>
+<td><p><strong>?</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Langkah 2: Menghitung Jarak Euclidean Jarak ke Target (ID 7)</strong>
+Selanjutnya, kita menarik selisih letak koordinat seluruh data terhadap posisi target <strong>ID 7</strong> berdasarkan fitur yang telah ternormalisasi.</p>
+<ul class="simple">
+<li><p><strong>Rumus Asli:</strong> <span class="math notranslate nohighlight">\(d = \sqrt{(IPK_i - IPK_{target})^2 + (PO_i - PO_{target})^2}\)</span></p></li>
+<li><p><strong>Rumus Excel:</strong> <code class="docutils literal notranslate"><span class="pre">=SQRT((F2-$F$8)^2</span> <span class="pre">+</span> <span class="pre">(G2-$G$8)^2)</span></code> <em>(Dimana F dan G adalah kolom nilai normalisasi, dan baris 8 adalah rujukan baris target ID 7)</em></p></li>
+</ul>
+<p><strong>Tabel Hasil Kalkulasi Jarak Per-ID:</strong>
+<em>(Terhadap ID 7 yang memiliki <strong>Norm IPK = 0</strong> dan <strong>Norm PO = 0.5</strong>)</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Kalkulasi Selisih Kuadrat Jarak <code class="docutils literal notranslate"><span class="pre">(d)</span></code></p></th>
+<th class="head"><p>Jarak (Euclidean) Akhir</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>1</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SQRT((0</span> <span class="pre">-</span> <span class="pre">0)^2</span> <span class="pre">+</span> <span class="pre">(0</span> <span class="pre">-</span> <span class="pre">0.5)^2)</span> <span class="pre">=</span> <span class="pre">SQRT(0</span> <span class="pre">+</span> <span class="pre">0.25)</span></code></p></td>
+<td><p><strong>0.5</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>2</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SQRT((0.5</span> <span class="pre">-</span> <span class="pre">0)^2</span> <span class="pre">+</span> <span class="pre">(0.5</span> <span class="pre">-</span> <span class="pre">0.5)^2)</span> <span class="pre">=</span> <span class="pre">SQRT(0.25</span> <span class="pre">+</span> <span class="pre">0)</span></code></p></td>
+<td><p><strong>0.5</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>3</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SQRT((1</span> <span class="pre">-</span> <span class="pre">0)^2</span> <span class="pre">+</span> <span class="pre">(0</span> <span class="pre">-</span> <span class="pre">0.5)^2)</span> <span class="pre">=</span> <span class="pre">SQRT(1</span> <span class="pre">+</span> <span class="pre">0.25)</span></code></p></td>
+<td><p><strong>1.118034</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>4</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SQRT((0</span> <span class="pre">-</span> <span class="pre">0)^2</span> <span class="pre">+</span> <span class="pre">(0</span> <span class="pre">-</span> <span class="pre">0.5)^2)</span> <span class="pre">=</span> <span class="pre">SQRT(0</span> <span class="pre">+</span> <span class="pre">0.25)</span></code></p></td>
+<td><p><strong>0.5</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>5</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SQRT((0.5</span> <span class="pre">-</span> <span class="pre">0)^2</span> <span class="pre">+</span> <span class="pre">(0.5</span> <span class="pre">-</span> <span class="pre">0.5)^2)</span> <span class="pre">=</span> <span class="pre">SQRT(0.25</span> <span class="pre">+</span> <span class="pre">0)</span></code></p></td>
+<td><p><strong>0.5</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>6</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SQRT((1</span> <span class="pre">-</span> <span class="pre">0)^2</span> <span class="pre">+</span> <span class="pre">(1</span> <span class="pre">-</span> <span class="pre">0.5)^2)</span> <span class="pre">=</span> <span class="pre">SQRT(1</span> <span class="pre">+</span> <span class="pre">0.25)</span></code></p></td>
+<td><p><strong>1.118034</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Langkah 3: Menghitung Bobot Jarak (Weight)</strong>
+Dalam <em>Weighted</em> KNN, jarak yang sangat dekat harus memberikan sumbangsih kontribusi prediksi yang besar. Oleh karena itu nilai jarak akan dibalik untuk meraih nilai Bobot (W).</p>
+<ul class="simple">
+<li><p><strong>Rumus Asli:</strong> <span class="math notranslate nohighlight">\(W = \frac{1}{d^2}\)</span></p></li>
+<li><p><strong>Rumus Excel:</strong> <code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">(I2^2)</span></code> <em>(Diasumsikan kolom I merupakan sel kolom khusus ‘Jarak’)</em></p></li>
+</ul>
+<p><strong>Tabel Hasil Perhitungan Bobot Tetangga:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Perhitungan Bobot <code class="docutils literal notranslate"><span class="pre">W</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">d^2</span></code></p></th>
+<th class="head"><p>Bobot Jarak (W)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>1</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(0.5)^2</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">0.25</span></code></p></td>
+<td><p><strong>4</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>2</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(0.5)^2</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">0.25</span></code></p></td>
+<td><p><strong>4</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>3</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(1.118034)^2</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">1.25</span></code></p></td>
+<td><p><strong>0.8</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>4</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(0.5)^2</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">0.25</span></code></p></td>
+<td><p><strong>4</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>5</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(0.5)^2</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">0.25</span></code></p></td>
+<td><p><strong>4</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>6</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(1.118034)^2</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">/</span> <span class="pre">1.25</span></code></p></td>
+<td><p><strong>0.8</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Langkah 4: Melakukan Imputasi (Menghitung Estimasi JML Akhir)</strong>
+Mengestimasi besaran fitur yang hilang (<strong>JML</strong>) bagi ID 7 dilakukan dengan merata-rata dari nilai <strong>JML</strong> asli target-target referensi yang turut serta dikali dengan besaran <strong>Bobotnya</strong>.</p>
+<ul class="simple">
+<li><p><strong>Rumus Asli:</strong> <span class="math notranslate nohighlight">\(\hat{y} = \frac{\sum_{i=1}^{k} (W_i \times y_i)}{\sum_{i=1}^{k} W_i}\)</span></p></li>
+</ul>
+<p><em>(Asumsikan kita mengikutsertakan seluruh data sebagai ketetanggaan/K=6 berdasarkan susunan utuh di Excel)</em></p>
+<p><strong>Tabel Kalkulasi Akhir Estimasi Imputasi:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Nilai JML Asli</p></th>
+<th class="head"><p>Bobot Jarak <em>(W)</em></p></th>
+<th class="head"><p>Akumulasi <em>(W * JML)</em></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>1</strong></p></td>
+<td><p>2</p></td>
+<td><p>4</p></td>
+<td><p><strong>8</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>2</strong></p></td>
+<td><p>3</p></td>
+<td><p>4</p></td>
+<td><p><strong>12</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>3</strong></p></td>
+<td><p>2</p></td>
+<td><p>0.8</p></td>
+<td><p><strong>1.6</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>4</strong></p></td>
+<td><p>3</p></td>
+<td><p>4</p></td>
+<td><p><strong>12</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>5</strong></p></td>
+<td><p>2</p></td>
+<td><p>4</p></td>
+<td><p><strong>8</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>6</strong></p></td>
+<td><p>3</p></td>
+<td><p>0.8</p></td>
+<td><p><strong>2.4</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>TOTAL</strong></p></td>
+<td><p></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum W\)</span> = <strong>17.6</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum (W \times JML)\)</span> = <strong>44</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Hasil Akhir (Imputasi JML ID 7):</strong>
+$<span class="math notranslate nohighlight">\(\hat{y} = \frac{\text{Total Akumulasi }(W \times JML)}{\text{Total Akumulasi Bobot }(W)}\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(\hat{y} = \frac{44}{17.6} = \mathbf{2.5}\)</span>$</p>
+<p>Berdasarkan komputasi komprehensif <em>Weighted K-Nearest Neighbors</em> menggunakan tabel di atas, maka temuan <strong>Missing Value jumlah motor (JML)</strong> untuk mahasiswa/responden <strong>ID 7</strong> sangatlah rasional untuk diimputasi dengan formulasi estimasi numerik bernilai <strong>2.5</strong> (yang mana secara logis karena unit motor adalah barang utuh/diskrit, dapat diluruskan menjadi kepemilikan estimasi <strong>2 hingga 3 buah motor</strong>).</p>
+</section>
+<section id="implementasi-algoritma-dengan-python">
+<h3>2. Implementasi Algoritma dengan Python<a class="headerlink" href="#implementasi-algoritma-dengan-python" title="Link to this heading">#</a></h3>
+<p>Untuk menyelaraskan struktur analisis dari teori menjadi sebuah program komputasi yang siap beroperasi, berikut merupakan implementasi perhitungan WKNN dari dataset Excel di atas ke dalam sintaks Python murni (menggunakan pustaka standard <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> dan <code class="docutils literal notranslate"><span class="pre">Pandas</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 1. Mendefinisikan Dataset Asli</span>
+<span class="c1"># Data referensi ID 1 hingga 6. Fitur: [IPK, PO_Ratusan_Ribu], Label: JML</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Data Target (ID 7) yang akan diimputasi JML-nya</span>
+<span class="n">X_target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- 1. Data Mentah ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Target Imputasi (IPK, PO):&quot;</span><span class="p">,</span> <span class="n">X_target</span><span class="p">)</span>
+
+<span class="c1"># 2. Proses Normalisasi (Min-Max Scaling)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">min_max_scale</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">data_test</span><span class="p">):</span>
+    <span class="c1"># Mengambil nilai min dan max dari setiap kolom pada data latih</span>
+    <span class="n">min_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">max_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># Mencegah pembagian dengan nol jika max_val == min_val</span>
+    <span class="n">denominators</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">max_vals</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">max_vals</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">))</span>
+    
+    <span class="c1"># Menghitung skala normalisasi</span>
+    <span class="n">norm_train</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_train</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominators</span>
+    <span class="n">norm_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_test</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominators</span>
+    
+    <span class="k">return</span> <span class="n">norm_train</span><span class="p">,</span> <span class="n">norm_test</span>
+
+<span class="n">X_train_norm</span><span class="p">,</span> <span class="n">X_target_norm</span> <span class="o">=</span> <span class="n">min_max_scale</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_target</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;\--- 2. Hasil Normalisasi ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Ref Normalisasi:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">X_train_norm</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Target Normalisasi:&quot;</span><span class="p">,</span> <span class="n">X_target_norm</span><span class="p">)</span>
+
+<span class="c1"># 3. Menghitung Jarak (Euclidean Distance)</span>
+<span class="c1"># Jarak dihitung antara setiap baris data referensi terhadap satu baris target</span>
+<span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">X_train_norm</span> <span class="o">-</span> <span class="n">X_target_norm</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- 3. Jarak Euclidean (d) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jarak (ID 1 - 6):&quot;</span><span class="p">,</span> <span class="n">distances</span><span class="p">)</span>
+
+<span class="c1"># 4. Menghitung Bobot Jarak (Weight)</span>
+<span class="c1"># Bobot berbanding terbalik dengan kuadrat jarak (W = 1 / d^2)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">distances</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- 4. Bobot (W) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bobot (ID 1 - 6):&quot;</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+
+<span class="c1"># 5. Melakukan Imputasi Akhir (Estimasi JML)</span>
+<span class="c1"># Estimasi = [sigma(W * JML_Asli)] / sigma(W)</span>
+<span class="n">wknn_imputation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="n">y_train</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- 5. Hasil Akhir Imputasi ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimasi Besaran JML untuk ID 7 = </span><span class="si">{</span><span class="n">wknn_imputation</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output Terminal Eksekusi Kode:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--- 1. Data Mentah ---
+Target Imputasi (IPK, PO): [2 3]
+--- 2. Hasil Normalisasi ---
+Data Ref Normalisasi:
+ [[0.  0. ]
+ [0.5 0.5]
+ [1.  0. ]
+ [0.  0. ]
+ [0.5 0.5]
+ [1.  1. ]]
+Target Normalisasi: [0.  0.5]
+
+--- 3. Jarak Euclidean (d) ---
+Jarak (ID 1 - 6): [0.5        0.5        1.11803399 0.5        0.5        1.11803399]
+
+--- 4. Bobot (W) ---
+Bobot (ID 1 - 6): [4.  4.  0.8 4.  4.  0.8]
+
+--- 5. Hasil Akhir Imputasi ---
+Estimasi Besaran JML untuk ID 7 = 2.5
+</pre></div>
+</div>
+<p>Hasil dari algoritma kode program <code class="docutils literal notranslate"><span class="pre">Python</span></code> membuktikan bahwa perhitungan matematis via sistem komputer linear/konsisten dengan validasi <em>spreadsheet</em> dan perhitungan komputasi Excel manual di atas, yang mana sama-sama bermuara pada kesimpulan konklusif nilai estimasi imputasi fitur <strong>JML (Jumlah Motor)</strong> sebesar <strong>2.5</strong>.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pre-processing-data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Pre-Processing Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="feature-scaling.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2. Feature Scaling (Normalisasi Data)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-missing-value">Penjelasan Missing Value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tugas-proyek-missing-value-imputation">Tugas / Proyek: Missing Value Imputation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-wknn-manual-berdasarkan-file-excel">1. Perhitungan WKNN Manual (Berdasarkan File Excel)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-algoritma-dengan-python">2. Implementasi Algoritma dengan Python</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
