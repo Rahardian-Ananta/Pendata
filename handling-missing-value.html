@@ -443,7 +443,7 @@ Ada beberapa pendekatan standar untuk menangani <em>missing value</em>:</p></li>
 <tr class="row-odd"><th class="head"><p>ID</p></th>
 <th class="head"><p>IPK</p></th>
 <th class="head"><p>PO (Pendapatan Orang Tua)</p></th>
-<th class="head"><p>JML (Jumlah Motor)</p></th>
+<th class="head"><p>JML</p></th>
 </tr>
 </thead>
 <tbody>
@@ -686,7 +686,7 @@ Mengestimasi besaran fitur yang hilang (<strong>JML</strong>) bagi ID 7 dilakuka
 <p><strong>Hasil Akhir (Imputasi JML ID 7):</strong>
 $<span class="math notranslate nohighlight">\(\hat{y} = \frac{\text{Total Akumulasi }(W \times JML)}{\text{Total Akumulasi Bobot }(W)}\)</span><span class="math notranslate nohighlight">\(
 \)</span><span class="math notranslate nohighlight">\(\hat{y} = \frac{44}{17.6} = \mathbf{2.5}\)</span>$</p>
-<p>Berdasarkan komputasi komprehensif <em>Weighted K-Nearest Neighbors</em> menggunakan tabel di atas, maka temuan <strong>Missing Value jumlah motor (JML)</strong> untuk mahasiswa/responden <strong>ID 7</strong> sangatlah rasional untuk diimputasi dengan formulasi estimasi numerik bernilai <strong>2.5</strong> (yang mana secara logis karena unit motor adalah barang utuh/diskrit, dapat diluruskan menjadi kepemilikan estimasi <strong>2 hingga 3 buah motor</strong>).</p>
+<p>Berdasarkan komputasi komprehensif <em>Weighted K-Nearest Neighbors</em> menggunakan tabel di atas, maka temuan <strong>Missing Value JML</strong> untuk mahasiswa/responden <strong>ID 7</strong> sangatlah rasional untuk diimputasi dengan formulasi estimasi numerik bernilai <strong>2.5</strong> (yang mana secara logis karena unit motor adalah barang utuh/diskrit, dapat diluruskan menjadi kepemilikan estimasi <strong>2 hingga 3 jml</strong>).</p>
 </section>
 <section id="implementasi-algoritma-dengan-python">
 <h3>2. Implementasi Algoritma dengan Python<a class="headerlink" href="#implementasi-algoritma-dengan-python" title="Link to this heading">#</a></h3>

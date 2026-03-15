@@ -25,7 +25,7 @@ Tugas ini dibagi dalam dua submisi:
 
 Berikut adalah *dataset* dasar yang bersumber dari `Tugas_Missing_Value_Imputation.xlsx`. Terdapat satu *missing value* pada atribut **JML** untuk **ID 7**.
 
-| ID | IPK | PO (Pendapatan Orang Tua) | JML (Jumlah Motor) |
+| ID | IPK | PO (Pendapatan Orang Tua) | JML |
 |---|---|---|---|
 | 1 | 2 | 200,000 | 2 |
 | 2 | 3 | 300,000 | 3 |
@@ -110,7 +110,7 @@ Mengestimasi besaran fitur yang hilang (**JML**) bagi ID 7 dilakukan dengan mera
 $$\hat{y} = \frac{\text{Total Akumulasi }(W \times JML)}{\text{Total Akumulasi Bobot }(W)}$$
 $$\hat{y} = \frac{44}{17.6} = \mathbf{2.5}$$
 
-Berdasarkan komputasi komprehensif *Weighted K-Nearest Neighbors* menggunakan tabel di atas, maka temuan **Missing Value jumlah motor (JML)** untuk mahasiswa/responden **ID 7** sangatlah rasional untuk diimputasi dengan formulasi estimasi numerik bernilai **2.5** (yang mana secara logis karena unit motor adalah barang utuh/diskrit, dapat diluruskan menjadi kepemilikan estimasi **2 hingga 3 buah motor**).
+Berdasarkan komputasi komprehensif *Weighted K-Nearest Neighbors* menggunakan tabel di atas, maka temuan **Missing Value JML** untuk mahasiswa/responden **ID 7** sangatlah rasional untuk diimputasi dengan formulasi estimasi numerik bernilai **2.5** (yang mana secara logis karena unit motor adalah barang utuh/diskrit, dapat diluruskan menjadi kepemilikan estimasi **2 hingga 3 jml**).
 
 ### 2. Implementasi Algoritma dengan Python
 
