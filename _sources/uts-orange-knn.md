@@ -12,9 +12,9 @@ Perangkat lunak yang digunakan adalah **Orange Data Mining** — sebuah platform
 
 ---
 
-## Unduh Berkas Praktikum
+## Unduh Berkas 
 
-Anda dapat mengunduh file dataset dan file *workflow* Orange Data Mining untuk praktikum ini melalui tautan berikut:
+Untuk mengunduh file dataset dan file *workflow* Orange Data Mining ini melalui link berikut:
 
 - {download}`Dataset Kesuburan Tanah (CSV) <files/dataset_kesuburan_tanah_missing.csv>`
 - {download}`File Workflow Orange UTS (OWS) <files/UTS_PENDATA.ows>`
