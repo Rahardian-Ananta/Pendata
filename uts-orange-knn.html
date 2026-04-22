@@ -390,10 +390,11 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-impute">4.6 Node Impute</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-continuize">4.7 Node Continuize</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-preprocess">4.8 Node Preprocess</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-pca-scatter-plot-jalur-visualisasi">4.9 Node PCA → Scatter Plot <em>(Jalur Visualisasi)</em></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-knn-learner">4.10 Node kNN (Learner)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-test-and-score">4.11 Node Test and Score</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-confusion-matrix">4.12 Node Confusion Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-pca-jalur-visualisasi">4.9 Node PCA <em>(Jalur Visualisasi)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-scatter-plot-jalur-visualisasi">4.10 Node Scatter Plot <em>(Jalur Visualisasi)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-knn-learner">4.11 Node kNN (Learner)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-test-and-score">4.12 Node Test and Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-confusion-matrix">4.13 Node Confusion Matrix</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi">5. Hasil Evaluasi</a></li>
@@ -757,33 +758,38 @@ KNN menghitung jarak antar titik data menggunakan rumus matematis. Data teks sep
 </ul>
 </section>
 <hr class="docutils" />
-<section id="node-pca-scatter-plot-jalur-visualisasi">
-<h3>4.9 Node PCA → Scatter Plot <em>(Jalur Visualisasi)</em><a class="headerlink" href="#node-pca-scatter-plot-jalur-visualisasi" title="Link to this heading">#</a></h3>
+<section id="node-pca-jalur-visualisasi">
+<h3>4.9 Node PCA <em>(Jalur Visualisasi)</em><a class="headerlink" href="#node-pca-jalur-visualisasi" title="Link to this heading">#</a></h3>
 <p><strong>PCA (Principal Component Analysis)</strong> mereduksi dimensi data berdimensi tinggi menjadi 2–3 dimensi agar dapat divisualisasikan.</p>
 <figure class="align-center" id="id10">
 <img alt="Tampilan node PCA di Orange" src="_images/pca.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text"><strong>Gambar 10.</strong> Node PCA — reduksi dimensi data ke komponen utama (PC1 dan PC2).</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<figure class="align-center" id="id11">
-<img alt="Tampilan Scatter Plot hasil PCA di Orange" src="_images/scatter_plot.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 11 </span><span class="caption-text"><strong>Gambar 11.</strong> Scatter Plot — visualisasi pemisahan kelas Subur dan Tidak Subur di ruang PCA.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text"><strong>Gambar 10.</strong> Node PCA — reduksi dimensi data ke komponen utama.</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>Cara Setup PCA:</strong></p>
 <ol class="arabic simple">
 <li><p>Seret node <strong>PCA</strong> dari panel <em>Widgets</em> kategori <em>Unsupervised</em>.</p></li>
 <li><p>Hubungkan output <strong>Preprocessed Data</strong> dari <em>Preprocess</em> ke input node <em>PCA</em>.</p></li>
-<li><p>Klik dua kali dan atur jumlah komponen: <strong>2</strong> (untuk visualisasi 2D).</p></li>
+<li><p>Klik dua kali dan atur jumlah komponen yang diinginkan.</p></li>
 <li><p>Klik <strong>Apply</strong>.</p></li>
 </ol>
+</section>
+<hr class="docutils" />
+<section id="node-scatter-plot-jalur-visualisasi">
+<h3>4.10 Node Scatter Plot <em>(Jalur Visualisasi)</em><a class="headerlink" href="#node-scatter-plot-jalur-visualisasi" title="Link to this heading">#</a></h3>
+<p>Node <strong>Scatter Plot</strong> digunakan untuk memvisualisasikan data hasil dari reduksi dimensi PCA dalam grafik 2D.</p>
+<figure class="align-center" id="id11">
+<img alt="Tampilan Scatter Plot hasil PCA di Orange" src="_images/scatter_plot.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text"><strong>Gambar 11.</strong> Scatter Plot — visualisasi pemisahan kelas Subur dan Tidak Subur di ruang PCA.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <p><strong>Cara Setup Scatter Plot:</strong></p>
 <ol class="arabic simple">
 <li><p>Seret node <strong>Scatter Plot</strong> dari panel <em>Widgets</em> kategori <em>Visualize</em>.</p></li>
 <li><p>Hubungkan output <strong>Data</strong> dari <em>PCA</em> ke input node <em>Scatter Plot</em>.</p></li>
-<li><p>Atur sumbu X: <strong>PC1</strong> dan sumbu Y: <strong>PC2</strong>.</p></li>
+<li><p>Atur sumbu X dan sumbu Y sesuai dengan komponen PCA.</p></li>
 <li><p>Atur warna titik berdasarkan kolom <strong>Label</strong> untuk melihat pemisahan kelas.</p></li>
 </ol>
 <div class="admonition note">
@@ -793,7 +799,7 @@ KNN menghitung jarak antar titik data menggunakan rumus matematis. Data teks sep
 </section>
 <hr class="docutils" />
 <section id="node-knn-learner">
-<h3>4.10 Node kNN (Learner)<a class="headerlink" href="#node-knn-learner" title="Link to this heading">#</a></h3>
+<h3>4.11 Node kNN (Learner)<a class="headerlink" href="#node-knn-learner" title="Link to this heading">#</a></h3>
 <p>Node <strong>kNN</strong> mendefinisikan arsitektur dan parameter algoritma K-Nearest Neighbors.</p>
 <figure class="align-center" id="id12">
 <img alt="Tampilan pengaturan node kNN di Orange" src="_images/knn.png" />
@@ -840,7 +846,7 @@ KNN menghitung jarak antar titik data menggunakan rumus matematis. Data teks sep
 </section>
 <hr class="docutils" />
 <section id="node-test-and-score">
-<h3>4.11 Node Test and Score<a class="headerlink" href="#node-test-and-score" title="Link to this heading">#</a></h3>
+<h3>4.12 Node Test and Score<a class="headerlink" href="#node-test-and-score" title="Link to this heading">#</a></h3>
 <p>Node <strong>Test and Score</strong> mengukur performa model KNN secara objektif menggunakan metode evaluasi yang valid.</p>
 <figure class="align-center" id="id13">
 <img alt="Hasil evaluasi pada node Test and Score di Orange" src="_images/test_and_score.png" />
@@ -867,7 +873,7 @@ KNN menghitung jarak antar titik data menggunakan rumus matematis. Data teks sep
 </section>
 <hr class="docutils" />
 <section id="node-confusion-matrix">
-<h3>4.12 Node Confusion Matrix<a class="headerlink" href="#node-confusion-matrix" title="Link to this heading">#</a></h3>
+<h3>4.13 Node Confusion Matrix<a class="headerlink" href="#node-confusion-matrix" title="Link to this heading">#</a></h3>
 <p>Node <strong>Confusion Matrix</strong> memberikan visualisasi detail mengenai hasil prediksi dibandingkan dengan kelas aktual.</p>
 <figure class="align-center" id="id14">
 <img alt="Confusion Matrix hasil prediksi KNN di Orange" src="_images/confusion_matri.png" />
@@ -1075,10 +1081,11 @@ KNN menghitung jarak antar titik data menggunakan rumus matematis. Data teks sep
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-impute">4.6 Node Impute</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-continuize">4.7 Node Continuize</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-preprocess">4.8 Node Preprocess</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-pca-scatter-plot-jalur-visualisasi">4.9 Node PCA → Scatter Plot <em>(Jalur Visualisasi)</em></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-knn-learner">4.10 Node kNN (Learner)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-test-and-score">4.11 Node Test and Score</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-confusion-matrix">4.12 Node Confusion Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-pca-jalur-visualisasi">4.9 Node PCA <em>(Jalur Visualisasi)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-scatter-plot-jalur-visualisasi">4.10 Node Scatter Plot <em>(Jalur Visualisasi)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-knn-learner">4.11 Node kNN (Learner)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-test-and-score">4.12 Node Test and Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-confusion-matrix">4.13 Node Confusion Matrix</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi">5. Hasil Evaluasi</a></li>

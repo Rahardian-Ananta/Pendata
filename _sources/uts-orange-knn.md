@@ -286,7 +286,7 @@ Dari node **Preprocess**, data mengalir ke **dua jalur**:
 
 ---
 
-### 4.9 Node PCA → Scatter Plot *(Jalur Visualisasi)*
+### 4.9 Node PCA *(Jalur Visualisasi)*
 
 **PCA (Principal Component Analysis)** mereduksi dimensi data berdimensi tinggi menjadi 2–3 dimensi agar dapat divisualisasikan.
 
@@ -294,8 +294,21 @@ Dari node **Preprocess**, data mengalir ke **dua jalur**:
 :alt: Tampilan node PCA di Orange
 :align: center
 
-**Gambar 10.** Node PCA — reduksi dimensi data ke komponen utama (PC1 dan PC2).
+**Gambar 10.** Node PCA — reduksi dimensi data ke komponen utama.
 ```
+
+**Cara Setup PCA:**
+
+1. Seret node **PCA** dari panel *Widgets* kategori *Unsupervised*.
+2. Hubungkan output **Preprocessed Data** dari *Preprocess* ke input node *PCA*.
+3. Klik dua kali dan atur jumlah komponen yang diinginkan.
+4. Klik **Apply**.
+
+---
+
+### 4.10 Node Scatter Plot *(Jalur Visualisasi)*
+
+Node **Scatter Plot** digunakan untuk memvisualisasikan data hasil dari reduksi dimensi PCA dalam grafik 2D.
 
 ```{figure} images/image_uts/scatter_plot.png
 :alt: Tampilan Scatter Plot hasil PCA di Orange
@@ -304,18 +317,11 @@ Dari node **Preprocess**, data mengalir ke **dua jalur**:
 **Gambar 11.** Scatter Plot — visualisasi pemisahan kelas Subur dan Tidak Subur di ruang PCA.
 ```
 
-**Cara Setup PCA:**
-
-1. Seret node **PCA** dari panel *Widgets* kategori *Unsupervised*.
-2. Hubungkan output **Preprocessed Data** dari *Preprocess* ke input node *PCA*.
-3. Klik dua kali dan atur jumlah komponen: **2** (untuk visualisasi 2D).
-4. Klik **Apply**.
-
 **Cara Setup Scatter Plot:**
 
 1. Seret node **Scatter Plot** dari panel *Widgets* kategori *Visualize*.
 2. Hubungkan output **Data** dari *PCA* ke input node *Scatter Plot*.
-3. Atur sumbu X: **PC1** dan sumbu Y: **PC2**.
+3. Atur sumbu X dan sumbu Y sesuai dengan komponen PCA.
 4. Atur warna titik berdasarkan kolom **Label** untuk melihat pemisahan kelas.
 
 :::{note}
@@ -324,7 +330,7 @@ Scatter Plot PCA bersifat **visualisasi eksplorasi** — digunakan untuk melihat
 
 ---
 
-### 4.10 Node kNN (Learner)
+### 4.11 Node kNN (Learner)
 
 Node **kNN** mendefinisikan arsitektur dan parameter algoritma K-Nearest Neighbors.
 
@@ -357,7 +363,7 @@ Untuk setiap data uji, dihitung jarak Euclidean ke seluruh data latih. Sebanyak 
 
 ---
 
-### 4.11 Node Test and Score
+### 4.12 Node Test and Score
 
 Node **Test and Score** mengukur performa model KNN secara objektif menggunakan metode evaluasi yang valid.
 
@@ -385,7 +391,7 @@ Data dibagi menjadi 5 bagian (*fold*) yang sama besar. Model dilatih sebanyak 5 
 
 ---
 
-### 4.12 Node Confusion Matrix
+### 4.13 Node Confusion Matrix
 
 Node **Confusion Matrix** memberikan visualisasi detail mengenai hasil prediksi dibandingkan dengan kelas aktual.
 
