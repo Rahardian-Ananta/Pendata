@@ -1,0 +1,1144 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>UTS — Klasifikasi Kesuburan Tanah Menggunakan KNN di Orange Data Mining &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'uts-orange-knn';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="3. Implementasi Normalisasi Data (Tugas Code)" href="implementasi-normalisasi-data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="My sample book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Rahardian Ananta , 240411100071
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html"><strong>Pertemuan 1</strong></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Eksplorasi-Data.html"><strong>Eksplorasi Data</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menghitung-jarak.html">Menghitung Jarak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Normalization_and_Missing_Value_Imputation.html">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="handling-missing-value.html">1. Handling Missing Value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scaling.html">2. Feature Scaling (Normalisasi Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementasi-normalisasi-data.html">3. Implementasi Normalisasi Data (Tugas Code)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">UTS — Klasifikasi Kesuburan Tanah Menggunakan KNN di Orange Data Mining</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Futs-orange-knn.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/uts-orange-knn.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>UTS — Klasifikasi Kesuburan Tanah Menggunakan KNN di Orange Data Mining</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">1. Pendahuluan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unduh-berkas-praktikum">Unduh Berkas Praktikum</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">2. Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alur-kerja-workflow-orange-data-mining">3. Alur Kerja (Workflow) Orange Data Mining</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-node-dan-setup">4. Penjelasan Node dan Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-csv-file-import">4.1 Node CSV File Import</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-data-table">4.2 Node Data Table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-select-columns">4.3 Node Select Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-box-plot-jalur-eksplorasi">4.4 Node Box Plot <em>(Jalur Eksplorasi)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-distributions-jalur-utama">4.5 Node Distributions <em>(Jalur Utama)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-impute">4.6 Node Impute</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-continuize">4.7 Node Continuize</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-preprocess">4.8 Node Preprocess</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-pca-scatter-plot-jalur-visualisasi">4.9 Node PCA → Scatter Plot <em>(Jalur Visualisasi)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-knn-learner">4.10 Node kNN (Learner)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-test-and-score">4.11 Node Test and Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-confusion-matrix">4.12 Node Confusion Matrix</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi">5. Hasil Evaluasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-dan-kesimpulan">6. Analisis dan Kesimpulan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-preprocessing-bertahap-sangat-penting-untuk-knn">Mengapa Preprocessing Bertahap Sangat Penting untuk KNN?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-alur-node">Ringkasan Alur Node</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="uts-klasifikasi-kesuburan-tanah-menggunakan-knn-di-orange-data-mining">
+<h1>UTS — Klasifikasi Kesuburan Tanah Menggunakan KNN di Orange Data Mining<a class="headerlink" href="#uts-klasifikasi-kesuburan-tanah-menggunakan-knn-di-orange-data-mining" title="Link to this heading">#</a></h1>
+<p>Laporan ini merangkum proses analisis data untuk memprediksi tingkat kesuburan tanah menggunakan algoritma <strong>K-Nearest Neighbors (KNN)</strong> di perangkat lunak <strong>Orange Data Mining</strong>. Variabel target yang diprediksi adalah label <strong>“Subur”</strong> atau <strong>“Tidak Subur”</strong> berdasarkan parameter kimia dan fisik tanah: pH, N Total, P Tersedia, K Tersedia, C Organik, dan Tekstur Tanah.</p>
+<hr class="docutils" />
+<section id="pendahuluan">
+<h2>1. Pendahuluan<a class="headerlink" href="#pendahuluan" title="Link to this heading">#</a></h2>
+<p>Klasifikasi kesuburan tanah merupakan salah satu penerapan <em>machine learning</em> di bidang pertanian. Dengan mengenali pola dari parameter-parameter tanah, sebuah model dapat secara otomatis mengkategorikan apakah suatu sampel tanah tergolong subur atau tidak. Pada praktikum ini digunakan algoritma <strong>K-Nearest Neighbors (KNN)</strong> karena algoritma ini mudah dipahami secara intuitif dan efektif untuk dataset berukuran kecil-menengah.</p>
+<p>Perangkat lunak yang digunakan adalah <strong>Orange Data Mining</strong> — sebuah platform <em>visual programming</em> berbasis Python yang memungkinkan analisis data dilakukan melalui antarmuka grafis tanpa perlu menulis kode secara eksplisit.</p>
+</section>
+<hr class="docutils" />
+<section id="unduh-berkas-praktikum">
+<h2>Unduh Berkas Praktikum<a class="headerlink" href="#unduh-berkas-praktikum" title="Link to this heading">#</a></h2>
+<p>Anda dapat mengunduh file dataset dan file <em>workflow</em> Orange Data Mining untuk praktikum ini melalui tautan berikut:</p>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="_downloads/40d020f72f88da9dc374f000c8d21b5e/dataset_kesuburan_tanah_missing.csv"><code class="xref download docutils literal notranslate"><span class="pre">Dataset</span> <span class="pre">Kesuburan</span> <span class="pre">Tanah</span> <span class="pre">(CSV)</span></code></a></p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/ddbe8665eea29a3a00178e34157d8659/UTS_PENDATA.ows"><code class="xref download docutils literal notranslate"><span class="pre">File</span> <span class="pre">Workflow</span> <span class="pre">Orange</span> <span class="pre">UTS</span> <span class="pre">(OWS)</span></code></a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="dataset">
+<h2>2. Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
+<p>Dataset yang digunakan adalah <code class="docutils literal notranslate"><span class="pre">dataset_kesuburan_tanah_missing.xlsx</span></code> yang memuat sampel-sampel tanah dengan kolom sebagai berikut:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Tipe Data</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p>Meta</p></td>
+<td><p>Identifikasi unik sampel (tidak dipakai model)</p></td>
+</tr>
+<tr class="row-odd"><td><p>pH</p></td>
+<td><p>Numerik</p></td>
+<td><p>Tingkat keasaman tanah</p></td>
+</tr>
+<tr class="row-even"><td><p>N Total</p></td>
+<td><p>Numerik</p></td>
+<td><p>Kandungan Nitrogen total</p></td>
+</tr>
+<tr class="row-odd"><td><p>P Tersedia</p></td>
+<td><p>Numerik</p></td>
+<td><p>Kandungan Fosfor tersedia</p></td>
+</tr>
+<tr class="row-even"><td><p>K Tersedia</p></td>
+<td><p>Numerik</p></td>
+<td><p>Kandungan Kalium tersedia</p></td>
+</tr>
+<tr class="row-odd"><td><p>C Organik</p></td>
+<td><p>Numerik</p></td>
+<td><p>Kandungan Karbon organik</p></td>
+</tr>
+<tr class="row-even"><td><p>Tekstur Tanah</p></td>
+<td><p>Kategorikal</p></td>
+<td><p>Jenis tekstur tanah (lempung, pasir, dll.)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Label</p></td>
+<td><p>Target</p></td>
+<td><p>Kelas: <strong>Subur</strong> / <strong>Tidak Subur</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Dataset ini mengandung <strong>beberapa nilai yang hilang (missing values)</strong> pada kolom N Total dan C Organik, sehingga diperlukan tahap <em>preprocessing</em> sebelum pelatihan model.</p>
+</section>
+<hr class="docutils" />
+<section id="alur-kerja-workflow-orange-data-mining">
+<h2>3. Alur Kerja (Workflow) Orange Data Mining<a class="headerlink" href="#alur-kerja-workflow-orange-data-mining" title="Link to this heading">#</a></h2>
+<p>Seluruh analisis dilakukan dalam satu alur kerja visual di Orange yang terdiri dari <strong>11 node</strong>. Berikut adalah gambaran keseluruhan <em>workflow</em>:</p>
+<figure class="align-center" id="id1">
+<img alt="Diagram alur kerja lengkap Orange Data Mining" src="_images/orange_actual_workflow.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text"><strong>Gambar 1.</strong> Alur kerja lengkap Orange Data Mining — dari pemuatan data CSV hingga evaluasi model KNN dan visualisasi.</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Secara garis besar, alur kerja terbagi menjadi <strong>tiga jalur</strong>:</p>
+<ul class="simple">
+<li><p><strong>Jalur Utama (Preprocessing → Model):</strong> CSV File Import → Data Table → Select Columns → Distributions → Box Plot → Impute → Continuize → Preprocess → kNN → Test and Score → Confusion Matrix</p></li>
+<li><p><strong>Jalur Visualisasi Eksplorasi:</strong> Select Columns → Box Plot</p></li>
+<li><p><strong>Jalur Visualisasi Dimensi:</strong> Preprocess → PCA → Scatter Plot</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="penjelasan-node-dan-setup">
+<h2>4. Penjelasan Node dan Setup<a class="headerlink" href="#penjelasan-node-dan-setup" title="Link to this heading">#</a></h2>
+<section id="node-csv-file-import">
+<h3>4.1 Node CSV File Import<a class="headerlink" href="#node-csv-file-import" title="Link to this heading">#</a></h3>
+<p>Node <strong>CSV File Import</strong> adalah titik masuk data ke dalam alur kerja. Node ini bertugas membaca file dataset dari penyimpanan lokal.</p>
+<figure class="align-center" id="id2">
+<img alt="Tampilan node CSV File Import di Orange" src="_images/csv_file_import.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text"><strong>Gambar 2.</strong> Node CSV File Import — dialog pemilihan file dataset.</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Dari panel <em>Widgets</em> di sebelah kiri, cari <strong>File</strong> atau <strong>CSV File Import</strong> di kategori <em>Data</em>.</p></li>
+<li><p>Seret node ke kanvas (<em>canvas</em>) Orange.</p></li>
+<li><p>Klik dua kali node tersebut untuk membuka dialog.</p></li>
+<li><p>Klik tombol <strong>Browse (…)</strong> dan pilih file <code class="docutils literal notranslate"><span class="pre">dataset_kesuburan_tanah_missing.xlsx</span></code>.</p></li>
+<li><p>Orange akan otomatis mendeteksi delimiter dan tipe data setiap kolom.</p></li>
+<li><p>Periksa pratinjau data — pastikan semua kolom terbaca dengan benar.</p></li>
+<li><p>Klik <strong>OK</strong>.</p></li>
+</ol>
+<p>Output node ini berupa <strong>Data</strong> yang akan dialirkan ke node berikutnya.</p>
+</section>
+<hr class="docutils" />
+<section id="node-data-table">
+<h3>4.2 Node Data Table<a class="headerlink" href="#node-data-table" title="Link to this heading">#</a></h3>
+<p>Node <strong>Data Table</strong> berfungsi menampilkan data dalam format tabel sehingga dapat diperiksa secara visual sebelum diproses lebih lanjut.</p>
+<figure class="align-center" id="id3">
+<img alt="Tampilan node Data Table di Orange" src="_images/data_table.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text"><strong>Gambar 3.</strong> Node Data Table — pratinjau seluruh isi dataset beserta nilai yang hilang.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Data Table</strong> dari panel <em>Widgets</em> kategori <em>Data</em> ke kanvas.</p></li>
+<li><p>Hubungkan output <strong>Data</strong> dari node <em>CSV File Import</em> ke input node <em>Data Table</em> dengan menarik garis penghubung.</p></li>
+<li><p>Klik dua kali untuk membuka tampilan tabel.</p></li>
+<li><p>Di sini Anda dapat memeriksa isi data, termasuk melihat sel yang kosong (<em>missing values</em>) yang ditandai dengan warna berbeda atau tanda tanya.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Node Data Table juga memungkinkan pemilihan baris tertentu. Output <strong>Selected Data</strong> yang terhubung ke node berikutnya akan meneruskan data yang dipilih (atau seluruh data jika tidak ada seleksi).</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="node-select-columns">
+<h3>4.3 Node Select Columns<a class="headerlink" href="#node-select-columns" title="Link to this heading">#</a></h3>
+<p>Node <strong>Select Columns</strong> berfungsi menentukan peran setiap kolom: mana yang menjadi <strong>fitur</strong>, <strong>target</strong>, atau <strong>meta</strong>.</p>
+<figure class="align-center" id="id4">
+<img alt="Tampilan node Select Columns di Orange" src="_images/select_column.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text"><strong>Gambar 4.</strong> Node Select Columns — pengaturan peran kolom (Feature, Target, Meta).</span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Select Columns</strong> dari panel <em>Widgets</em> kategori <em>Data</em>.</p></li>
+<li><p>Hubungkan output <strong>Data</strong> dari <em>Data Table</em> ke input node ini.</p></li>
+<li><p>Klik dua kali untuk membuka dialog pengaturan kolom.</p></li>
+<li><p>Atur peran kolom sebagai berikut menggunakan drag-and-drop antar panel:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Peran yang Diatur</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ID</p></td>
+<td><p><strong>Meta</strong> — tidak digunakan dalam perhitungan model</p></td>
+</tr>
+<tr class="row-odd"><td><p>pH</p></td>
+<td><p><strong>Features</strong> — fitur input model</p></td>
+</tr>
+<tr class="row-even"><td><p>N Total</p></td>
+<td><p><strong>Features</strong> — fitur input model</p></td>
+</tr>
+<tr class="row-odd"><td><p>P Tersedia</p></td>
+<td><p><strong>Features</strong> — fitur input model</p></td>
+</tr>
+<tr class="row-even"><td><p>K Tersedia</p></td>
+<td><p><strong>Features</strong> — fitur input model</p></td>
+</tr>
+<tr class="row-odd"><td><p>C Organik</p></td>
+<td><p><strong>Features</strong> — fitur input model</p></td>
+</tr>
+<tr class="row-even"><td><p>Tekstur Tanah</p></td>
+<td><p><strong>Features</strong> — fitur input model</p></td>
+</tr>
+<tr class="row-odd"><td><p>Label</p></td>
+<td><p><strong>Target</strong> — variabel yang ingin diprediksi</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Klik <strong>OK</strong>.</p></li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Mengatur kolom <strong>ID</strong> sebagai <em>Meta</em> sangat penting agar nilai numerik ID tidak dianggap sebagai fitur oleh model, yang dapat menyebabkan hasil evaluasi yang tidak valid (<em>data leakage</em>).</p>
+</div>
+<p>Dari node ini, data mengalir ke node <em>Distributions</em> untuk dianalisis lebih lanjut.</p>
+</section>
+<hr class="docutils" />
+<section id="node-box-plot-jalur-eksplorasi">
+<h3>4.4 Node Box Plot <em>(Jalur Eksplorasi)</em><a class="headerlink" href="#node-box-plot-jalur-eksplorasi" title="Link to this heading">#</a></h3>
+<p>Node <strong>Box Plot</strong> digunakan untuk memvisualisasikan distribusi dan sebaran nilai setiap fitur numerik, sekaligus mengidentifikasi keberadaan <em>outlier</em>.</p>
+<figure class="align-center" id="id5">
+<img alt="Tampilan node Box Plot di Orange" src="_images/box_plot.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text"><strong>Gambar 5.</strong> Node Box Plot — visualisasi sebaran dan outlier pada tiap fitur.</span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Box Plot</strong> dari panel <em>Widgets</em> kategori <em>Visualize</em>.</p></li>
+<li><p>Hubungkan output <strong>Data</strong> dari <em>Distributions</em> ke input node <em>Box Plot</em>.</p></li>
+<li><p>Klik dua kali untuk membuka visualisasi.</p></li>
+<li><p>Pilih variabel yang ingin divisualisasikan dari dropdown <em>Variable</em>.</p></li>
+<li><p>Aktifkan opsi <strong>Order by Median</strong> untuk memudahkan perbandingan antar kelas.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dari node <strong>Distributions</strong>, data diteruskan ke <strong>Box Plot</strong> sebelum masuk ke tahap <strong>Impute</strong> untuk memastikan visualisasi outlier pada data asli terlihat jelas.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="node-distributions-jalur-utama">
+<h3>4.5 Node Distributions <em>(Jalur Utama)</em><a class="headerlink" href="#node-distributions-jalur-utama" title="Link to this heading">#</a></h3>
+<p>Node <strong>Distributions</strong> menampilkan histogram distribusi frekuensi setiap fitur, membantu memahami bentuk sebaran data (normal, miring kiri/kanan, bimodal, dll.).</p>
+<figure class="align-center" id="id6">
+<img alt="Tampilan node Distributions di Orange" src="_images/distributions.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text"><strong>Gambar 6.</strong> Node Distributions — histogram distribusi frekuensi fitur-fitur tanah.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Distributions</strong> dari panel <em>Widgets</em> kategori <em>Visualize</em>.</p></li>
+<li><p>Hubungkan output <strong>Data</strong> dari <em>Select Columns</em> ke input node <em>Distributions</em>.</p></li>
+<li><p>Klik dua kali untuk membuka histogram.</p></li>
+<li><p>Pilih fitur yang ingin diamati dari dropdown <em>Variable</em>.</p></li>
+<li><p>Aktifkan <strong>Show Continuous Distribution</strong> untuk menampilkan kurva distribusi.</p></li>
+</ol>
+<p>Output <strong>Data</strong> dari node ini diteruskan ke tahap <em>Box Plot</em>.</p>
+</section>
+<hr class="docutils" />
+<section id="node-impute">
+<h3>4.6 Node Impute<a class="headerlink" href="#node-impute" title="Link to this heading">#</a></h3>
+<p>Node <strong>Impute</strong> menangani nilai-nilai yang hilang (<em>missing values</em>) dalam dataset agar tidak mengganggu proses pelatihan model.</p>
+<figure class="align-center" id="id7">
+<img alt="Tampilan node Impute di Orange" src="_images/impute.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text"><strong>Gambar 7.</strong> Node Impute — pengaturan metode pengisian nilai kosong (Average/Most Frequent).</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Impute</strong> dari panel <em>Widgets</em> kategori <em>Preprocess</em>.</p></li>
+<li><p>Hubungkan output <strong>Data</strong> dari <em>Box Plot</em> ke input node <em>Impute</em>.</p></li>
+<li><p>Klik dua kali untuk membuka dialog pengaturan.</p></li>
+<li><p>Pada bagian <strong>Default Method</strong>, pilih <strong>Average / Most Frequent</strong>:</p>
+<ul class="simple">
+<li><p>Untuk kolom numerik (N Total, C Organik): nilai kosong diisi dengan <strong>rata-rata</strong> kolom.</p></li>
+<li><p>Untuk kolom kategorikal: nilai kosong diisi dengan <strong>nilai yang paling sering muncul</strong>.</p></li>
+</ul>
+</li>
+<li><p>Klik <strong>OK</strong>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Metode <em>Average</em> dipilih karena merupakan pilihan yang aman dan tidak memperkenalkan bias besar pada distribusi data. Nilai kosong pada N Total dan C Organik akan terisi secara otomatis.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="node-continuize">
+<h3>4.7 Node Continuize<a class="headerlink" href="#node-continuize" title="Link to this heading">#</a></h3>
+<p>Node <strong>Continuize</strong> mengubah variabel kategorikal (bertipe teks) menjadi representasi numerik agar dapat diproses oleh algoritma KNN yang berbasis jarak.</p>
+<figure class="align-center" id="id8">
+<img alt="Tampilan node Continuize di Orange" src="_images/continuize.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text"><strong>Gambar 8.</strong> Node Continuize — pengaturan One-Hot Encoding untuk variabel Tekstur Tanah.</span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Continuize</strong> dari panel <em>Widgets</em> kategori <em>Preprocess</em>.</p></li>
+<li><p>Hubungkan output <strong>Data</strong> dari <em>Impute</em> ke input node <em>Continuize</em>.</p></li>
+<li><p>Klik dua kali untuk membuka dialog pengaturan.</p></li>
+<li><p>Pada kolom <strong>Tekstur Tanah</strong>, pilih metode <strong>One-Hot Encoding</strong> (atau <em>“First value as base”</em>).</p></li>
+<li><p>Klik <strong>OK</strong>.</p></li>
+</ol>
+<p><strong>Mengapa One-Hot Encoding?</strong>
+KNN menghitung jarak antar titik data menggunakan rumus matematis. Data teks seperti “Lempung” atau “Pasir” tidak bisa dihitung jaraknya secara langsung. One-Hot Encoding mengubah satu kolom teks menjadi beberapa kolom biner (0 atau 1):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tekstur Tanah</p></th>
+<th class="head"><p>Lempung</p></th>
+<th class="head"><p>Pasir</p></th>
+<th class="head"><p>Debu</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Lempung</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pasir</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>Debu</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="node-preprocess">
+<h3>4.8 Node Preprocess<a class="headerlink" href="#node-preprocess" title="Link to this heading">#</a></h3>
+<p>Node <strong>Preprocess</strong> merupakan <em>hub</em> preprocessing yang mengintegrasikan beberapa langkah transformasi data sekaligus, terutama <strong>normalisasi fitur</strong>.</p>
+<figure class="align-center" id="id9">
+<img alt="Tampilan node Preprocess di Orange" src="_images/preproses.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text"><strong>Gambar 9.</strong> Node Preprocess — pengaturan normalisasi Z-score pada seluruh fitur.</span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Preprocess</strong> dari panel <em>Widgets</em> kategori <em>Preprocess</em>.</p></li>
+<li><p>Hubungkan output <strong>Data</strong> dari <em>Continuize</em> ke input node <em>Preprocess</em>.</p></li>
+<li><p>Klik dua kali untuk membuka dialog.</p></li>
+<li><p>Tambahkan preprocessor <strong>Normalize Features</strong> dengan klik tombol <strong>+</strong> atau seret dari panel kiri.</p></li>
+<li><p>Pilih metode: <strong>Standardize (Z-score normalization)</strong></p>
+<ul class="simple">
+<li><p>Rumus: <span class="math notranslate nohighlight">\(z = \dfrac{x - \mu}{\sigma}\)</span></p></li>
+<li><p>Setiap fitur diubah agar memiliki <strong>rata-rata = 0</strong> dan <strong>standar deviasi = 1</strong>.</p></li>
+</ul>
+</li>
+<li><p>Klik <strong>OK</strong>.</p></li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Normalisasi adalah langkah wajib untuk KNN.</strong> Tanpa normalisasi, fitur dengan satuan atau skala besar (misalnya K Tersedia dalam ppm yang bernilai ratusan) akan mendominasi perhitungan jarak Euclidean, membuat fitur lain seperti pH (skala 0–14) tidak berpengaruh signifikan terhadap hasil klasifikasi.</p>
+</div>
+<p>Dari node <strong>Preprocess</strong>, data mengalir ke <strong>dua jalur</strong>:</p>
+<ul class="simple">
+<li><p><strong>Jalur kNN</strong> (jalur evaluasi model)</p></li>
+<li><p><strong>Jalur PCA → Scatter Plot</strong> (jalur visualisasi dimensi)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="node-pca-scatter-plot-jalur-visualisasi">
+<h3>4.9 Node PCA → Scatter Plot <em>(Jalur Visualisasi)</em><a class="headerlink" href="#node-pca-scatter-plot-jalur-visualisasi" title="Link to this heading">#</a></h3>
+<p><strong>PCA (Principal Component Analysis)</strong> mereduksi dimensi data berdimensi tinggi menjadi 2–3 dimensi agar dapat divisualisasikan.</p>
+<figure class="align-center" id="id10">
+<img alt="Tampilan node PCA di Orange" src="_images/pca.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text"><strong>Gambar 10.</strong> Node PCA — reduksi dimensi data ke komponen utama (PC1 dan PC2).</span><a class="headerlink" href="#id10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id11">
+<img alt="Tampilan Scatter Plot hasil PCA di Orange" src="_images/scatter_plot.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text"><strong>Gambar 11.</strong> Scatter Plot — visualisasi pemisahan kelas Subur dan Tidak Subur di ruang PCA.</span><a class="headerlink" href="#id11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup PCA:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>PCA</strong> dari panel <em>Widgets</em> kategori <em>Unsupervised</em>.</p></li>
+<li><p>Hubungkan output <strong>Preprocessed Data</strong> dari <em>Preprocess</em> ke input node <em>PCA</em>.</p></li>
+<li><p>Klik dua kali dan atur jumlah komponen: <strong>2</strong> (untuk visualisasi 2D).</p></li>
+<li><p>Klik <strong>Apply</strong>.</p></li>
+</ol>
+<p><strong>Cara Setup Scatter Plot:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Scatter Plot</strong> dari panel <em>Widgets</em> kategori <em>Visualize</em>.</p></li>
+<li><p>Hubungkan output <strong>Data</strong> dari <em>PCA</em> ke input node <em>Scatter Plot</em>.</p></li>
+<li><p>Atur sumbu X: <strong>PC1</strong> dan sumbu Y: <strong>PC2</strong>.</p></li>
+<li><p>Atur warna titik berdasarkan kolom <strong>Label</strong> untuk melihat pemisahan kelas.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Scatter Plot PCA bersifat <strong>visualisasi eksplorasi</strong> — digunakan untuk melihat apakah dua kelas (Subur dan Tidak Subur) sudah terpisah secara visual di ruang PCA, sebelum model KNN dilatih.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="node-knn-learner">
+<h3>4.10 Node kNN (Learner)<a class="headerlink" href="#node-knn-learner" title="Link to this heading">#</a></h3>
+<p>Node <strong>kNN</strong> mendefinisikan arsitektur dan parameter algoritma K-Nearest Neighbors.</p>
+<figure class="align-center" id="id12">
+<img alt="Tampilan pengaturan node kNN di Orange" src="_images/knn.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text"><strong>Gambar 12.</strong> Node kNN — pengaturan k=7 dengan metrik Euclidean.</span><a class="headerlink" href="#id12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>kNN</strong> dari panel <em>Widgets</em> kategori <em>Model</em>.</p></li>
+<li><p><strong>Node kNN tidak perlu dihubungkan ke data secara langsung</strong> — ia berfungsi sebagai <em>Learner</em> yang dioper ke node <em>Test and Score</em>.</p></li>
+<li><p>Klik dua kali untuk membuka dialog dan atur parameter:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Nilai</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Number of Neighbors (k)</p></td>
+<td><p><strong>7</strong></p></td>
+<td><p>Jumlah tetangga terdekat yang dipertimbangkan</p></td>
+</tr>
+<tr class="row-odd"><td><p>Metric</p></td>
+<td><p><strong>Euclidean</strong></p></td>
+<td><p>Rumus perhitungan jarak antar titik</p></td>
+</tr>
+<tr class="row-even"><td><p>Weight</p></td>
+<td><p><strong>Uniform</strong></p></td>
+<td><p>Semua tetangga memiliki bobot yang sama</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Klik <strong>OK</strong>.</p></li>
+</ol>
+<p><strong>Cara Kerja KNN:</strong></p>
+<div class="math notranslate nohighlight">
+\[d(x, y) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}\]</div>
+<p>Untuk setiap data uji, dihitung jarak Euclidean ke seluruh data latih. Sebanyak <strong>k = 7</strong> tetangga terdekat dipilih, dan <strong>kelas mayoritas</strong> di antara 7 tetangga tersebut menjadi hasil prediksi.</p>
+</section>
+<hr class="docutils" />
+<section id="node-test-and-score">
+<h3>4.11 Node Test and Score<a class="headerlink" href="#node-test-and-score" title="Link to this heading">#</a></h3>
+<p>Node <strong>Test and Score</strong> mengukur performa model KNN secara objektif menggunakan metode evaluasi yang valid.</p>
+<figure class="align-center" id="id13">
+<img alt="Hasil evaluasi pada node Test and Score di Orange" src="_images/test_and_score.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text"><strong>Gambar 13.</strong> Node Test and Score — hasil Cross Validation 5-fold dengan metrik evaluasi.</span><a class="headerlink" href="#id13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Test and Score</strong> dari panel <em>Widgets</em> kategori <em>Evaluate</em>.</p></li>
+<li><p>Hubungkan dua input:</p>
+<ul class="simple">
+<li><p>Output <strong>Preprocessed Data</strong> dari node <em>Preprocess</em> → input <strong>Data</strong></p></li>
+<li><p>Output <strong>Learner</strong> dari node <em>kNN</em> → input <strong>Learner</strong></p></li>
+</ul>
+</li>
+<li><p>Klik dua kali untuk membuka dialog.</p></li>
+<li><p>Pilih metode evaluasi: <strong>Cross Validation</strong></p></li>
+<li><p>Atur <strong>Number of Folds:</strong> <code class="docutils literal notranslate"><span class="pre">5</span></code></p></li>
+<li><p>Klik <strong>Apply</strong>.</p></li>
+</ol>
+<p><strong>Penjelasan Cross Validation 5-Fold:</strong></p>
+<p>Data dibagi menjadi 5 bagian (<em>fold</em>) yang sama besar. Model dilatih sebanyak 5 kali — setiap kali menggunakan 4 bagian sebagai data latih dan 1 bagian sebagai data uji secara bergantian. Hasil akhir adalah rata-rata dari 5 percobaan, sehingga evaluasi lebih stabil dan tidak bias.</p>
+</section>
+<hr class="docutils" />
+<section id="node-confusion-matrix">
+<h3>4.12 Node Confusion Matrix<a class="headerlink" href="#node-confusion-matrix" title="Link to this heading">#</a></h3>
+<p>Node <strong>Confusion Matrix</strong> memberikan visualisasi detail mengenai hasil prediksi dibandingkan dengan kelas aktual.</p>
+<figure class="align-center" id="id14">
+<img alt="Confusion Matrix hasil prediksi KNN di Orange" src="_images/confusion_matri.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text"><strong>Gambar 14.</strong> Node Confusion Matrix — seluruh prediksi tepat berada di diagonal utama.</span><a class="headerlink" href="#id14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Cara Setup:</strong></p>
+<ol class="arabic simple">
+<li><p>Seret node <strong>Confusion Matrix</strong> dari panel <em>Widgets</em> kategori <em>Evaluate</em>.</p></li>
+<li><p>Hubungkan output <strong>Evaluation Results</strong> dari node <em>Test and Score</em> ke input node <em>Confusion Matrix</em>.</p></li>
+<li><p>Klik dua kali untuk membuka visualisasi.</p></li>
+<li><p>Pilih model <strong>kNN</strong> dari dropdown jika tersedia lebih dari satu model.</p></li>
+</ol>
+<p><strong>Cara Membaca Confusion Matrix:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p><strong>Prediksi: Subur</strong></p></th>
+<th class="head"><p><strong>Prediksi: Tidak Subur</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Aktual: Subur</strong></p></td>
+<td><p>TP (True Positive)</p></td>
+<td><p>FN (False Negative)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Aktual: Tidak Subur</strong></p></td>
+<td><p>FP (False Positive)</p></td>
+<td><p>TN (True Negative)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pada hasil percobaan ini, seluruh nilai berada pada <strong>diagonal utama</strong> (TP dan TN = jumlah sampel), sedangkan nilai FP dan FN adalah <strong>0</strong>. Ini menunjukkan model tidak membuat kesalahan prediksi sama sekali.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hasil-evaluasi">
+<h2>5. Hasil Evaluasi<a class="headerlink" href="#hasil-evaluasi" title="Link to this heading">#</a></h2>
+<p>Berdasarkan pengujian menggunakan Cross Validation 5-fold pada node <strong>Test and Score</strong>, diperoleh hasil sebagai berikut:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrik Evaluasi</p></th>
+<th class="head"><p>Nilai</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Accuracy (CA)</strong></p></td>
+<td><p><strong>1.000</strong></p></td>
+<td><p>Model mengklasifikasikan <strong>100%</strong> data dengan benar</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Precision</strong></p></td>
+<td><p><strong>1.000</strong></p></td>
+<td><p>Tidak ada prediksi “Subur” yang sebenarnya “Tidak Subur”</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Recall</strong></p></td>
+<td><p><strong>1.000</strong></p></td>
+<td><p>Seluruh sampel tanah subur berhasil terdeteksi</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>F1-Score</strong></p></td>
+<td><p><strong>1.000</strong></p></td>
+<td><p>Nilai harmonik sempurna antara Precision dan Recall</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="analisis-dan-kesimpulan">
+<h2>6. Analisis dan Kesimpulan<a class="headerlink" href="#analisis-dan-kesimpulan" title="Link to this heading">#</a></h2>
+<section id="mengapa-preprocessing-bertahap-sangat-penting-untuk-knn">
+<h3>Mengapa Preprocessing Bertahap Sangat Penting untuk KNN?<a class="headerlink" href="#mengapa-preprocessing-bertahap-sangat-penting-untuk-knn" title="Link to this heading">#</a></h3>
+<p>KNN adalah algoritma berbasis jarak — ia tidak “belajar” parameter seperti model lain, melainkan hanya membandingkan jarak antar titik data. Ini berarti kualitas data sangat menentukan kualitas prediksi:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Langkah</p></th>
+<th class="head"><p>Node</p></th>
+<th class="head"><p>Tujuan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Imputasi</p></td>
+<td><p>Impute</p></td>
+<td><p>Mengisi nilai kosong agar tidak ada baris yang terbuang</p></td>
+</tr>
+<tr class="row-odd"><td><p>Konversi Kategorikal</p></td>
+<td><p>Continuize</p></td>
+<td><p>Mengubah teks menjadi angka agar jarak dapat dihitung</p></td>
+</tr>
+<tr class="row-even"><td><p>Normalisasi</p></td>
+<td><p>Preprocess</p></td>
+<td><p>Menyamakan skala semua fitur agar kontribusinya proporsional</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ringkasan-alur-node">
+<h3>Ringkasan Alur Node<a class="headerlink" href="#ringkasan-alur-node" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[CSV File Import]
+       │ Data
+       ▼
+ [Data Table]
+       │ Selected Data
+       ▼
+[Select Columns]
+       │ Data
+       ▼
+[Distributions]
+       │ Data
+       ▼
+  [Box Plot]
+       │ Data
+       ▼
+   [Impute]
+       │ Data
+       ▼
+ [Continuize]
+       │ Data
+       ▼
+ [Preprocess] ──── Data ────► [PCA] ──► [Scatter Plot]
+       │ Preprocessed Data
+       ├──────────────────────────────► [kNN (Learner)]
+       │                                      │ Learner
+       └──────────────────────────────► [Test and Score]
+                                              │ Evaluation Results
+                                              ▼
+                                      [Confusion Matrix]
+</pre></div>
+</div>
+<p>Penggunaan algoritma KNN dengan parameter <span class="math notranslate nohighlight">\(k=7\)</span> dan metrik Euclidean, dikombinasikan dengan pipeline preprocessing yang terstruktur (Impute → Continuize → Normalize), terbukti sangat efektif untuk dataset kesuburan tanah ini. Hasil evaluasi menunjukkan <strong>akurasi sempurna 100%</strong>, yang mengindikasikan pola parameter kimia tanah sangat konsisten dan terstruktur dengan baik antara kelas Subur dan Tidak Subur.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="implementasi-normalisasi-data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3. Implementasi Normalisasi Data (Tugas Code)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">1. Pendahuluan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unduh-berkas-praktikum">Unduh Berkas Praktikum</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">2. Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alur-kerja-workflow-orange-data-mining">3. Alur Kerja (Workflow) Orange Data Mining</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-node-dan-setup">4. Penjelasan Node dan Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-csv-file-import">4.1 Node CSV File Import</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-data-table">4.2 Node Data Table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-select-columns">4.3 Node Select Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-box-plot-jalur-eksplorasi">4.4 Node Box Plot <em>(Jalur Eksplorasi)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-distributions-jalur-utama">4.5 Node Distributions <em>(Jalur Utama)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-impute">4.6 Node Impute</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-continuize">4.7 Node Continuize</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-preprocess">4.8 Node Preprocess</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-pca-scatter-plot-jalur-visualisasi">4.9 Node PCA → Scatter Plot <em>(Jalur Visualisasi)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-knn-learner">4.10 Node kNN (Learner)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-test-and-score">4.11 Node Test and Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-confusion-matrix">4.12 Node Confusion Matrix</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi">5. Hasil Evaluasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-dan-kesimpulan">6. Analisis dan Kesimpulan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-preprocessing-bertahap-sangat-penting-untuk-knn">Mengapa Preprocessing Bertahap Sangat Penting untuk KNN?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-alur-node">Ringkasan Alur Node</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
