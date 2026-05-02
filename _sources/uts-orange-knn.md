@@ -1,5 +1,5 @@
-# UTS — Klasifikasi Kesuburan Tanah Menggunakan KNN di Orange Data Mining
-
+# UTS — 
+Klasifikasi Kesuburan Tanah Menggunakan KNN di Orange Data Mining
 Laporan ini merangkum proses analisis data untuk memprediksi tingkat kesuburan tanah menggunakan algoritma **K-Nearest Neighbors (KNN)** di perangkat lunak **Orange Data Mining**. Variabel target yang diprediksi adalah label **"Subur"** atau **"Tidak Subur"** berdasarkan parameter kimia dan fisik tanah: pH, N Total, P Tersedia, K Tersedia, C Organik, dan Tekstur Tanah.
 
 ---
