@@ -1,0 +1,1330 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Perhitungan Manual Gaussian Naïve Bayes &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'perhitungan_naive_bayes';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Tugas Klasifikasi: Naive Bayes" href="naive_bayes.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="My sample book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Rahardian Ananta , 240411100071
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html"><strong>Pertemuan 1</strong></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Eksplorasi-Data.html"><strong>Eksplorasi Data</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menghitung-jarak.html">Menghitung Jarak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Normalization_and_Missing_Value_Imputation.html">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="handling-missing-value.html">1. Handling Missing Value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scaling.html">2. Feature Scaling (Normalisasi Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementasi-normalisasi-data.html">3. Implementasi Normalisasi Data (Tugas Code)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="uts-orange-knn.html">UTS —</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="naive_bayes.html">Tugas Klasifikasi: Naive Bayes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Perhitungan Manual Gaussian Naïve Bayes</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fperhitungan_naive_bayes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/perhitungan_naive_bayes.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Perhitungan Manual Gaussian Naïve Bayes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-normalisasi-min-max">LANGKAH 1 — Normalisasi Min-Max</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-mean-dan-variance-2-per-kelas">LANGKAH 2 — Hitung Mean (μ) dan Variance (σ²) Per Kelas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-0-gagal-10-data-baris-1-2-3-4-5-6-7-8-24-25">🔴 KELAS 0 — Gagal (10 data: baris 1,2,3,4,5,6,7,8,24,25)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jam-belajar-nilai-norm-0-0-1667-0-0-1667-0-3333-0-1667-0-0-1667-0-1667-0">▸ jam_belajar (nilai norm: 0, 0.1667, 0, 0.1667, 0.3333, 0.1667, 0, 0.1667, 0.1667, 0)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kehadiran-nilai-norm-0-0-1351-0-2703-0-4054-0-0-2162-0-3243-0-2703-0-2432-0-1351">▸ kehadiran (nilai norm: 0, 0.1351, 0.2703, 0.4054, 0, 0.2162, 0.3243, 0.2703, 0.2432, 0.1351)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nilai-tugas-nilai-norm-0-0-1111-0-2222-0-1778-0-3333-0-2667-0-1556-0-2-0-2222-0-1111">▸ nilai_tugas (nilai norm: 0, 0.1111, 0.2222, 0.1778, 0.3333, 0.2667, 0.1556, 0.2, 0.2222, 0.1111)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-1-lulus-15-data-baris-923">🟢 KELAS 1 — Lulus (15 data: baris 9–23)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jam-belajar-nilai-norm-0-3333-0-5-0-6667-0-5-0-6667-0-8333-0-6667-0-5-0-3333-0-8333-1-0-0-6667-0-8333-1-0-0-3333">▸ jam_belajar (nilai norm: 0.3333, 0.5, 0.6667, 0.5, 0.6667, 0.8333, 0.6667, 0.5, 0.3333, 0.8333, 1.0, 0.6667, 0.8333, 1.0, 0.3333)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kehadiran-nilai-norm-0-4054-0-5405-0-6757-0-4865-0-8108-0-8649-0-7568-0-5946-0-4595-0-9459-0-9730-0-7838-0-8378-1-0-0-3784">▸ kehadiran (nilai norm: 0.4054, 0.5405, 0.6757, 0.4865, 0.8108, 0.8649, 0.7568, 0.5946, 0.4595, 0.9459, 0.9730, 0.7838, 0.8378, 1.0, 0.3784)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nilai-tugas-nilai-norm-0-4444-0-5556-0-6667-0-4889-0-8444-0-8889-0-7778-0-6222-0-5111-0-9333-0-9778-0-8222-0-8667-1-0-0-4667">▸ nilai_tugas (nilai norm: 0.4444, 0.5556, 0.6667, 0.4889, 0.8444, 0.8889, 0.7778, 0.6222, 0.5111, 0.9333, 0.9778, 0.8222, 0.8667, 1.0, 0.4667)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rekap-hasil-langkah-2">Rekap Hasil Langkah 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-prior">LANGKAH 3 — Prior</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-hitung-likelihood-dengan-distribusi-gaussian">LANGKAH 4 — Hitung Likelihood dengan Distribusi Gaussian</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-0-gagal">🔴 KELAS 0 (Gagal)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-1-lulus">🟢 KELAS 1 (Lulus)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-keputusan-akhir">LANGKAH 5 — Keputusan Akhir</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="perhitungan-manual-gaussian-naive-bayes">
+<h1>Perhitungan Manual Gaussian Naïve Bayes<a class="headerlink" href="#perhitungan-manual-gaussian-naive-bayes" title="Link to this heading">#</a></h1>
+<p><strong>data ke-11 (jam=5, hadir=85, tugas=80)</strong></p>
+<p><strong>Data Uji:</strong> jam_belajar = 5, kehadiran = 85, nilai_tugas = 80</p>
+<hr class="docutils" />
+<section id="langkah-1-normalisasi-min-max">
+<h2>LANGKAH 1 — Normalisasi Min-Max<a class="headerlink" href="#langkah-1-normalisasi-min-max" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[X_{\text{norm}} = \frac{X - X_{\min}}{X_{\max} - X_{\min}}\]</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(X_{\min}\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(X_{\max}\)</span></p></th>
+<th class="head"><p>Rumus</p></th>
+<th class="head"><p>Hasil</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>jam_belajar</p></td>
+<td><p>1</p></td>
+<td><p>7</p></td>
+<td><p>(5−1)/(7−1) = 4/6</p></td>
+<td><p><strong>0.6667</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>kehadiran</p></td>
+<td><p>60</p></td>
+<td><p>97</p></td>
+<td><p>(85−60)/(97−60) = 25/37</p></td>
+<td><p><strong>0.6757</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>nilai_tugas</p></td>
+<td><p>50</p></td>
+<td><p>95</p></td>
+<td><p>(80−50)/(95−50) = 30/45</p></td>
+<td><p><strong>0.6667</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Penjelasan Min–Max per fitur (contoh pemetaan nilai mentah → nilai ter-normalisasi):</p>
+<ul>
+<li><p>jam_belajar</p>
+<ul>
+<li><p>X_min = 1, X_max = 7 → pembagi = 6</p></li>
+<li><p>Rumus: (jam − 1) / 6</p></li>
+<li><p>Pemetaan umum:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>jam (mentah)</p></th>
+<th class="head"><p>normalisasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1 → (1−1)/6</p></td>
+<td><p>0.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 → (2−1)/6</p></td>
+<td><p>0.1667</p></td>
+</tr>
+<tr class="row-even"><td><p>3 → (3−1)/6</p></td>
+<td><p>0.3333</p></td>
+</tr>
+<tr class="row-odd"><td><p>4 → (4−1)/6</p></td>
+<td><p>0.5000</p></td>
+</tr>
+<tr class="row-even"><td><p>5 → (5−1)/6</p></td>
+<td><p>0.6667</p></td>
+</tr>
+<tr class="row-odd"><td><p>6 → (6−1)/6</p></td>
+<td><p>0.8333</p></td>
+</tr>
+<tr class="row-even"><td><p>7 → (7−1)/6</p></td>
+<td><p>1.0000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p>Jadi daftar yang muncul di perhitungan kelas (0, 0.1667, 0, 0.1667, 0.3333, 0.1667, 0, 0.1667, 0.1667, 0) berasal dari jam mentah
+[1, 2, 1, 2, 3, 2, 1, 2, 2, 1] setelah normalisasi di atas.</p></li>
+</ul>
+</li>
+<li><p>kehadiran (persentase)</p>
+<ul>
+<li><p>X_min = 60, X_max = 97 → pembagi = 37</p></li>
+<li><p>Rumus: (kehadiran − 60) / 37</p></li>
+<li><p>Contoh pemetaan yang relevan dari dataset:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>hadir (%)</p></th>
+<th class="head"><p>normalisasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>60 → (60−60)/37</p></td>
+<td><p>0.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>78 → (78−60)/37</p></td>
+<td><p>18/37 ≈ 0.4865</p></td>
+</tr>
+<tr class="row-even"><td><p>85 → (85−60)/37</p></td>
+<td><p>25/37 ≈ 0.6757</p></td>
+</tr>
+<tr class="row-odd"><td><p>97 → (97−60)/37</p></td>
+<td><p>1.0000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</li>
+<li><p>nilai_tugas</p>
+<ul>
+<li><p>X_min = 50, X_max = 95 → pembagi = 45</p></li>
+<li><p>Rumus: (tugas − 50) / 45</p></li>
+<li><p>Contoh pemetaan yang relevan dari dataset:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>nilai (mentah)</p></th>
+<th class="head"><p>normalisasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>50 → (50−50)/45</p></td>
+<td><p>0.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>72 → (72−50)/45</p></td>
+<td><p>22/45 ≈ 0.4889</p></td>
+</tr>
+<tr class="row-even"><td><p>80 → (80−50)/45</p></td>
+<td><p>30/45 = 0.6667</p></td>
+</tr>
+<tr class="row-odd"><td><p>95 → (95−50)/45</p></td>
+<td><p>1.0000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p>Contoh di atas menunjukkan juga bagaimana nilai uji (jam=5, hadir=85, tugas=80) menjadi
+jam=0.6667, hadir=0.6757, tugas=0.6667.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="langkah-2-hitung-mean-dan-variance-2-per-kelas">
+<h2>LANGKAH 2 — Hitung Mean (μ) dan Variance (σ²) Per Kelas<a class="headerlink" href="#langkah-2-hitung-mean-dan-variance-2-per-kelas" title="Link to this heading">#</a></h2>
+<p>Rumus Mean:
+$<span class="math notranslate nohighlight">\(\mu = \frac{\sum x_i}{n}\)</span>$</p>
+<p>Rumus Variance (population):
+$<span class="math notranslate nohighlight">\(\sigma^2 = \frac{\sum (x_i - \mu)^2}{n}\)</span>$</p>
+<hr class="docutils" />
+<section id="kelas-0-gagal-10-data-baris-1-2-3-4-5-6-7-8-24-25">
+<h3>🔴 KELAS 0 — Gagal (10 data: baris 1,2,3,4,5,6,7,8,24,25)<a class="headerlink" href="#kelas-0-gagal-10-data-baris-1-2-3-4-5-6-7-8-24-25" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="jam-belajar-nilai-norm-0-0-1667-0-0-1667-0-3333-0-1667-0-0-1667-0-1667-0">
+<h4>▸ jam_belajar (nilai norm: 0, 0.1667, 0, 0.1667, 0.3333, 0.1667, 0, 0.1667, 0.1667, 0)<a class="headerlink" href="#jam-belajar-nilai-norm-0-0-1667-0-0-1667-0-3333-0-1667-0-0-1667-0-1667-0" title="Link to this heading">#</a></h4>
+<p><strong>Mean:</strong>
+$<span class="math notranslate nohighlight">\(\mu = \frac{0 + 0.1667 + 0 + 0.1667 + 0.3333 + 0.1667 + 0 + 0.1667 + 0.1667 + 0}{10} = \frac{1.1667}{10} = \mathbf{0.1167}\)</span>$</p>
+<p><strong>Deviasi <span class="math notranslate nohighlight">\((x_i - \mu)\)</span> lalu dikuadratkan:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x_i\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x_i - \mu\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\((x_i - \mu)^2\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.0000</p></td>
+<td><p>0.0000 − 0.1167 = −0.1167</p></td>
+<td><p>0.013611</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1667</p></td>
+<td><p>0.1667 − 0.1167 = +0.0500</p></td>
+<td><p>0.002500</p></td>
+</tr>
+<tr class="row-even"><td><p>0.0000</p></td>
+<td><p>−0.1167</p></td>
+<td><p>0.013611</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1667</p></td>
+<td><p>+0.0500</p></td>
+<td><p>0.002500</p></td>
+</tr>
+<tr class="row-even"><td><p>0.3333</p></td>
+<td><p>+0.2167</p></td>
+<td><p>0.046944</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1667</p></td>
+<td><p>+0.0500</p></td>
+<td><p>0.002500</p></td>
+</tr>
+<tr class="row-even"><td><p>0.0000</p></td>
+<td><p>−0.1167</p></td>
+<td><p>0.013611</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1667</p></td>
+<td><p>+0.0500</p></td>
+<td><p>0.002500</p></td>
+</tr>
+<tr class="row-even"><td><p>0.1667</p></td>
+<td><p>+0.0500</p></td>
+<td><p>0.002500</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.0000</p></td>
+<td><p>−0.1167</p></td>
+<td><p>0.013611</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><strong>Σ =</strong></p></td>
+<td><p><strong>0.113889</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[\sigma^2 = \frac{0.113889}{10} = \mathbf{0.011389}\]</div>
+</section>
+<hr class="docutils" />
+<section id="kehadiran-nilai-norm-0-0-1351-0-2703-0-4054-0-0-2162-0-3243-0-2703-0-2432-0-1351">
+<h4>▸ kehadiran (nilai norm: 0, 0.1351, 0.2703, 0.4054, 0, 0.2162, 0.3243, 0.2703, 0.2432, 0.1351)<a class="headerlink" href="#kehadiran-nilai-norm-0-0-1351-0-2703-0-4054-0-0-2162-0-3243-0-2703-0-2432-0-1351" title="Link to this heading">#</a></h4>
+<p><strong>Mean:</strong>
+$<span class="math notranslate nohighlight">\(\mu = \frac{0 + 0.1351 + 0.2703 + 0.4054 + 0 + 0.2162 + 0.3243 + 0.2703 + 0.2432 + 0.1351}{10} = \frac{2.0000}{10} = \mathbf{0.2000}\)</span>$</p>
+<p><strong>Deviasi dan kuadrat:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x_i\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x_i - \mu\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\((x_i - \mu)^2\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.0000</p></td>
+<td><p>−0.2000</p></td>
+<td><p>0.040000</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1351</p></td>
+<td><p>−0.0649</p></td>
+<td><p>0.004207</p></td>
+</tr>
+<tr class="row-even"><td><p>0.2703</p></td>
+<td><p>+0.0703</p></td>
+<td><p>0.004938</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.4054</p></td>
+<td><p>+0.2054</p></td>
+<td><p>0.042191</p></td>
+</tr>
+<tr class="row-even"><td><p>0.0000</p></td>
+<td><p>−0.2000</p></td>
+<td><p>0.040000</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.2162</p></td>
+<td><p>+0.0162</p></td>
+<td><p>0.000263</p></td>
+</tr>
+<tr class="row-even"><td><p>0.3243</p></td>
+<td><p>+0.1243</p></td>
+<td><p>0.015457</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.2703</p></td>
+<td><p>+0.0703</p></td>
+<td><p>0.004938</p></td>
+</tr>
+<tr class="row-even"><td><p>0.2432</p></td>
+<td><p>+0.0432</p></td>
+<td><p>0.001870</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1351</p></td>
+<td><p>−0.0649</p></td>
+<td><p>0.004207</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><strong>Σ =</strong></p></td>
+<td><p><strong>0.158072</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[\sigma^2 = \frac{0.158072}{10} = \mathbf{0.015807}\]</div>
+</section>
+<hr class="docutils" />
+<section id="nilai-tugas-nilai-norm-0-0-1111-0-2222-0-1778-0-3333-0-2667-0-1556-0-2-0-2222-0-1111">
+<h4>▸ nilai_tugas (nilai norm: 0, 0.1111, 0.2222, 0.1778, 0.3333, 0.2667, 0.1556, 0.2, 0.2222, 0.1111)<a class="headerlink" href="#nilai-tugas-nilai-norm-0-0-1111-0-2222-0-1778-0-3333-0-2667-0-1556-0-2-0-2222-0-1111" title="Link to this heading">#</a></h4>
+<p><strong>Mean:</strong>
+$<span class="math notranslate nohighlight">\(\mu = \frac{0 + 0.1111 + 0.2222 + 0.1778 + 0.3333 + 0.2667 + 0.1556 + 0.2 + 0.2222 + 0.1111}{10} = \frac{1.8000}{10} = \mathbf{0.1800}\)</span>$</p>
+<p><strong>Deviasi dan kuadrat:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x_i\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x_i - \mu\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\((x_i - \mu)^2\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.0000</p></td>
+<td><p>−0.1800</p></td>
+<td><p>0.032400</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1111</p></td>
+<td><p>−0.0689</p></td>
+<td><p>0.004746</p></td>
+</tr>
+<tr class="row-even"><td><p>0.2222</p></td>
+<td><p>+0.0422</p></td>
+<td><p>0.001783</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1778</p></td>
+<td><p>−0.0022</p></td>
+<td><p>0.000005</p></td>
+</tr>
+<tr class="row-even"><td><p>0.3333</p></td>
+<td><p>+0.1533</p></td>
+<td><p>0.023511</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.2667</p></td>
+<td><p>+0.0867</p></td>
+<td><p>0.007511</p></td>
+</tr>
+<tr class="row-even"><td><p>0.1556</p></td>
+<td><p>−0.0244</p></td>
+<td><p>0.000598</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.2000</p></td>
+<td><p>+0.0200</p></td>
+<td><p>0.000400</p></td>
+</tr>
+<tr class="row-even"><td><p>0.2222</p></td>
+<td><p>+0.0422</p></td>
+<td><p>0.001783</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.1111</p></td>
+<td><p>−0.0689</p></td>
+<td><p>0.004746</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><strong>Σ =</strong></p></td>
+<td><p><strong>0.077481</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[\sigma^2 = \frac{0.077481}{10} = \mathbf{0.007748}\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kelas-1-lulus-15-data-baris-923">
+<h3>🟢 KELAS 1 — Lulus (15 data: baris 9–23)<a class="headerlink" href="#kelas-1-lulus-15-data-baris-923" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="jam-belajar-nilai-norm-0-3333-0-5-0-6667-0-5-0-6667-0-8333-0-6667-0-5-0-3333-0-8333-1-0-0-6667-0-8333-1-0-0-3333">
+<h4>▸ jam_belajar (nilai norm: 0.3333, 0.5, 0.6667, 0.5, 0.6667, 0.8333, 0.6667, 0.5, 0.3333, 0.8333, 1.0, 0.6667, 0.8333, 1.0, 0.3333)<a class="headerlink" href="#jam-belajar-nilai-norm-0-3333-0-5-0-6667-0-5-0-6667-0-8333-0-6667-0-5-0-3333-0-8333-1-0-0-6667-0-8333-1-0-0-3333" title="Link to this heading">#</a></h4>
+<p><strong>Mean:</strong>
+$<span class="math notranslate nohighlight">\(\mu = \frac{0.3333+0.5+0.6667+0.5+0.6667+0.8333+0.6667+0.5+0.3333+0.8333+1.0+0.6667+0.8333+1.0+0.3333}{15} = \frac{9.6667}{15} = \mathbf{0.6444}\)</span>$</p>
+<p><strong>Deviasi dan kuadrat:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x_i\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x_i - \mu\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\((x_i - \mu)^2\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.3333</p></td>
+<td><p>−0.3111</p></td>
+<td><p>0.096790</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.5000</p></td>
+<td><p>−0.1444</p></td>
+<td><p>0.020864</p></td>
+</tr>
+<tr class="row-even"><td><p>0.6667</p></td>
+<td><p>+0.0222</p></td>
+<td><p>0.000494</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.5000</p></td>
+<td><p>−0.1444</p></td>
+<td><p>0.020864</p></td>
+</tr>
+<tr class="row-even"><td><p>0.6667</p></td>
+<td><p>+0.0222</p></td>
+<td><p>0.000494</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.8333</p></td>
+<td><p>+0.1889</p></td>
+<td><p>0.035679</p></td>
+</tr>
+<tr class="row-even"><td><p>0.6667</p></td>
+<td><p>+0.0222</p></td>
+<td><p>0.000494</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.5000</p></td>
+<td><p>−0.1444</p></td>
+<td><p>0.020864</p></td>
+</tr>
+<tr class="row-even"><td><p>0.3333</p></td>
+<td><p>−0.3111</p></td>
+<td><p>0.096790</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.8333</p></td>
+<td><p>+0.1889</p></td>
+<td><p>0.035679</p></td>
+</tr>
+<tr class="row-even"><td><p>1.0000</p></td>
+<td><p>+0.3556</p></td>
+<td><p>0.126420</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.6667</p></td>
+<td><p>+0.0222</p></td>
+<td><p>0.000494</p></td>
+</tr>
+<tr class="row-even"><td><p>0.8333</p></td>
+<td><p>+0.1889</p></td>
+<td><p>0.035679</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.0000</p></td>
+<td><p>+0.3556</p></td>
+<td><p>0.126420</p></td>
+</tr>
+<tr class="row-even"><td><p>0.3333</p></td>
+<td><p>−0.3111</p></td>
+<td><p>0.096790</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><strong>Σ =</strong></p></td>
+<td><p><strong>0.714815</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[\sigma^2 = \frac{0.714815}{15} = \mathbf{0.047654}\]</div>
+</section>
+<hr class="docutils" />
+<section id="kehadiran-nilai-norm-0-4054-0-5405-0-6757-0-4865-0-8108-0-8649-0-7568-0-5946-0-4595-0-9459-0-9730-0-7838-0-8378-1-0-0-3784">
+<h4>▸ kehadiran (nilai norm: 0.4054, 0.5405, 0.6757, 0.4865, 0.8108, 0.8649, 0.7568, 0.5946, 0.4595, 0.9459, 0.9730, 0.7838, 0.8378, 1.0, 0.3784)<a class="headerlink" href="#kehadiran-nilai-norm-0-4054-0-5405-0-6757-0-4865-0-8108-0-8649-0-7568-0-5946-0-4595-0-9459-0-9730-0-7838-0-8378-1-0-0-3784" title="Link to this heading">#</a></h4>
+<p><strong>Mean:</strong>
+$<span class="math notranslate nohighlight">\(\mu = \frac{10.5135}{15} = \mathbf{0.7009}\)</span>$</p>
+<p><strong>Deviasi dan kuadrat:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x_i\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x_i - \mu\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\((x_i - \mu)^2\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.4054</p></td>
+<td><p>−0.2955</p></td>
+<td><p>0.087318</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.5405</p></td>
+<td><p>−0.1604</p></td>
+<td><p>0.025715</p></td>
+</tr>
+<tr class="row-even"><td><p>0.6757</p></td>
+<td><p>−0.0252</p></td>
+<td><p>0.000636</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.4865</p></td>
+<td><p>−0.2144</p></td>
+<td><p>0.045974</p></td>
+</tr>
+<tr class="row-even"><td><p>0.8108</p></td>
+<td><p>+0.1099</p></td>
+<td><p>0.012080</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.8649</p></td>
+<td><p>+0.1640</p></td>
+<td><p>0.026884</p></td>
+</tr>
+<tr class="row-even"><td><p>0.7568</p></td>
+<td><p>+0.0559</p></td>
+<td><p>0.003120</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.5946</p></td>
+<td><p>−0.1063</p></td>
+<td><p>0.011301</p></td>
+</tr>
+<tr class="row-even"><td><p>0.4595</p></td>
+<td><p>−0.2414</p></td>
+<td><p>0.058294</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.9459</p></td>
+<td><p>+0.2450</p></td>
+<td><p>0.060047</p></td>
+</tr>
+<tr class="row-even"><td><p>0.9730</p></td>
+<td><p>+0.2721</p></td>
+<td><p>0.074023</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.7838</p></td>
+<td><p>+0.0829</p></td>
+<td><p>0.006870</p></td>
+</tr>
+<tr class="row-even"><td><p>0.8378</p></td>
+<td><p>+0.1369</p></td>
+<td><p>0.018752</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.0000</p></td>
+<td><p>+0.2991</p></td>
+<td><p>0.089460</p></td>
+</tr>
+<tr class="row-even"><td><p>0.3784</p></td>
+<td><p>−0.3225</p></td>
+<td><p>0.104021</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><strong>Σ =</strong></p></td>
+<td><p><strong>0.624495</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[\sigma^2 = \frac{0.624495}{15} = \mathbf{0.041633}\]</div>
+</section>
+<hr class="docutils" />
+<section id="nilai-tugas-nilai-norm-0-4444-0-5556-0-6667-0-4889-0-8444-0-8889-0-7778-0-6222-0-5111-0-9333-0-9778-0-8222-0-8667-1-0-0-4667">
+<h4>▸ nilai_tugas (nilai norm: 0.4444, 0.5556, 0.6667, 0.4889, 0.8444, 0.8889, 0.7778, 0.6222, 0.5111, 0.9333, 0.9778, 0.8222, 0.8667, 1.0, 0.4667)<a class="headerlink" href="#nilai-tugas-nilai-norm-0-4444-0-5556-0-6667-0-4889-0-8444-0-8889-0-7778-0-6222-0-5111-0-9333-0-9778-0-8222-0-8667-1-0-0-4667" title="Link to this heading">#</a></h4>
+<p><strong>Mean:</strong>
+$<span class="math notranslate nohighlight">\(\mu = \frac{10.8667}{15} = \mathbf{0.7244}\)</span>$</p>
+<p><strong>Deviasi dan kuadrat:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math notranslate nohighlight">\(x_i\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(x_i - \mu\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\((x_i - \mu)^2\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.4444</p></td>
+<td><p>−0.2800</p></td>
+<td><p>0.078400</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.5556</p></td>
+<td><p>−0.1689</p></td>
+<td><p>0.028523</p></td>
+</tr>
+<tr class="row-even"><td><p>0.6667</p></td>
+<td><p>−0.0578</p></td>
+<td><p>0.003338</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.4889</p></td>
+<td><p>−0.2356</p></td>
+<td><p>0.055486</p></td>
+</tr>
+<tr class="row-even"><td><p>0.8444</p></td>
+<td><p>+0.1200</p></td>
+<td><p>0.014400</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.8889</p></td>
+<td><p>+0.1644</p></td>
+<td><p>0.027042</p></td>
+</tr>
+<tr class="row-even"><td><p>0.7778</p></td>
+<td><p>+0.0533</p></td>
+<td><p>0.002844</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.6222</p></td>
+<td><p>−0.1022</p></td>
+<td><p>0.010449</p></td>
+</tr>
+<tr class="row-even"><td><p>0.5111</p></td>
+<td><p>−0.2133</p></td>
+<td><p>0.045511</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.9333</p></td>
+<td><p>+0.2089</p></td>
+<td><p>0.043635</p></td>
+</tr>
+<tr class="row-even"><td><p>0.9778</p></td>
+<td><p>+0.2533</p></td>
+<td><p>0.064178</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.8222</p></td>
+<td><p>+0.0978</p></td>
+<td><p>0.009560</p></td>
+</tr>
+<tr class="row-even"><td><p>0.8667</p></td>
+<td><p>+0.1422</p></td>
+<td><p>0.020227</p></td>
+</tr>
+<tr class="row-odd"><td><p>1.0000</p></td>
+<td><p>+0.2756</p></td>
+<td><p>0.075931</p></td>
+</tr>
+<tr class="row-even"><td><p>0.4667</p></td>
+<td><p>−0.2578</p></td>
+<td><p>0.066449</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><strong>Σ =</strong></p></td>
+<td><p><strong>0.545975</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[\sigma^2 = \frac{0.545975}{15} = \mathbf{0.036398}\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="rekap-hasil-langkah-2">
+<h3>Rekap Hasil Langkah 2<a class="headerlink" href="#rekap-hasil-langkah-2" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Kelas 0 (Gagal)</p></th>
+<th class="head"><p></p></th>
+<th class="head"><p>Kelas 1 (Lulus)</p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Fitur</p></td>
+<td><p>μ</p></td>
+<td><p>σ²</p></td>
+<td><p>μ</p></td>
+<td><p>σ²</p></td>
+</tr>
+<tr class="row-odd"><td><p>jam_belajar</p></td>
+<td><p>0.1167</p></td>
+<td><p>0.011389</p></td>
+<td><p>0.6444</p></td>
+<td><p>0.047654</p></td>
+</tr>
+<tr class="row-even"><td><p>kehadiran</p></td>
+<td><p>0.2000</p></td>
+<td><p>0.015807</p></td>
+<td><p>0.7009</p></td>
+<td><p>0.041633</p></td>
+</tr>
+<tr class="row-odd"><td><p>nilai_tugas</p></td>
+<td><p>0.1800</p></td>
+<td><p>0.007748</p></td>
+<td><p>0.7244</p></td>
+<td><p>0.036398</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-3-prior">
+<h2>LANGKAH 3 — Prior<a class="headerlink" href="#langkah-3-prior" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[P(\text{Gagal}) = \frac{10}{25} = 0.40 \qquad P(\text{Lulus}) = \frac{15}{25} = 0.60\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-4-hitung-likelihood-dengan-distribusi-gaussian">
+<h2>LANGKAH 4 — Hitung Likelihood dengan Distribusi Gaussian<a class="headerlink" href="#langkah-4-hitung-likelihood-dengan-distribusi-gaussian" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[P(x \mid c) = \frac{1}{\sqrt{2\pi\sigma^2}} \cdot e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}\]</div>
+<hr class="docutils" />
+<section id="kelas-0-gagal">
+<h3>🔴 KELAS 0 (Gagal)<a class="headerlink" href="#kelas-0-gagal" title="Link to this heading">#</a></h3>
+<p><strong>▸ P(jam_belajar = 0.6667 | Gagal)</strong></p>
+<div class="math notranslate nohighlight">
+\[x - \mu = 0.6667 - 0.1167 = 0.5500\]</div>
+<div class="math notranslate nohighlight">
+\[(x-\mu)^2 = (0.5500)^2 = 0.3025\]</div>
+<div class="math notranslate nohighlight">
+\[\text{eksponen} = -\frac{0.3025}{2 \times 0.011389} = -\frac{0.3025}{0.022778} = -13.2803\]</div>
+<div class="math notranslate nohighlight">
+\[e^{-13.2803} = 0.000002\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{2\pi \times 0.011389}} = \frac{1}{\sqrt{0.071559}} = \frac{1}{0.267506} = 3.7382\]</div>
+<div class="math notranslate nohighlight">
+\[\boxed{P = 3.7382 \times 0.000002 = 0.000006}\]</div>
+<p><strong>▸ P(kehadiran = 0.6757 | Gagal)</strong></p>
+<div class="math notranslate nohighlight">
+\[x - \mu = 0.6757 - 0.2000 = 0.4757\]</div>
+<div class="math notranslate nohighlight">
+\[(x-\mu)^2 = (0.4757)^2 = 0.2263\]</div>
+<div class="math notranslate nohighlight">
+\[\text{eksponen} = -\frac{0.2263}{2 \times 0.015807} = -\frac{0.2263}{0.031614} = -7.1572\]</div>
+<div class="math notranslate nohighlight">
+\[e^{-7.1572} = 0.000779\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{2\pi \times 0.015807}} = \frac{1}{0.315148} = 3.1731\]</div>
+<div class="math notranslate nohighlight">
+\[\boxed{P = 3.1731 \times 0.000779 = 0.002473}\]</div>
+<p><strong>▸ P(nilai_tugas = 0.6667 | Gagal)</strong></p>
+<div class="math notranslate nohighlight">
+\[x - \mu = 0.6667 - 0.1800 = 0.4867\]</div>
+<div class="math notranslate nohighlight">
+\[(x-\mu)^2 = (0.4867)^2 = 0.2368\]</div>
+<div class="math notranslate nohighlight">
+\[\text{eksponen} = -\frac{0.2368}{2 \times 0.007748} = -\frac{0.2368}{0.015496} = -15.2842\]</div>
+<div class="math notranslate nohighlight">
+\[e^{-15.2842} = 0.000000\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{2\pi \times 0.007748}} = \frac{1}{0.220640} = 4.5323\]</div>
+<div class="math notranslate nohighlight">
+\[\boxed{P = 4.5323 \times 0.000000 = 0.000001}\]</div>
+<p><strong>▸ Posterior Kelas 0:</strong>
+$<span class="math notranslate nohighlight">\(\text{Posterior}_0 = 0.000006 \times 0.002473 \times 0.000001 \times 0.40 \approx \mathbf{0.000000}\)</span>$</p>
+</section>
+<hr class="docutils" />
+<section id="kelas-1-lulus">
+<h3>🟢 KELAS 1 (Lulus)<a class="headerlink" href="#kelas-1-lulus" title="Link to this heading">#</a></h3>
+<p><strong>▸ P(jam_belajar = 0.6667 | Lulus)</strong></p>
+<div class="math notranslate nohighlight">
+\[x - \mu = 0.6667 - 0.6444 = 0.0222\]</div>
+<div class="math notranslate nohighlight">
+\[(x-\mu)^2 = (0.0222)^2 = 0.000494\]</div>
+<div class="math notranslate nohighlight">
+\[\text{eksponen} = -\frac{0.000494}{2 \times 0.047654} = -\frac{0.000494}{0.095308} = -0.005182\]</div>
+<div class="math notranslate nohighlight">
+\[e^{-0.005182} = 0.994832\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{2\pi \times 0.047654}} = \frac{1}{0.547192} = 1.8275\]</div>
+<div class="math notranslate nohighlight">
+\[\boxed{P = 1.8275 \times 0.994832 = 1.8181}\]</div>
+<p><strong>▸ P(kehadiran = 0.6757 | Lulus)</strong></p>
+<div class="math notranslate nohighlight">
+\[x - \mu = 0.6757 - 0.7009 = -0.0252\]</div>
+<div class="math notranslate nohighlight">
+\[(x-\mu)^2 = (-0.0252)^2 = 0.000636\]</div>
+<div class="math notranslate nohighlight">
+\[\text{eksponen} = -\frac{0.000636}{2 \times 0.041633} = -\frac{0.000636}{0.083266} = -0.007642\]</div>
+<div class="math notranslate nohighlight">
+\[e^{-0.007642} = 0.992387\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{2\pi \times 0.041633}} = \frac{1}{0.511457} = 1.9552\]</div>
+<div class="math notranslate nohighlight">
+\[\boxed{P = 1.9552 \times 0.992387 = 1.9403}\]</div>
+<p><strong>▸ P(nilai_tugas = 0.6667 | Lulus)</strong></p>
+<div class="math notranslate nohighlight">
+\[x - \mu = 0.6667 - 0.7244 = -0.0578\]</div>
+<div class="math notranslate nohighlight">
+\[(x-\mu)^2 = (-0.0578)^2 = 0.003338\]</div>
+<div class="math notranslate nohighlight">
+\[\text{eksponen} = -\frac{0.003338}{2 \times 0.036398} = -\frac{0.003338}{0.072796} = -0.045857\]</div>
+<div class="math notranslate nohighlight">
+\[e^{-0.045857} = 0.955178\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\sqrt{2\pi \times 0.036398}} = \frac{1}{0.478221} = 2.0911\]</div>
+<div class="math notranslate nohighlight">
+\[\boxed{P = 2.0911 \times 0.955178 = 1.9974}\]</div>
+<p><strong>▸ Posterior Kelas 1:</strong>
+$<span class="math notranslate nohighlight">\(\text{Posterior}_1 = 1.8181 \times 1.9403 \times 1.9974 \times 0.60 = \mathbf{4.2276}\)</span>$</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-5-keputusan-akhir">
+<h2>LANGKAH 5 — Keputusan Akhir<a class="headerlink" href="#langkah-5-keputusan-akhir" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kelas</p></th>
+<th class="head"><p>Posterior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Kelas 0 (Gagal)</p></td>
+<td><p>≈ 0.000000</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Kelas 1 (Lulus)</strong></p></td>
+<td><p><strong>4.2276</strong> ✅</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[\text{Posterior}_1\ (4.2276) \gg \text{Posterior}_0\ (0.000000)\]</div>
+<p><strong>→ Data uji (jam=5, hadir=85%, tugas=80) diprediksi: LULUS</strong></p>
+<hr class="docutils" />
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="naive_bayes.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Tugas Klasifikasi: Naive Bayes</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-normalisasi-min-max">LANGKAH 1 — Normalisasi Min-Max</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-mean-dan-variance-2-per-kelas">LANGKAH 2 — Hitung Mean (μ) dan Variance (σ²) Per Kelas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-0-gagal-10-data-baris-1-2-3-4-5-6-7-8-24-25">🔴 KELAS 0 — Gagal (10 data: baris 1,2,3,4,5,6,7,8,24,25)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jam-belajar-nilai-norm-0-0-1667-0-0-1667-0-3333-0-1667-0-0-1667-0-1667-0">▸ jam_belajar (nilai norm: 0, 0.1667, 0, 0.1667, 0.3333, 0.1667, 0, 0.1667, 0.1667, 0)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kehadiran-nilai-norm-0-0-1351-0-2703-0-4054-0-0-2162-0-3243-0-2703-0-2432-0-1351">▸ kehadiran (nilai norm: 0, 0.1351, 0.2703, 0.4054, 0, 0.2162, 0.3243, 0.2703, 0.2432, 0.1351)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nilai-tugas-nilai-norm-0-0-1111-0-2222-0-1778-0-3333-0-2667-0-1556-0-2-0-2222-0-1111">▸ nilai_tugas (nilai norm: 0, 0.1111, 0.2222, 0.1778, 0.3333, 0.2667, 0.1556, 0.2, 0.2222, 0.1111)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-1-lulus-15-data-baris-923">🟢 KELAS 1 — Lulus (15 data: baris 9–23)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jam-belajar-nilai-norm-0-3333-0-5-0-6667-0-5-0-6667-0-8333-0-6667-0-5-0-3333-0-8333-1-0-0-6667-0-8333-1-0-0-3333">▸ jam_belajar (nilai norm: 0.3333, 0.5, 0.6667, 0.5, 0.6667, 0.8333, 0.6667, 0.5, 0.3333, 0.8333, 1.0, 0.6667, 0.8333, 1.0, 0.3333)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kehadiran-nilai-norm-0-4054-0-5405-0-6757-0-4865-0-8108-0-8649-0-7568-0-5946-0-4595-0-9459-0-9730-0-7838-0-8378-1-0-0-3784">▸ kehadiran (nilai norm: 0.4054, 0.5405, 0.6757, 0.4865, 0.8108, 0.8649, 0.7568, 0.5946, 0.4595, 0.9459, 0.9730, 0.7838, 0.8378, 1.0, 0.3784)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nilai-tugas-nilai-norm-0-4444-0-5556-0-6667-0-4889-0-8444-0-8889-0-7778-0-6222-0-5111-0-9333-0-9778-0-8222-0-8667-1-0-0-4667">▸ nilai_tugas (nilai norm: 0.4444, 0.5556, 0.6667, 0.4889, 0.8444, 0.8889, 0.7778, 0.6222, 0.5111, 0.9333, 0.9778, 0.8222, 0.8667, 1.0, 0.4667)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rekap-hasil-langkah-2">Rekap Hasil Langkah 2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-prior">LANGKAH 3 — Prior</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-hitung-likelihood-dengan-distribusi-gaussian">LANGKAH 4 — Hitung Likelihood dengan Distribusi Gaussian</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-0-gagal">🔴 KELAS 0 (Gagal)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-1-lulus">🟢 KELAS 1 (Lulus)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-keputusan-akhir">LANGKAH 5 — Keputusan Akhir</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
