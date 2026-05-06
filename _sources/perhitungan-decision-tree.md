@@ -184,25 +184,30 @@ Berbeda dengan Information Gain yang menggunakan Entropy, Gini mengukur tingkat 
 :alt: Konfigurasi Decision Tree View
 :align: center
 
+**Gambar 6.** Tampilan konfigurasi Decision Tree.
+```
+
 ```{figure} images/desicion_tree/view.png
-:alt: tampilan
+:alt: Visualisasi Decision Tree
 :align: center
 
 **Gambar 7.** Visualisasi Decision Tree.
 ```
 
-**Fungsi:** Menampilkan visualisasi pohon keputusan yang sudah dilatih.
+**Fungsi:**  
+Menampilkan visualisasi pohon keputusan yang sudah dilatih.
 
 **Konfigurasi:**
 - **Expanded Levels:** 1
 - **Orientation:** Top-down
 
 **Penjelasan:**
-- Pengaturan expanded levels = 1 membuatvisualisasi tidak terlalu rumit
-- Audiens dapat melihat struktur pohon dengan lebih mudah
-- dapat di-expand lebih lanjut secara interaktif
+- Pengaturan *expanded levels = 1* membuat visualisasi tidak terlalu rumit  
+- Audiens dapat melihat struktur pohon dengan lebih mudah  
+- Dapat di-*expand* lebih lanjut secara interaktif  
 
-**Output:** Visualisasi pohon keputusan dalam bentuk grafik
+**Output:**  
+Visualisasi pohon keputusan dalam bentuk grafik
 
 ---
 
