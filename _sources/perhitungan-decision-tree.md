@@ -184,6 +184,10 @@ Berbeda dengan Information Gain yang menggunakan Entropy, Gini mengukur tingkat 
 :alt: Konfigurasi Decision Tree View
 :align: center
 
+```{figure} images/desicion_tree/view.png
+:alt: tampilan
+:align: center
+
 **Gambar 7.** Visualisasi Decision Tree.
 ```
 
