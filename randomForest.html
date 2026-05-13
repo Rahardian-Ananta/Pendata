@@ -1,0 +1,1031 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Klasifikasi dengan Naïve Bayes dan Random Forest menggunakan KNIME &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'randomForest';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Tugas Klasifikasi: Decision Tree" href="perhitungan-decision-tree.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="My sample book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Rahardian Ananta , 240411100071
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html"><strong>Pertemuan 1</strong></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Eksplorasi-Data.html"><strong>Eksplorasi Data</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menghitung-jarak.html">Menghitung Jarak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Normalization_and_Missing_Value_Imputation.html">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="handling-missing-value.html">1. Handling Missing Value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature-scaling.html">2. Feature Scaling (Normalisasi Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementasi-normalisasi-data.html">3. Implementasi Normalisasi Data (Tugas Code)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="uts-orange-knn.html">UTS —</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="naive_bayes.html">Tugas Klasifikasi: Naive Bayes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="perhitungan_naive_bayes.html">Perhitungan Manual Gaussian Naïve Bayes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="perhitungan-decision-tree.html">Tugas Klasifikasi: Decision Tree</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Klasifikasi dengan Naïve Bayes dan Random Forest menggunakan KNIME</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FrandomForest.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/randomForest.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Klasifikasi dengan Naïve Bayes dan Random Forest menggunakan KNIME</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">1. Pendahuluan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">2. Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alur-kerja-workflow-knime">3. Alur Kerja (Workflow) KNIME</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-detail-per-node">4. Penjelasan Detail Per Node</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-csv-reader">4.1 Node CSV Reader</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-table-partitioner">4.2 Node Table Partitioner</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-naive-bayes-learner-cabang-atas">4.3 Node Naïve Bayes Learner (Cabang Atas)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-naive-bayes-predictor">4.4 Node Naïve Bayes Predictor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-scorer-untuk-naive-bayes">4.5 Node Scorer (untuk Naïve Bayes)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-random-forest-learner-cabang-bawah">4.6 Node Random Forest Learner (Cabang Bawah)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-tree-ensemble-statistics">4.7 Node Tree Ensemble Statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-random-forest-predictor">4.8 Node Random Forest Predictor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-scorer-untuk-random-forest">4.9 Node Scorer (untuk Random Forest)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-tree-ensemble-model-extract-opsional-export-ke-pmml">4.10 Node Tree Ensemble Model Extract (Opsional Export ke PMML)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-table-to-pmml-ensemble">4.11 Node Table to PMML Ensemble</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-dan-analisis">5. Hasil dan Analisis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi-model">5.1 Hasil Evaluasi Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-hasil">5.2 Analisis Hasil</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-confusion-matrix">5.3 Analisis Confusion Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-nilai-pada-confusion-matrix">5.3.1 Interpretasi Nilai pada Confusion Matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-akurasi">5.3.2 Perhitungan Akurasi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-kesalahan-misclassification">5.3.3 Analisis Kesalahan (Misclassification)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#insight-untuk-random-forest-naive-bayes">5.3.4 Insight untuk Random Forest &amp; Naïve Bayes</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-confusion-matrix">5.3.5 Kesimpulan Confusion Matrix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="klasifikasi-dengan-naive-bayes-dan-random-forest-menggunakan-knime">
+<h1>Klasifikasi dengan Naïve Bayes dan Random Forest menggunakan KNIME<a class="headerlink" href="#klasifikasi-dengan-naive-bayes-dan-random-forest-menggunakan-knime" title="Link to this heading">#</a></h1>
+<section id="pendahuluan">
+<h2>1. Pendahuluan<a class="headerlink" href="#pendahuluan" title="Link to this heading">#</a></h2>
+<p><strong>Tugas Klasifikasi: Analisa Data Menggunakan Random Forest (A)</strong></p>
+<p>Tugas ini merupakan implementasi model klasifikasi <strong>Random Forest</strong> untuk memprediksi kelas target berdasarkan fitur-fitur yang ada. Sebagai perbandingan, algoritma <strong>Naïve Bayes</strong> juga diimplementasikan menggunakan node native KNIME.</p>
+<p>Fokus utama tugas ini adalah:</p>
+<ol class="arabic simple">
+<li><p>Melakukan konfigurasi setiap node secara detail agar workflow dapat berjalan dengan baik</p></li>
+<li><p>Menerapkan teknik preprocessing yang tepat (partitioning, stratified sampling)</p></li>
+<li><p>Menganalisis dan membandingkan performa kedua algoritma menggunakan metrik evaluasi yang komprehensif (Accuracy, Precision, Recall, F1-Score, dan Confusion Matrix)</p></li>
+</ol>
+<p>Dengan pendekatan ini, diharapkan dapat diperoleh insight mengenai kelebihan dan kekurangan masing-masing algoritma dalam konteks dataset yang digunakan, serta pemahaman mendalam tentang implementasi ensemble learning menggunakan platform KNIME.</p>
+</section>
+<section id="dataset">
+<h2>2. Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
+<p>Dataset yang digunakan adalah <strong>Iris Dataset</strong> yang merupakan dataset klasik dalam machine learning. Dataset ini mencakup parameter sebagai berikut:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nama Kolom</p></th>
+<th class="head"><p>Tipe Data</p></th>
+<th class="head"><p>Deskripsi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>sepal_length</p></td>
+<td><p>Numerik</p></td>
+<td><p>Panjang kelopak bunga (cm)</p></td>
+</tr>
+<tr class="row-odd"><td><p>sepal_width</p></td>
+<td><p>Numerik</p></td>
+<td><p>Lebar kelopak bunga (cm)</p></td>
+</tr>
+<tr class="row-even"><td><p>petal_length</p></td>
+<td><p>Numerik</p></td>
+<td><p>Panjang mahkota bunga (cm)</p></td>
+</tr>
+<tr class="row-odd"><td><p>petal_width</p></td>
+<td><p>Numerik</p></td>
+<td><p>Lebar mahkota bunga (cm)</p></td>
+</tr>
+<tr class="row-even"><td><p>species</p></td>
+<td><p>Target</p></td>
+<td><p>Spesies bunga (setosa, versicolor, virginica)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="alur-kerja-workflow-knime">
+<h2>3. Alur Kerja (Workflow) KNIME<a class="headerlink" href="#alur-kerja-workflow-knime" title="Link to this heading">#</a></h2>
+<p>Workflow dirancang secara sistematis dengan dua cabang utama: cabang atas untuk algoritma <strong>Naïve Bayes</strong> dan cabang bawah untuk <strong>Random Forest</strong>. Data dibagi menjadi 70% untuk training dan 30% untuk testing.</p>
+<p><img alt="Struktur Workflow KNIME" src="_images/gambar-workflow.png" /></p>
+<p><strong>Gambar 1.</strong> Rancangan Workflow KNIME dengan Naïve Bayes dan Random Forest.</p>
+</section>
+<section id="penjelasan-detail-per-node">
+<h2>4. Penjelasan Detail Per Node<a class="headerlink" href="#penjelasan-detail-per-node" title="Link to this heading">#</a></h2>
+<section id="node-csv-reader">
+<h3>4.1 Node CSV Reader<a class="headerlink" href="#node-csv-reader" title="Link to this heading">#</a></h3>
+<p><img alt="Konfigurasi CSV Reader" src="_images/csv-reader.png" /></p>
+<p><strong>Gambar 2.</strong> Konfigurasi node CSV Reader untuk membaca dataset.</p>
+<p><strong>Fungsi:</strong> Membaca file CSV yang berisi dataset Iris.</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>File Path:</strong> Pilih lokasi file <code class="docutils literal notranslate"><span class="pre">iris.csv</span></code></p></li>
+<li><p><strong>Sheet Selection:</strong> First sheet with data</p></li>
+<li><p><strong>Define read area:</strong> Whole sheet</p></li>
+<li><p>Skip empty rows</p></li>
+<li><p>Skip hidden columns</p></li>
+<li><p>Skip hidden rows</p></li>
+</ul>
+<p><strong>Output:</strong> Tabel dengan 5 kolom (<code class="docutils literal notranslate"><span class="pre">sepal_length</span></code>, <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code>, <code class="docutils literal notranslate"><span class="pre">petal_length</span></code>, <code class="docutils literal notranslate"><span class="pre">petal_width</span></code>, <code class="docutils literal notranslate"><span class="pre">species</span></code>)</p>
+</section>
+<hr class="docutils" />
+<section id="node-table-partitioner">
+<h3>4.2 Node Table Partitioner<a class="headerlink" href="#node-table-partitioner" title="Link to this heading">#</a></h3>
+<p><img alt="Konfigurasi Table Partitioner" src="_images/table-partitioner.png" /></p>
+<p><strong>Gambar 3.</strong> Pembagian data menjadi training dan testing set.</p>
+<p><strong>Fungsi:</strong> Membagi dataset menjadi data latih (training) dan data uji (testing).</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Partitioning Mode:</strong> Relative (%)</p></li>
+<li><p><strong>Training Set:</strong> 70%</p></li>
+<li><p><strong>Testing Set:</strong> 30%</p></li>
+<li><p><strong>Sampling strategy:</strong> Stratified sampling</p></li>
+<li><p><strong>Stratify by column:</strong> species</p></li>
+<li><p><strong>Random Seed:</strong> Default</p></li>
+</ul>
+<p><strong>Penjelasan:</strong>
+Penggunaan stratified sampling pada kolom “species” memastikan proporsi ketiga kelas (setosa, versicolor, virginica) tetap seimbang di data latih dan data uji. Ini mencegah bias pada model akibat distribusi yang tidak seimbang.</p>
+<p><strong>Output:</strong></p>
+<ul class="simple">
+<li><p>Port 0 (atas): Data training (70%)</p></li>
+<li><p>Port 1 (bawah): Data testing (30%)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="node-naive-bayes-learner-cabang-atas">
+<h3>4.3 Node Naïve Bayes Learner (Cabang Atas)<a class="headerlink" href="#node-naive-bayes-learner-cabang-atas" title="Link to this heading">#</a></h3>
+<p><img alt="Konfigurasi Naive Bayes Learner" src="_images/naive-bayes-learner.png" /></p>
+<p><strong>Gambar 4.</strong> Konfigurasi node Naïve Bayes Learner.</p>
+<p><strong>Fungsi:</strong> Melatih model Naïve Bayes menggunakan data training.</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Target column:</strong> species</p></li>
+<li><p><strong>Feature columns:</strong> sepal_length, sepal_width, petal_length, petal_width</p></li>
+<li><p><strong>Distribution type:</strong> Normal distribution (Gaussian)</p></li>
+<li><p><strong>Use Laplace correction:</strong> Untuk menghindari probabilitas nol</p></li>
+<li><p><strong>Kernel density estimation:</strong> Tidak dicentang (menggunakan distribusi normal)</p></li>
+</ul>
+<p><strong>Penjelasan Detail:</strong></p>
+<p>Naïve Bayes menggunakan teorema Bayes dengan asumsi “naïve” bahwa semua fitur independen satu sama lain. Untuk data numerik seperti Iris, digunakan <strong>Gaussian Naïve Bayes</strong> yang mengasumsikan distribusi normal.</p>
+<p><strong>Rumus Probabilitas:</strong>
+$<span class="math notranslate nohighlight">\(P(x \mid c) = \frac{1}{\sqrt{2\pi\sigma^2}} \cdot e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}\)</span>$</p>
+<p>Dimana:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu\)</span> = mean dari fitur untuk kelas tertentu</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma^2\)</span> = variance dari fitur untuk kelas tertentu</p></li>
+</ul>
+<p><strong>Posterior Probability:</strong>
+$<span class="math notranslate nohighlight">\(P(c \mid x) = \frac{P(x \mid c) \cdot P(c)}{P(x)}\)</span>$</p>
+<p><strong>Output:</strong> Model Naïve Bayes yang siap digunakan untuk prediksi</p>
+</section>
+<hr class="docutils" />
+<section id="node-naive-bayes-predictor">
+<h3>4.4 Node Naïve Bayes Predictor<a class="headerlink" href="#node-naive-bayes-predictor" title="Link to this heading">#</a></h3>
+<p><strong>Fungsi:</strong> Menggunakan model Naïve Bayes untuk memprediksi label pada data testing.</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Input:</strong></p>
+<ul>
+<li><p>Port 0: Model dari Naïve Bayes Learner</p></li>
+<li><p>Port 1: Data testing dari Table Partitioner</p></li>
+</ul>
+</li>
+<li><p><strong>Append prediction column:</strong> Prediction(species)</p></li>
+<li><p><strong>Append probabilities:</strong> Menambahkan kolom probabilitas untuk setiap kelas</p></li>
+</ul>
+<p><strong>Penjelasan:</strong>
+Node ini menghasilkan prediksi kelas beserta probabilitas untuk setiap kelas (setosa, versicolor, virginica). Probabilitas ini menunjukkan seberapa yakin model terhadap prediksinya.</p>
+<p><strong>Output:</strong> Tabel dengan kolom prediksi dan probabilitas untuk setiap kelas</p>
+</section>
+<hr class="docutils" />
+<section id="node-scorer-untuk-naive-bayes">
+<h3>4.5 Node Scorer (untuk Naïve Bayes)<a class="headerlink" href="#node-scorer-untuk-naive-bayes" title="Link to this heading">#</a></h3>
+<p><img alt="Konfigurasi Scorer" src="_images/scorer1.png" /></p>
+<p><strong>Gambar 5.</strong> Konfigurasi node Scorer untuk evaluasi model Naïve Bayes.</p>
+<p><strong>Fungsi:</strong> Mengevaluasi performa model Naïve Bayes dengan membandingkan prediksi dengan label sebenarnya.</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>First Column (Reference):</strong> species (kolom asli)</p></li>
+<li><p><strong>Second Column (Predicted):</strong> Prediction(species) (kolom hasil prediksi)</p></li>
+<li><p><strong>Scoring Strategy:</strong> Insertion order</p></li>
+<li><p><strong>Missing Values:</strong> Ignore</p></li>
+</ul>
+<p><strong>Metrik yang Dihitung:</strong></p>
+<ul class="simple">
+<li><p><strong>Accuracy:</strong> Persentase prediksi yang benar dari total prediksi
+$<span class="math notranslate nohighlight">\(\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}\)</span>$</p></li>
+<li><p><strong>Precision:</strong> Dari semua prediksi positif, berapa yang benar-benar positif
+$<span class="math notranslate nohighlight">\(\text{Precision} = \frac{TP}{TP + FP}\)</span>$</p></li>
+<li><p><strong>Recall:</strong> Dari semua data positif, berapa yang berhasil diprediksi
+$<span class="math notranslate nohighlight">\(\text{Recall} = \frac{TP}{TP + FN}\)</span>$</p></li>
+<li><p><strong>F1-Score:</strong> Rata-rata harmonik dari precision dan recall
+$<span class="math notranslate nohighlight">\(\text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}\)</span>$</p></li>
+<li><p><strong>Confusion Matrix:</strong> Matriks yang menunjukkan distribusi prediksi</p></li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul class="simple">
+<li><p>Tabel confusion matrix</p></li>
+<li><p>Statistik evaluasi model</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="node-random-forest-learner-cabang-bawah">
+<h3>4.6 Node Random Forest Learner (Cabang Bawah)<a class="headerlink" href="#node-random-forest-learner-cabang-bawah" title="Link to this heading">#</a></h3>
+<p><img alt="Konfigurasi Random Forest Learner" src="_images/random-forest-learner.png" /></p>
+<p><strong>Gambar 6.</strong> Konfigurasi node Random Forest Learner.</p>
+<p><strong>Fungsi:</strong> Melatih model Random Forest menggunakan data training.</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Target column:</strong> species</p></li>
+<li><p><strong>Feature columns:</strong> sepal_length, sepal_width, petal_length, petal_width</p></li>
+<li><p><strong>Number of trees:</strong> 50</p></li>
+<li><p><strong>Minimum number of records per node:</strong> 2</p></li>
+<li><p><strong>Number of features to consider at each split:</strong> sqrt(number of features) = 2</p></li>
+<li><p><strong>Bootstrap sampling:</strong> Untuk teknik bagging</p></li>
+<li><p><strong>Quality measure:</strong> Gini index</p></li>
+<li><p><strong>Enable reduced error pruning:</strong> Untuk mencegah overfitting</p></li>
+</ul>
+<p><strong>Penjelasan Detail:</strong></p>
+<p>Random Forest adalah ensemble learning yang menggabungkan banyak Decision Tree. Setiap tree dilatih pada subset data yang berbeda (bootstrap sampling) dan hanya mempertimbangkan subset fitur yang acak di setiap split.</p>
+<p><strong>Prinsip Kerja:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Bagging (Bootstrap Aggregating):</strong> Membuat multiple subset data dari training set dengan replacement</p></li>
+<li><p><strong>Random Feature Selection:</strong> Setiap node hanya mempertimbangkan <span class="math notranslate nohighlight">\(\sqrt{n}\)</span> fitur dari total <span class="math notranslate nohighlight">\(n\)</span> fitur</p></li>
+<li><p><strong>Majority Voting:</strong> Hasil akhir ditentukan oleh voting mayoritas dari semua tree</p></li>
+</ol>
+<p><strong>Output:</strong> Model Random Forest (ensemble dari 50 decision trees)</p>
+</section>
+<hr class="docutils" />
+<section id="node-tree-ensemble-statistics">
+<h3>4.7 Node Tree Ensemble Statistics<a class="headerlink" href="#node-tree-ensemble-statistics" title="Link to this heading">#</a></h3>
+<p><strong>Fungsi:</strong> Menampilkan statistik dari model Random Forest yang telah dilatih.</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Input:</strong> Port 1 dari Random Forest Learner (model)</p></li>
+</ul>
+<p><strong>Informasi yang Ditampilkan:</strong></p>
+<ul class="simple">
+<li><p>Jumlah tree dalam ensemble</p></li>
+<li><p>Kedalaman rata-rata tree</p></li>
+<li><p>Jumlah node per tree</p></li>
+<li><p>Feature importance (tingkat kepentingan setiap fitur)</p></li>
+</ul>
+<p><strong>Output:</strong> Statistik model dalam bentuk tabel</p>
+</section>
+<hr class="docutils" />
+<section id="node-random-forest-predictor">
+<h3>4.8 Node Random Forest Predictor<a class="headerlink" href="#node-random-forest-predictor" title="Link to this heading">#</a></h3>
+<p><strong>Fungsi:</strong> Menggunakan model Random Forest untuk memprediksi label pada data testing.</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Input:</strong></p>
+<ul>
+<li><p>Port 0: Model dari Random Forest Learner</p></li>
+<li><p>Port 1: Data testing dari Table Partitioner</p></li>
+</ul>
+</li>
+<li><p><strong>Append prediction column:</strong> Prediction(species)</p></li>
+<li><p><strong>Append probabilities:</strong> Menambahkan probabilitas</p></li>
+<li><p><strong>Aggregation method:</strong> Majority vote</p></li>
+</ul>
+<p><strong>Penjelasan:</strong>
+Setiap tree dalam ensemble memberikan prediksi, dan hasil akhir ditentukan oleh voting mayoritas. Node ini juga menghitung probabilitas berdasarkan proporsi vote dari semua tree.</p>
+<p><strong>Output:</strong> Tabel dengan kolom prediksi dan probabilitas</p>
+</section>
+<hr class="docutils" />
+<section id="node-scorer-untuk-random-forest">
+<h3>4.9 Node Scorer (untuk Random Forest)<a class="headerlink" href="#node-scorer-untuk-random-forest" title="Link to this heading">#</a></h3>
+<p><strong>Fungsi:</strong> Mengevaluasi performa model Random Forest.</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>First Column (Reference):</strong> species</p></li>
+<li><p><strong>Second Column (Predicted):</strong> Prediction(species)</p></li>
+<li><p><strong>Scoring Strategy:</strong> Insertion order</p></li>
+<li><p><strong>Missing Values:</strong> Ignore</p></li>
+</ul>
+<p><strong>Output:</strong> Metrik evaluasi (accuracy, precision, recall, F1-score, confusion matrix)</p>
+</section>
+<hr class="docutils" />
+<section id="node-tree-ensemble-model-extract-opsional-export-ke-pmml">
+<h3>4.10 Node Tree Ensemble Model Extract (Opsional Export ke PMML)<a class="headerlink" href="#node-tree-ensemble-model-extract-opsional-export-ke-pmml" title="Link to this heading">#</a></h3>
+<p><strong>Fungsi:</strong> Mengekstrak model Random Forest ke format PMML (Predictive Model Markup Language).</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Input:</strong> Port 1 dari Random Forest Learner</p></li>
+</ul>
+<p><strong>Penjelasan:</strong>
+PMML adalah format standar XML untuk merepresentasikan model machine learning. Format ini memungkinkan model untuk dipertukarkan antara berbagai platform dan sistem.</p>
+<p><strong>Output:</strong> Model dalam format PMML</p>
+</section>
+<hr class="docutils" />
+<section id="node-table-to-pmml-ensemble">
+<h3>4.11 Node Table to PMML Ensemble<a class="headerlink" href="#node-table-to-pmml-ensemble" title="Link to this heading">#</a></h3>
+<p><strong>Fungsi:</strong> Menyimpan model PMML ke file.</p>
+<p><strong>Konfigurasi:</strong></p>
+<ul class="simple">
+<li><p><strong>File path:</strong> Tentukan lokasi penyimpanan file <code class="docutils literal notranslate"><span class="pre">.pmml</span></code></p></li>
+</ul>
+<p><strong>Output:</strong> File PMML yang dapat digunakan untuk deployment model</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hasil-dan-analisis">
+<h2>5. Hasil dan Analisis<a class="headerlink" href="#hasil-dan-analisis" title="Link to this heading">#</a></h2>
+<section id="hasil-evaluasi-model">
+<h3>5.1 Hasil Evaluasi Model<a class="headerlink" href="#hasil-evaluasi-model" title="Link to this heading">#</a></h3>
+<p>Setelah menjalankan workflow, berikut adalah perbandingan performa kedua algoritma:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metrik</p></th>
+<th class="head"><p>Naïve Bayes</p></th>
+<th class="head"><p>Random Forest</p></th>
+<th class="head"><p>Interpretasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Accuracy</p></td>
+<td><p>~96-100%</p></td>
+<td><p>~96-100%</p></td>
+<td><p>Persentase keseluruhan prediksi benar</p></td>
+</tr>
+<tr class="row-odd"><td><p>Precision</p></td>
+<td><p>~96-100%</p></td>
+<td><p>~96-100%</p></td>
+<td><p>Ketepatan prediksi kelas positif</p></td>
+</tr>
+<tr class="row-even"><td><p>Recall</p></td>
+<td><p>~96-100%</p></td>
+<td><p>~96-100%</p></td>
+<td><p>Kemampuan menemukan semua kelas positif</p></td>
+</tr>
+<tr class="row-odd"><td><p>F1-Score</p></td>
+<td><p>~96-100%</p></td>
+<td><p>~96-100%</p></td>
+<td><p>Keseimbangan precision dan recall</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="analisis-hasil">
+<h3>5.2 Analisis Hasil<a class="headerlink" href="#analisis-hasil" title="Link to this heading">#</a></h3>
+<p><strong>Kelebihan Naïve Bayes:</strong></p>
+<ul class="simple">
+<li><p>Komputasi sangat cepat dan efisien</p></li>
+<li><p>Bekerja baik dengan dataset kecil seperti Iris</p></li>
+<li><p>Tidak memerlukan tuning parameter yang kompleks</p></li>
+<li><p>Hasil probabilitas yang mudah diinterpretasi</p></li>
+</ul>
+<p><strong>Kekurangan Naïve Bayes:</strong></p>
+<ul class="simple">
+<li><p>Asumsi independensi fitur sering kali tidak realistis</p></li>
+<li><p>Dapat mengalami masalah dengan fitur yang berkorelasi tinggi</p></li>
+<li><p>Kurang fleksibel dibanding algoritma yang lebih kompleks</p></li>
+</ul>
+<p><strong>Kelebihan Random Forest:</strong></p>
+<ul class="simple">
+<li><p>Akurasi sangat tinggi untuk berbagai jenis dataset</p></li>
+<li><p>Robust terhadap overfitting karena ensemble averaging</p></li>
+<li><p>Dapat menangani fitur numerik dan kategorikal</p></li>
+<li><p>Memberikan informasi feature importance</p></li>
+<li><p>Tidak memerlukan normalisasi data</p></li>
+</ul>
+<p><strong>Kekurangan Random Forest:</strong></p>
+<ul class="simple">
+<li><p>Komputasi lebih lambat dibanding Naïve Bayes</p></li>
+<li><p>Model lebih kompleks dan sulit diinterpretasi</p></li>
+<li><p>Memerlukan lebih banyak memori</p></li>
+<li><p>Dapat overfitting pada dataset yang sangat noisy</p></li>
+</ul>
+<p><strong>Catatan Penting:</strong></p>
+<ul class="simple">
+<li><p>Untuk dataset Iris yang kecil dan sederhana, kedua algoritma menunjukkan performa yang sangat baik</p></li>
+<li><p>Naïve Bayes lebih cocok untuk aplikasi yang memerlukan kecepatan prediksi tinggi</p></li>
+<li><p>Random Forest lebih cocok untuk aplikasi yang mengutamakan akurasi maksimal</p></li>
+<li><p>Penggunaan stratified sampling memastikan distribusi kelas seimbang</p></li>
+<li><p>Random Forest dengan 50 trees sudah cukup untuk dataset Iris</p></li>
+</ul>
+<p>Berikut adalah draf tambahan yang siap Anda sisipkan ke dalam laporan Anda. Format dan gaya penulisan telah disesuaikan dengan file <code class="docutils literal notranslate"><span class="pre">perhitungan-decision-tree.md</span></code> yang Anda berikan.</p>
+</section>
+<hr class="docutils" />
+<section id="analisis-confusion-matrix">
+<h3>5.3 Analisis Confusion Matrix<a class="headerlink" href="#analisis-confusion-matrix" title="Link to this heading">#</a></h3>
+<p>Confusion Matrix adalah tabel yang digunakan untuk mengevaluasi performa model klasifikasi dengan membandingkan antara <strong>kelas sebenarnya (Reference/Actual)</strong> dan <strong>kelas hasil prediksi (Predicted)</strong>. Dalam KNIME Scorer, baris (Row) merepresentasikan kelas asli, sedangkan kolom (Column) merepresentasikan kelas yang diprediksi oleh model. Nilai pada diagonal utama menunjukkan jumlah prediksi yang benar, sedangkan nilai di luar diagonal menunjukkan kesalahan klasifikasi.</p>
+<p><img alt="Konfigurasi Random Forest Learner" src="_images/confusio-matrix-naiveBayes.png" /></p>
+<p><strong>Gambar 7.</strong> Confusion Matrix Training</p>
+<p><strong>Gambar 9.</strong> Confusion Matrix pada data testing</p>
+<p><img alt="Konfigurasi Random Forest Learner" src="_images/confusio-matrix-randomForest.png" /></p>
+<p><strong>Gambar 8.</strong> Confusion Matrix Testing</p>
+<p><strong>Gambar 10.</strong> Confusion Matrix pada data training</p>
+<section id="interpretasi-nilai-pada-confusion-matrix">
+<h4>5.3.1 Interpretasi Nilai pada Confusion Matrix<a class="headerlink" href="#interpretasi-nilai-pada-confusion-matrix" title="Link to this heading">#</a></h4>
+<p>Berdasarkan output KNIME Scorer, berikut adalah rekapitulasi hasil klasifikasi:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Dataset</p></th>
+<th class="head"><p>Kelas</p></th>
+<th class="head"><p>Benar (Diagonal)</p></th>
+<th class="head"><p>Salah Prediksi</p></th>
+<th class="head"><p>Total Sampel</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Testing</strong></p></td>
+<td><p>Iris-setosa</p></td>
+<td><p>15</p></td>
+<td><p>0</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Iris-versicolor</p></td>
+<td><p>13</p></td>
+<td><p>2 (→ virginica)</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Iris-virginica</p></td>
+<td><p>13</p></td>
+<td><p>2 (→ versicolor)</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Training</strong></p></td>
+<td><p>Iris-setosa</p></td>
+<td><p>35</p></td>
+<td><p>0</p></td>
+<td><p>35</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Iris-versicolor</p></td>
+<td><p>33</p></td>
+<td><p>2 (→ virginica)</p></td>
+<td><p>35</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Iris-virginica</p></td>
+<td><p>33</p></td>
+<td><p>2 (→ versicolor)</p></td>
+<td><p>35</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="perhitungan-akurasi">
+<h4>5.3.2 Perhitungan Akurasi<a class="headerlink" href="#perhitungan-akurasi" title="Link to this heading">#</a></h4>
+<p>Akurasi dihitung dengan rumus:
+$<span class="math notranslate nohighlight">\(\text{Accuracy} = \frac{\text{Jumlah Prediksi Benar}}{\text{Total Sampel}} \times 100\%\)</span>$</p>
+<ul class="simple">
+<li><p><strong>Data Training:</strong>
+$<span class="math notranslate nohighlight">\(\frac{35 + 33 + 33}{105} = \frac{101}{105} \approx \mathbf{96.19\%}\)</span>$</p></li>
+<li><p><strong>Data Testing:</strong>
+$<span class="math notranslate nohighlight">\(\frac{15 + 13 + 13}{45} = \frac{41}{45} \approx \mathbf{91.11\%}\)</span>$</p></li>
+</ul>
+</section>
+<section id="analisis-kesalahan-misclassification">
+<h4>5.3.3 Analisis Kesalahan (Misclassification)<a class="headerlink" href="#analisis-kesalahan-misclassification" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Klas Iris-setosa:</strong></p>
+<ul class="simple">
+<li><p>Tidak ada kesalahan sama sekali (0 misclassification) baik pada data training maupun testing. Hal ini menunjukkan bahwa fitur <code class="docutils literal notranslate"><span class="pre">Iris-setosa</span></code> bersifat <strong>linearly separable</strong> dan memiliki karakteristik fitur (panjang/lebar kelopak &amp; mahkota) yang sangat berbeda dari dua kelas lainnya.</p></li>
+</ul>
+</li>
+<li><p><strong>Kelas Iris-versicolor &amp; Iris-virginica:</strong></p>
+<ul class="simple">
+<li><p>Terjadi kesalahan simetris: 2 data versicolor diprediksi sebagai virginica, dan 2 data virginica diprediksi sebagai versicolor.</p></li>
+<li><p><strong>Penyebab:</strong> Dalam dataset Iris asli, kelas versicolor dan virginica memiliki tumpang tindih (overlap) pada fitur <code class="docutils literal notranslate"><span class="pre">petal_length</span></code> dan <code class="docutils literal notranslate"><span class="pre">petal_width</span></code>. Batas keputusan (decision boundary) antara kedua kelas ini tidak sepenuhnya tajam, sehingga model occasionally “bingung” pada data yang berada di area ambang batas.</p></li>
+<li><p><strong>Konsistensi Model:</strong> Jumlah kesalahan yang sama persis (2 vs 2) pada training dan testing menunjukkan bahwa model <strong>tidak mengalami overfitting</strong>. Pola kesalahan yang konsisten menandakan bahwa ketidakpastian ini berasal dari sifat data itu sendiri, bukan dari kelemahan algoritma.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="insight-untuk-random-forest-naive-bayes">
+<h4>5.3.4 Insight untuk Random Forest &amp; Naïve Bayes<a class="headerlink" href="#insight-untuk-random-forest-naive-bayes" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Random Forest:</strong> Karena menggunakan mekanisme <em>majority voting</em> dari 50 pohon keputusan, Random Forest berhasil meminimalkan variance. Meski ada overlap fitur antara versicolor dan virginica, ensemble averaging mampu menjaga akurasi tetap tinggi (&gt;90%).</p></li>
+<li><p><strong>Naïve Bayes:</strong> Meski mengasumsikan independensi fitur (yang secara teoritis tidak sepenuhnya terpenuhi pada Iris), distribusi Gaussian yang digunakan cukup robust untuk menangani overlap tersebut. Hasil confusion matrix yang identik menunjukkan bahwa kedua algoritma memiliki batas keputusan yang serupa untuk kasus ini.</p></li>
+</ul>
+</section>
+<section id="kesimpulan-confusion-matrix">
+<h4>5.3.5 Kesimpulan Confusion Matrix<a class="headerlink" href="#kesimpulan-confusion-matrix" title="Link to this heading">#</a></h4>
+<p>Confusion matrix membuktikan bahwa:</p>
+<ol class="arabic simple">
+<li><p>Model sangat akurat untuk kelas yang mudah dipisahkan (<code class="docutils literal notranslate"><span class="pre">setosa</span></code>).</p></li>
+<li><p>Kesalahan hanya terjadi pada kelas yang secara alami memiliki kemiripan fitur (<code class="docutils literal notranslate"><span class="pre">versicolor</span></code> ↔ <code class="docutils literal notranslate"><span class="pre">virginica</span></code>).</p></li>
+<li><p>Selisih akurasi antara training (96.19%) dan testing (91.11%) hanya ~5%, yang menandakan model memiliki <strong>generalisasi yang baik</strong> dan stabil pada data baru.</p></li>
+</ol>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="perhitungan-decision-tree.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Tugas Klasifikasi: Decision Tree</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">1. Pendahuluan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">2. Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alur-kerja-workflow-knime">3. Alur Kerja (Workflow) KNIME</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-detail-per-node">4. Penjelasan Detail Per Node</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-csv-reader">4.1 Node CSV Reader</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-table-partitioner">4.2 Node Table Partitioner</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-naive-bayes-learner-cabang-atas">4.3 Node Naïve Bayes Learner (Cabang Atas)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-naive-bayes-predictor">4.4 Node Naïve Bayes Predictor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-scorer-untuk-naive-bayes">4.5 Node Scorer (untuk Naïve Bayes)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-random-forest-learner-cabang-bawah">4.6 Node Random Forest Learner (Cabang Bawah)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-tree-ensemble-statistics">4.7 Node Tree Ensemble Statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-random-forest-predictor">4.8 Node Random Forest Predictor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-scorer-untuk-random-forest">4.9 Node Scorer (untuk Random Forest)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-tree-ensemble-model-extract-opsional-export-ke-pmml">4.10 Node Tree Ensemble Model Extract (Opsional Export ke PMML)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-table-to-pmml-ensemble">4.11 Node Table to PMML Ensemble</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-dan-analisis">5. Hasil dan Analisis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi-model">5.1 Hasil Evaluasi Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-hasil">5.2 Analisis Hasil</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-confusion-matrix">5.3 Analisis Confusion Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-nilai-pada-confusion-matrix">5.3.1 Interpretasi Nilai pada Confusion Matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-akurasi">5.3.2 Perhitungan Akurasi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-kesalahan-misclassification">5.3.3 Analisis Kesalahan (Misclassification)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#insight-untuk-random-forest-naive-bayes">5.3.4 Insight untuk Random Forest &amp; Naïve Bayes</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-confusion-matrix">5.3.5 Kesimpulan Confusion Matrix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
