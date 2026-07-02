@@ -1,4 +1,4 @@
-# Normalisasi dan Pengisian Missing Value dalam Penambangan Data
+## Normalisasi dan Pengisian Missing Value dalam Penambangan Data
 
 Dalam pengolahan data untuk data mining, seringkali kita dihadapkan pada atribut dengan skala yang berbeda atau bahkan adanya data yang hilang (missing value). Bab ini akan menjelaskan secara rinci proses normalisasi data dengan metode Min-Max dan penanganan *missing value* menggunakan algoritma K-Nearest Neighbors (KNN). Pembagian tahapan disesuaikan dengan struktur perhitungan dataset Anda.
 

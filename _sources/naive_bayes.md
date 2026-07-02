@@ -1,7 +1,5 @@
 # Tugas Klasifikasi: Naive Bayes
 
----
-
 ## 1. Pendahuluan
 
 Tugas Klasifikasi: Prediksi Kelulusan Mahasiswa (Naive Bayes & Python)

@@ -65,6 +65,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'perhitungan_naive_bayes';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tugas Klasifikasi: Decision Tree" href="perhitungan-decision-tree.html" />
     <link rel="prev" title="Tugas Klasifikasi: Naive Bayes" href="naive_bayes.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -165,7 +166,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Rahardian Ananta , 240411100071
+                    Rahardian Ananta — 240411100071
                 </a>
             </li>
         </ul>
@@ -176,6 +177,13 @@
 <li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="menghitung-jarak.html">Menghitung Jarak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Normalization_and_Missing_Value_Imputation.html">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
+
+
+
+
+
+
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -189,6 +197,11 @@
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Perhitungan Manual Gaussian Naïve Bayes</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="perhitungan-decision-tree.html">Tugas Klasifikasi: Decision Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="randomForest.html">Klasifikasi dengan Naïve Bayes dan Random Forest menggunakan KNIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_regresion.html">Regresi Linear — Catatan Lengkap &amp; Rinci</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prediksi_no2.html">Peramalan kadar <span class="math notranslate nohighlight">\(NO_2\)</span> di daerah Bangkalan Madura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tugas_explainability.html">Forecaster Explainability: Feature Importance, SHAP Values, dan Partial Dependence Plots</a></li>
 </ul>
 
     </div>
@@ -420,7 +433,6 @@
 <h1>Perhitungan Manual Gaussian Naïve Bayes<a class="headerlink" href="#perhitungan-manual-gaussian-naive-bayes" title="Link to this heading">#</a></h1>
 <p><strong>data ke-11 (jam=5, hadir=85, tugas=80)</strong></p>
 <p><strong>Data Uji:</strong> jam_belajar = 5, kehadiran = 85, nilai_tugas = 80</p>
-<hr class="docutils" />
 <section id="langkah-1-normalisasi-min-max">
 <h2>LANGKAH 1 — Normalisasi Min-Max<a class="headerlink" href="#langkah-1-normalisasi-min-max" title="Link to this heading">#</a></h2>
 <div class="math notranslate nohighlight">
@@ -563,17 +575,14 @@ jam=0.6667, hadir=0.6757, tugas=0.6667.</p></li>
 </li>
 </ul>
 </section>
-<hr class="docutils" />
 <section id="langkah-2-hitung-mean-dan-variance-2-per-kelas">
 <h2>LANGKAH 2 — Hitung Mean (μ) dan Variance (σ²) Per Kelas<a class="headerlink" href="#langkah-2-hitung-mean-dan-variance-2-per-kelas" title="Link to this heading">#</a></h2>
 <p>Rumus Mean:
 $<span class="math notranslate nohighlight">\(\mu = \frac{\sum x_i}{n}\)</span>$</p>
 <p>Rumus Variance (population):
 $<span class="math notranslate nohighlight">\(\sigma^2 = \frac{\sum (x_i - \mu)^2}{n}\)</span>$</p>
-<hr class="docutils" />
 <section id="kelas-0-gagal-10-data-baris-1-2-3-4-5-6-7-8-24-25">
 <h3>🔴 KELAS 0 — Gagal (10 data: baris 1,2,3,4,5,6,7,8,24,25)<a class="headerlink" href="#kelas-0-gagal-10-data-baris-1-2-3-4-5-6-7-8-24-25" title="Link to this heading">#</a></h3>
-<hr class="docutils" />
 <section id="jam-belajar-nilai-norm-0-0-1667-0-0-1667-0-3333-0-1667-0-0-1667-0-1667-0">
 <h4>▸ jam_belajar (nilai norm: 0, 0.1667, 0, 0.1667, 0.3333, 0.1667, 0, 0.1667, 0.1667, 0)<a class="headerlink" href="#jam-belajar-nilai-norm-0-0-1667-0-0-1667-0-3333-0-1667-0-0-1667-0-1667-0" title="Link to this heading">#</a></h4>
 <p><strong>Mean:</strong>
@@ -637,7 +646,6 @@ $<span class="math notranslate nohighlight">\(\mu = \frac{0 + 0.1667 + 0 + 0.166
 <div class="math notranslate nohighlight">
 \[\sigma^2 = \frac{0.113889}{10} = \mathbf{0.011389}\]</div>
 </section>
-<hr class="docutils" />
 <section id="kehadiran-nilai-norm-0-0-1351-0-2703-0-4054-0-0-2162-0-3243-0-2703-0-2432-0-1351">
 <h4>▸ kehadiran (nilai norm: 0, 0.1351, 0.2703, 0.4054, 0, 0.2162, 0.3243, 0.2703, 0.2432, 0.1351)<a class="headerlink" href="#kehadiran-nilai-norm-0-0-1351-0-2703-0-4054-0-0-2162-0-3243-0-2703-0-2432-0-1351" title="Link to this heading">#</a></h4>
 <p><strong>Mean:</strong>
@@ -701,7 +709,6 @@ $<span class="math notranslate nohighlight">\(\mu = \frac{0 + 0.1351 + 0.2703 + 
 <div class="math notranslate nohighlight">
 \[\sigma^2 = \frac{0.158072}{10} = \mathbf{0.015807}\]</div>
 </section>
-<hr class="docutils" />
 <section id="nilai-tugas-nilai-norm-0-0-1111-0-2222-0-1778-0-3333-0-2667-0-1556-0-2-0-2222-0-1111">
 <h4>▸ nilai_tugas (nilai norm: 0, 0.1111, 0.2222, 0.1778, 0.3333, 0.2667, 0.1556, 0.2, 0.2222, 0.1111)<a class="headerlink" href="#nilai-tugas-nilai-norm-0-0-1111-0-2222-0-1778-0-3333-0-2667-0-1556-0-2-0-2222-0-1111" title="Link to this heading">#</a></h4>
 <p><strong>Mean:</strong>
@@ -766,10 +773,8 @@ $<span class="math notranslate nohighlight">\(\mu = \frac{0 + 0.1111 + 0.2222 + 
 \[\sigma^2 = \frac{0.077481}{10} = \mathbf{0.007748}\]</div>
 </section>
 </section>
-<hr class="docutils" />
 <section id="kelas-1-lulus-15-data-baris-923">
 <h3>🟢 KELAS 1 — Lulus (15 data: baris 9–23)<a class="headerlink" href="#kelas-1-lulus-15-data-baris-923" title="Link to this heading">#</a></h3>
-<hr class="docutils" />
 <section id="jam-belajar-nilai-norm-0-3333-0-5-0-6667-0-5-0-6667-0-8333-0-6667-0-5-0-3333-0-8333-1-0-0-6667-0-8333-1-0-0-3333">
 <h4>▸ jam_belajar (nilai norm: 0.3333, 0.5, 0.6667, 0.5, 0.6667, 0.8333, 0.6667, 0.5, 0.3333, 0.8333, 1.0, 0.6667, 0.8333, 1.0, 0.3333)<a class="headerlink" href="#jam-belajar-nilai-norm-0-3333-0-5-0-6667-0-5-0-6667-0-8333-0-6667-0-5-0-3333-0-8333-1-0-0-6667-0-8333-1-0-0-3333" title="Link to this heading">#</a></h4>
 <p><strong>Mean:</strong>
@@ -853,7 +858,6 @@ $<span class="math notranslate nohighlight">\(\mu = \frac{0.3333+0.5+0.6667+0.5+
 <div class="math notranslate nohighlight">
 \[\sigma^2 = \frac{0.714815}{15} = \mathbf{0.047654}\]</div>
 </section>
-<hr class="docutils" />
 <section id="kehadiran-nilai-norm-0-4054-0-5405-0-6757-0-4865-0-8108-0-8649-0-7568-0-5946-0-4595-0-9459-0-9730-0-7838-0-8378-1-0-0-3784">
 <h4>▸ kehadiran (nilai norm: 0.4054, 0.5405, 0.6757, 0.4865, 0.8108, 0.8649, 0.7568, 0.5946, 0.4595, 0.9459, 0.9730, 0.7838, 0.8378, 1.0, 0.3784)<a class="headerlink" href="#kehadiran-nilai-norm-0-4054-0-5405-0-6757-0-4865-0-8108-0-8649-0-7568-0-5946-0-4595-0-9459-0-9730-0-7838-0-8378-1-0-0-3784" title="Link to this heading">#</a></h4>
 <p><strong>Mean:</strong>
@@ -937,7 +941,6 @@ $<span class="math notranslate nohighlight">\(\mu = \frac{10.5135}{15} = \mathbf
 <div class="math notranslate nohighlight">
 \[\sigma^2 = \frac{0.624495}{15} = \mathbf{0.041633}\]</div>
 </section>
-<hr class="docutils" />
 <section id="nilai-tugas-nilai-norm-0-4444-0-5556-0-6667-0-4889-0-8444-0-8889-0-7778-0-6222-0-5111-0-9333-0-9778-0-8222-0-8667-1-0-0-4667">
 <h4>▸ nilai_tugas (nilai norm: 0.4444, 0.5556, 0.6667, 0.4889, 0.8444, 0.8889, 0.7778, 0.6222, 0.5111, 0.9333, 0.9778, 0.8222, 0.8667, 1.0, 0.4667)<a class="headerlink" href="#nilai-tugas-nilai-norm-0-4444-0-5556-0-6667-0-4889-0-8444-0-8889-0-7778-0-6222-0-5111-0-9333-0-9778-0-8222-0-8667-1-0-0-4667" title="Link to this heading">#</a></h4>
 <p><strong>Mean:</strong>
@@ -1022,7 +1025,6 @@ $<span class="math notranslate nohighlight">\(\mu = \frac{10.8667}{15} = \mathbf
 \[\sigma^2 = \frac{0.545975}{15} = \mathbf{0.036398}\]</div>
 </section>
 </section>
-<hr class="docutils" />
 <section id="rekap-hasil-langkah-2">
 <h3>Rekap Hasil Langkah 2<a class="headerlink" href="#rekap-hasil-langkah-2" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -1064,18 +1066,15 @@ $<span class="math notranslate nohighlight">\(\mu = \frac{10.8667}{15} = \mathbf
 </div>
 </section>
 </section>
-<hr class="docutils" />
 <section id="langkah-3-prior">
 <h2>LANGKAH 3 — Prior<a class="headerlink" href="#langkah-3-prior" title="Link to this heading">#</a></h2>
 <div class="math notranslate nohighlight">
 \[P(\text{Gagal}) = \frac{10}{25} = 0.40 \qquad P(\text{Lulus}) = \frac{15}{25} = 0.60\]</div>
 </section>
-<hr class="docutils" />
 <section id="langkah-4-hitung-likelihood-dengan-distribusi-gaussian">
 <h2>LANGKAH 4 — Hitung Likelihood dengan Distribusi Gaussian<a class="headerlink" href="#langkah-4-hitung-likelihood-dengan-distribusi-gaussian" title="Link to this heading">#</a></h2>
 <div class="math notranslate nohighlight">
 \[P(x \mid c) = \frac{1}{\sqrt{2\pi\sigma^2}} \cdot e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}\]</div>
-<hr class="docutils" />
 <section id="kelas-0-gagal">
 <h3>🔴 KELAS 0 (Gagal)<a class="headerlink" href="#kelas-0-gagal" title="Link to this heading">#</a></h3>
 <p><strong>▸ P(jam_belajar = 0.6667 | Gagal)</strong></p>
@@ -1120,7 +1119,6 @@ $<span class="math notranslate nohighlight">\(\mu = \frac{10.8667}{15} = \mathbf
 <p><strong>▸ Posterior Kelas 0:</strong>
 $<span class="math notranslate nohighlight">\(\text{Posterior}_0 = 0.000006 \times 0.002473 \times 0.000001 \times 0.40 \approx \mathbf{0.000000}\)</span>$</p>
 </section>
-<hr class="docutils" />
 <section id="kelas-1-lulus">
 <h3>🟢 KELAS 1 (Lulus)<a class="headerlink" href="#kelas-1-lulus" title="Link to this heading">#</a></h3>
 <p><strong>▸ P(jam_belajar = 0.6667 | Lulus)</strong></p>
@@ -1166,7 +1164,6 @@ $<span class="math notranslate nohighlight">\(\text{Posterior}_0 = 0.000006 \tim
 $<span class="math notranslate nohighlight">\(\text{Posterior}_1 = 1.8181 \times 1.9403 \times 1.9974 \times 0.60 = \mathbf{4.2276}\)</span>$</p>
 </section>
 </section>
-<hr class="docutils" />
 <section id="langkah-5-keputusan-akhir">
 <h2>LANGKAH 5 — Keputusan Akhir<a class="headerlink" href="#langkah-5-keputusan-akhir" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -1188,7 +1185,6 @@ $<span class="math notranslate nohighlight">\(\text{Posterior}_1 = 1.8181 \times
 <div class="math notranslate nohighlight">
 \[\text{Posterior}_1\ (4.2276) \gg \text{Posterior}_0\ (0.000000)\]</div>
 <p><strong>→ Data uji (jam=5, hadir=85%, tugas=80) diprediksi: LULUS</strong></p>
-<hr class="docutils" />
 </section>
 </section>
 
@@ -1230,6 +1226,15 @@ $<span class="math notranslate nohighlight">\(\text{Posterior}_1 = 1.8181 \times
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Tugas Klasifikasi: Naive Bayes</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="perhitungan-decision-tree.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tugas Klasifikasi: Decision Tree</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

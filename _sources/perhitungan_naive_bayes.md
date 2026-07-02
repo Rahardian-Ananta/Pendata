@@ -3,7 +3,6 @@
 
 **Data Uji:** jam_belajar = 5, kehadiran = 85, nilai_tugas = 80
 
----
 
 ## LANGKAH 1 — Normalisasi Min-Max
 
@@ -65,7 +64,6 @@ Penjelasan Min–Max per fitur (contoh pemetaan nilai mentah → nilai ter-norma
   - Contoh di atas menunjukkan juga bagaimana nilai uji (jam=5, hadir=85, tugas=80) menjadi
     jam=0.6667, hadir=0.6757, tugas=0.6667.
 
----
 
 ## LANGKAH 2 — Hitung Mean (μ) dan Variance (σ²) Per Kelas
 
@@ -75,11 +73,8 @@ $$\mu = \frac{\sum x_i}{n}$$
 Rumus Variance (population):
 $$\sigma^2 = \frac{\sum (x_i - \mu)^2}{n}$$
 
----
 
 ### 🔴 KELAS 0 — Gagal (10 data: baris 1,2,3,4,5,6,7,8,24,25)
-
----
 
 #### ▸ jam_belajar (nilai norm: 0, 0.1667, 0, 0.1667, 0.3333, 0.1667, 0, 0.1667, 0.1667, 0)
 
@@ -104,7 +99,6 @@ $$\mu = \frac{0 + 0.1667 + 0 + 0.1667 + 0.3333 + 0.1667 + 0 + 0.1667 + 0.1667 + 
 
 $$\sigma^2 = \frac{0.113889}{10} = \mathbf{0.011389}$$
 
----
 
 #### ▸ kehadiran (nilai norm: 0, 0.1351, 0.2703, 0.4054, 0, 0.2162, 0.3243, 0.2703, 0.2432, 0.1351)
 
@@ -129,7 +123,6 @@ $$\mu = \frac{0 + 0.1351 + 0.2703 + 0.4054 + 0 + 0.2162 + 0.3243 + 0.2703 + 0.24
 
 $$\sigma^2 = \frac{0.158072}{10} = \mathbf{0.015807}$$
 
----
 
 #### ▸ nilai_tugas (nilai norm: 0, 0.1111, 0.2222, 0.1778, 0.3333, 0.2667, 0.1556, 0.2, 0.2222, 0.1111)
 
@@ -154,11 +147,9 @@ $$\mu = \frac{0 + 0.1111 + 0.2222 + 0.1778 + 0.3333 + 0.2667 + 0.1556 + 0.2 + 0.
 
 $$\sigma^2 = \frac{0.077481}{10} = \mathbf{0.007748}$$
 
----
 
 ### 🟢 KELAS 1 — Lulus (15 data: baris 9–23)
 
----
 
 #### ▸ jam_belajar (nilai norm: 0.3333, 0.5, 0.6667, 0.5, 0.6667, 0.8333, 0.6667, 0.5, 0.3333, 0.8333, 1.0, 0.6667, 0.8333, 1.0, 0.3333)
 
@@ -188,7 +179,6 @@ $$\mu = \frac{0.3333+0.5+0.6667+0.5+0.6667+0.8333+0.6667+0.5+0.3333+0.8333+1.0+0
 
 $$\sigma^2 = \frac{0.714815}{15} = \mathbf{0.047654}$$
 
----
 
 #### ▸ kehadiran (nilai norm: 0.4054, 0.5405, 0.6757, 0.4865, 0.8108, 0.8649, 0.7568, 0.5946, 0.4595, 0.9459, 0.9730, 0.7838, 0.8378, 1.0, 0.3784)
 
@@ -218,7 +208,6 @@ $$\mu = \frac{10.5135}{15} = \mathbf{0.7009}$$
 
 $$\sigma^2 = \frac{0.624495}{15} = \mathbf{0.041633}$$
 
----
 
 #### ▸ nilai_tugas (nilai norm: 0.4444, 0.5556, 0.6667, 0.4889, 0.8444, 0.8889, 0.7778, 0.6222, 0.5111, 0.9333, 0.9778, 0.8222, 0.8667, 1.0, 0.4667)
 
@@ -248,7 +237,6 @@ $$\mu = \frac{10.8667}{15} = \mathbf{0.7244}$$
 
 $$\sigma^2 = \frac{0.545975}{15} = \mathbf{0.036398}$$
 
----
 
 ### Rekap Hasil Langkah 2
 
@@ -259,19 +247,16 @@ $$\sigma^2 = \frac{0.545975}{15} = \mathbf{0.036398}$$
 | kehadiran | 0.2000 | 0.015807 | 0.7009 | 0.041633 |
 | nilai_tugas | 0.1800 | 0.007748 | 0.7244 | 0.036398 |
 
----
 
 ## LANGKAH 3 — Prior
 
 $$P(\text{Gagal}) = \frac{10}{25} = 0.40 \qquad P(\text{Lulus}) = \frac{15}{25} = 0.60$$
 
----
 
 ## LANGKAH 4 — Hitung Likelihood dengan Distribusi Gaussian
 
 $$P(x \mid c) = \frac{1}{\sqrt{2\pi\sigma^2}} \cdot e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}$$
 
----
 
 ### 🔴 KELAS 0 (Gagal)
 
@@ -305,7 +290,6 @@ $$\boxed{P = 4.5323 \times 0.000000 = 0.000001}$$
 **▸ Posterior Kelas 0:**
 $$\text{Posterior}_0 = 0.000006 \times 0.002473 \times 0.000001 \times 0.40 \approx \mathbf{0.000000}$$
 
----
 
 ### 🟢 KELAS 1 (Lulus)
 
@@ -339,7 +323,6 @@ $$\boxed{P = 2.0911 \times 0.955178 = 1.9974}$$
 **▸ Posterior Kelas 1:**
 $$\text{Posterior}_1 = 1.8181 \times 1.9403 \times 1.9974 \times 0.60 = \mathbf{4.2276}$$
 
----
 
 ## LANGKAH 5 — Keputusan Akhir
 
@@ -351,5 +334,3 @@ $$\text{Posterior}_1 = 1.8181 \times 1.9403 \times 1.9974 \times 0.60 = \mathbf{
 $$\text{Posterior}_1\ (4.2276) \gg \text{Posterior}_0\ (0.000000)$$
 
 **→ Data uji (jam=5, hadir=85%, tugas=80) diprediksi: LULUS**
-
----

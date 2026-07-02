@@ -65,6 +65,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'prediksi_no2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Forecaster Explainability: Feature Importance, SHAP Values, dan Partial Dependence Plots" href="tugas_explainability.html" />
     <link rel="prev" title="Regresi Linear — Catatan Lengkap &amp; Rinci" href="linear_regresion.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -165,7 +166,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Rahardian Ananta , 240411100071
+                    Rahardian Ananta — 240411100071
                 </a>
             </li>
         </ul>
@@ -176,6 +177,13 @@
 <li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="menghitung-jarak.html">Menghitung Jarak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Normalization_and_Missing_Value_Imputation.html">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
+
+
+
+
+
+
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -193,6 +201,7 @@
 <li class="toctree-l1"><a class="reference internal" href="randomForest.html">Klasifikasi dengan Naïve Bayes dan Random Forest menggunakan KNIME</a></li>
 <li class="toctree-l1"><a class="reference internal" href="linear_regresion.html">Regresi Linear — Catatan Lengkap &amp; Rinci</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Peramalan kadar <span class="math notranslate nohighlight">\(NO_2\)</span> di daerah Bangkalan Madura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tugas_explainability.html">Forecaster Explainability: Feature Importance, SHAP Values, dan Partial Dependence Plots</a></li>
 </ul>
 
     </div>
@@ -563,12 +572,8 @@ Successfully installed deprecated-1.3.1 openeo-0.50.0 pystac-1.14.3 xarray-2025.
 <section id="preproccessing-data">
 <h2>2. Preproccessing Data<a class="headerlink" href="#preproccessing-data" title="Link to this heading">#</a></h2>
 <p>Setelah kita mengambil data, file akan berbentuk <code class="docutils literal notranslate"><span class="pre">.nc</span></code>. Kita cuman perlu kolom date dan NO2 menggunakan code dibawah:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">netCDF4</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>netCDF4
 </pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1531,6 +1536,15 @@ MAPE: 31.8232%
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Regresi Linear — Catatan Lengkap &amp; Rinci</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="tugas_explainability.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Forecaster Explainability: Feature Importance, SHAP Values, dan Partial Dependence Plots</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

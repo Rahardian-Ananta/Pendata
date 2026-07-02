@@ -1,4 +1,4 @@
-# 2. Feature Scaling (Normalisasi Data)
+## 2. Feature Scaling (Normalisasi Data)
 
 **Feature Scaling** (Penyekalaan Fitur) adalah salah satu tahapan krusial dalam prapemrosesan data yang bertujuan untuk mendesak / menempatkan seluruh variabel bebas (*independent features*) dari suatu himpunan data ke dalam rentang rasio angka matematika yang setara dan seragam.
 

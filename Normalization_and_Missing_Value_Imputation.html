@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -166,7 +166,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Rahardian Ananta , 240411100071
+                    Rahardian Ananta — 240411100071
                 </a>
             </li>
         </ul>
@@ -177,6 +177,13 @@
 <li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="menghitung-jarak.html">Menghitung Jarak</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
+
+
+
+
+
+
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -185,7 +192,16 @@
 <li class="toctree-l2"><a class="reference internal" href="implementasi-normalisasi-data.html">3. Implementasi Normalisasi Data (Tugas Code)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="uts-orange-knn.html">UTS — Klasifikasi Kesuburan Tanah Menggunakan KNN di Orange Data Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uts-orange-knn.html">UTS —</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="naive_bayes.html">Tugas Klasifikasi: Naive Bayes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="perhitungan_naive_bayes.html">Perhitungan Manual Gaussian Naïve Bayes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="perhitungan-decision-tree.html">Tugas Klasifikasi: Decision Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="randomForest.html">Klasifikasi dengan Naïve Bayes dan Random Forest menggunakan KNIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_regresion.html">Regresi Linear — Catatan Lengkap &amp; Rinci</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prediksi_no2.html">Peramalan kadar <span class="math notranslate nohighlight">\(NO_2\)</span> di daerah Bangkalan Madura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tugas_explainability.html">Forecaster Explainability: Feature Importance, SHAP Values, dan Partial Dependence Plots</a></li>
 </ul>
 
     </div>
@@ -378,23 +394,27 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-dataset">Download Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-1-kolom-a-f-dataset-asli-data-mentah">Blok 1 (Kolom A-F): Dataset Asli (Data Mentah)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik">Blok 2 (Kolom G-H): Hasil Normalisasi Min-Max untuk Atribut Numerik</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-3-kolom-i-k-perhitungan-jarak-kategorikal">Blok 3 (Kolom I-K): Perhitungan Jarak Kategorikal</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-4-kolom-l-jarak-kategorikal-gabungan">Blok 4 (Kolom L): Jarak Kategorikal Gabungan</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-5-kolom-m-perhitungan-jarak-numerik-euclidean">Blok 5 (Kolom M): Perhitungan Jarak Numerik (Euclidean)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-6-kolom-n-jarak-gabungan-final-distance">Blok 6 (Kolom N): Jarak Gabungan (Final Distance)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-7-kolom-p-v-penanganan-missing-value-metode-knn">Blok 7 (Kolom P-V): Penanganan Missing Value (Metode KNN)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013">Langkah 1: Hitung Jarak Kategorikal Setiap Karyawan ke K013</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-numerik-khusus-kolom-t">Langkah 2: Hitung Jarak Numerik Khusus (Kolom T)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-jarak-final-ke-k013-kolom-u">Langkah 3: Hitung Jarak Final ke K013 (Kolom U)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-urutkan-dan-pilih-2-tetangga-terdekat">Langkah 4: Urutkan dan Pilih 2 Tetangga Terdekat</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga">Langkah 5: Estimasi Missing Value (Rata-rata Gaji Tetangga)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-1-kolom-a-f-dataset-asli-data-mentah">Blok 1 (Kolom A-F): Dataset Asli (Data Mentah)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik">Blok 2 (Kolom G-H): Hasil Normalisasi Min-Max untuk Atribut Numerik</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-3-kolom-i-k-perhitungan-jarak-kategorikal">Blok 3 (Kolom I-K): Perhitungan Jarak Kategorikal</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-4-kolom-l-jarak-kategorikal-gabungan">Blok 4 (Kolom L): Jarak Kategorikal Gabungan</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-5-kolom-m-perhitungan-jarak-numerik-euclidean">Blok 5 (Kolom M): Perhitungan Jarak Numerik (Euclidean)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-6-kolom-n-jarak-gabungan-final-distance">Blok 6 (Kolom N): Jarak Gabungan (Final Distance)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-7-kolom-p-v-penanganan-missing-value-metode-knn">Blok 7 (Kolom P-V): Penanganan Missing Value (Metode KNN)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013">Langkah 1: Hitung Jarak Kategorikal Setiap Karyawan ke K013</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-numerik-khusus-kolom-t">Langkah 2: Hitung Jarak Numerik Khusus (Kolom T)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-jarak-final-ke-k013-kolom-u">Langkah 3: Hitung Jarak Final ke K013 (Kolom U)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-urutkan-dan-pilih-2-tetangga-terdekat">Langkah 4: Urutkan dan Pilih 2 Tetangga Terdekat</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga">Langkah 5: Estimasi Missing Value (Rata-rata Gaji Tetangga)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
 </ul>
 </li>
 </ul>
+
             </nav>
         </div>
     </div>
@@ -405,7 +425,7 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="normalisasi-dan-pengisian-missing-value-dalam-penambangan-data">
+  <section id="normalisasi-dan-pengisian-missing-value-dalam-penambangan-data">
 <h1>Normalisasi dan Pengisian Missing Value dalam Penambangan Data<a class="headerlink" href="#normalisasi-dan-pengisian-missing-value-dalam-penambangan-data" title="Link to this heading">#</a></h1>
 <p>Dalam pengolahan data untuk data mining, seringkali kita dihadapkan pada atribut dengan skala yang berbeda atau bahkan adanya data yang hilang (missing value). Bab ini akan menjelaskan secara rinci proses normalisasi data dengan metode Min-Max dan penanganan <em>missing value</em> menggunakan algoritma K-Nearest Neighbors (KNN). Pembagian tahapan disesuaikan dengan struktur perhitungan dataset Anda.</p>
 <hr class="docutils" />
@@ -417,9 +437,10 @@
 <li><p><a class="reference download internal" download="" href="_downloads/5359e0d69b4226e1f962930bc422d4fe/dataset_karyawan_processed.csv"><span class="xref download myst">📩 Download Dataset Karyawan (Hasil Proses)</span></a></p></li>
 </ul>
 </section>
+</section>
 <hr class="docutils" />
 <section id="blok-1-kolom-a-f-dataset-asli-data-mentah">
-<h2>Blok 1 (Kolom A-F): Dataset Asli (Data Mentah)<a class="headerlink" href="#blok-1-kolom-a-f-dataset-asli-data-mentah" title="Link to this heading">#</a></h2>
+<h1>Blok 1 (Kolom A-F): Dataset Asli (Data Mentah)<a class="headerlink" href="#blok-1-kolom-a-f-dataset-asli-data-mentah" title="Link to this heading">#</a></h1>
 <p>Blok ini berisi rancangan data awal sebelum diproses. Format data tabular ini terdiri dari atribut-atribut dasar karyawan:</p>
 <ul class="simple">
 <li><p><strong>Kolom A:</strong> ID Karyawan</p></li>
@@ -433,7 +454,7 @@
 </section>
 <hr class="docutils" />
 <section id="blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik">
-<h2>Blok 2 (Kolom G-H): Hasil Normalisasi Min-Max untuk Atribut Numerik<a class="headerlink" href="#blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik" title="Link to this heading">#</a></h2>
+<h1>Blok 2 (Kolom G-H): Hasil Normalisasi Min-Max untuk Atribut Numerik<a class="headerlink" href="#blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik" title="Link to this heading">#</a></h1>
 <p>Perbedaan jarak (skala) antara tahun lahir dan gaji per bulan yang sangat jauh dapat mengacaukan perhitungan ketetanggaan (Euclidean distance). Oleh karena itu, kita perlu menyamakan rentang skalanya menjadi rentang standar antara 0 hingga 1 menggunakan <strong>Normalisasi Min-Max</strong>.</p>
 <ul class="simple">
 <li><p><strong>Kolom G:</strong> Normalisasi Tahun Lahir</p></li>
@@ -456,7 +477,7 @@ $<span class="math notranslate nohighlight">\(X_{baru} = \frac{8.500.000 - 3.800
 </section>
 <hr class="docutils" />
 <section id="blok-3-kolom-i-k-perhitungan-jarak-kategorikal">
-<h2>Blok 3 (Kolom I-K): Perhitungan Jarak Kategorikal<a class="headerlink" href="#blok-3-kolom-i-k-perhitungan-jarak-kategorikal" title="Link to this heading">#</a></h2>
+<h1>Blok 3 (Kolom I-K): Perhitungan Jarak Kategorikal<a class="headerlink" href="#blok-3-kolom-i-k-perhitungan-jarak-kategorikal" title="Link to this heading">#</a></h1>
 <p>Pada proses pencarian jarak (distansi), atribut berjenis kategorikal tidak bisa diproses menggunakan pengurangan angka biasa. Jarak kategorikal dihitung menggunakan logika perbandingan kesamaan <strong>Simple Matching Coefficient</strong>:</p>
 <ul class="simple">
 <li><p>Jika dua nilai kategorikal <strong>Sama</strong>, maka Jarak = <strong>0</strong></p></li>
@@ -471,7 +492,7 @@ $<span class="math notranslate nohighlight">\(X_{baru} = \frac{8.500.000 - 3.800
 </section>
 <hr class="docutils" />
 <section id="blok-4-kolom-l-jarak-kategorikal-gabungan">
-<h2>Blok 4 (Kolom L): Jarak Kategorikal Gabungan<a class="headerlink" href="#blok-4-kolom-l-jarak-kategorikal-gabungan" title="Link to this heading">#</a></h2>
+<h1>Blok 4 (Kolom L): Jarak Kategorikal Gabungan<a class="headerlink" href="#blok-4-kolom-l-jarak-kategorikal-gabungan" title="Link to this heading">#</a></h1>
 <p>Setelah nilai per-kolom kategorikal didapatkan, semua skor jarak kategorikal ini digabungkan dan dirata-rata.</p>
 <p><strong>Rumus Jarak Kategorikal Gabungan:</strong>
 $<span class="math notranslate nohighlight">\(d_{kategorikal} = \frac{\sum \text{Jarak Atribut Kategorikal}}{\text{Jumlah Atribut Kategorikal}}\)</span>$</p>
@@ -486,7 +507,7 @@ Misalkan antara K001 (S1, IT, Menikah) dan Target rujukan (S1, HR, Belum Menikah
 </section>
 <hr class="docutils" />
 <section id="blok-5-kolom-m-perhitungan-jarak-numerik-euclidean">
-<h2>Blok 5 (Kolom M): Perhitungan Jarak Numerik (Euclidean)<a class="headerlink" href="#blok-5-kolom-m-perhitungan-jarak-numerik-euclidean" title="Link to this heading">#</a></h2>
+<h1>Blok 5 (Kolom M): Perhitungan Jarak Numerik (Euclidean)<a class="headerlink" href="#blok-5-kolom-m-perhitungan-jarak-numerik-euclidean" title="Link to this heading">#</a></h1>
 <p>Atribut numerik yang telah dinormalisasi (Kolom G dan Kolom H) lalu dihitung selisih jaraknya menggunakan <strong>Euclidean Distance</strong>.</p>
 <p><strong>Rumus Jarak Numerik Euclidean:</strong>
 $<span class="math notranslate nohighlight">\(d_{numerik} = \sqrt{(X_{norm_1} - Y_{norm_1})^2 + (X_{norm_2} - Y_{norm_2})^2}\)</span>$</p>
@@ -494,7 +515,7 @@ $<span class="math notranslate nohighlight">\(d_{numerik} = \sqrt{(X_{norm_1} - 
 </section>
 <hr class="docutils" />
 <section id="blok-6-kolom-n-jarak-gabungan-final-distance">
-<h2>Blok 6 (Kolom N): Jarak Gabungan (Final Distance)<a class="headerlink" href="#blok-6-kolom-n-jarak-gabungan-final-distance" title="Link to this heading">#</a></h2>
+<h1>Blok 6 (Kolom N): Jarak Gabungan (Final Distance)<a class="headerlink" href="#blok-6-kolom-n-jarak-gabungan-final-distance" title="Link to this heading">#</a></h1>
 <p>Langkah terakhir dari pengukuran kemiripan antar baris data (instance) adalah dengan menggabungkan komputasi Jarak Kategorikal (Kolom L) dan Jarak Numerik (Kolom M). Ini akan menjadi nilai referensi utama dari total deviasi / kemiripan dari target.</p>
 <p><strong>Rumus Jarak Final:</strong>
 $<span class="math notranslate nohighlight">\(Distance_{total} = \sqrt{(d_{kategorikal})^2 + (d_{numerik})^2}\)</span>$</p>
@@ -502,7 +523,7 @@ $<span class="math notranslate nohighlight">\(Distance_{total} = \sqrt{(d_{kateg
 </section>
 <hr class="docutils" />
 <section id="blok-7-kolom-p-v-penanganan-missing-value-metode-knn">
-<h2>Blok 7 (Kolom P-V): Penanganan Missing Value (Metode KNN)<a class="headerlink" href="#blok-7-kolom-p-v-penanganan-missing-value-metode-knn" title="Link to this heading">#</a></h2>
+<h1>Blok 7 (Kolom P-V): Penanganan Missing Value (Metode KNN)<a class="headerlink" href="#blok-7-kolom-p-v-penanganan-missing-value-metode-knn" title="Link to this heading">#</a></h1>
 <p>Kolom P hingga V digunakan untuk mempraktikkan pengisian <strong>Missing Value</strong> menggunakan algoritma <strong>K-Nearest Neighbors (KNN)</strong> dengan <span class="math notranslate nohighlight">\(K=2\)</span> (2 Tetangga Terdekat).</p>
 <p>Pada dataset ini, Gaji karyawan <strong>K013</strong> (HR, D3, Menikah, Tahun 1993) sengaja dihilangkan untuk disimulasikan sebagai <em>missing value</em>. Nilai asli Gaji K013 sebelum dihapus adalah <strong>5.500.000</strong>. Semua jarak pada Blok 7 dihitung terhadap <strong>K013</strong> sebagai titik rujukan (target). Berikut struktur kolomnya:</p>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -538,7 +559,7 @@ $<span class="math notranslate nohighlight">\(Distance_{total} = \sqrt{(d_{kateg
 </div>
 <hr class="docutils" />
 <section id="langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013">
-<h3>Langkah 1: Hitung Jarak Kategorikal Setiap Karyawan ke K013<a class="headerlink" href="#langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013" title="Link to this heading">#</a></h3>
+<h2>Langkah 1: Hitung Jarak Kategorikal Setiap Karyawan ke K013<a class="headerlink" href="#langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013" title="Link to this heading">#</a></h2>
 <p>Data K013: <strong>HR, D3, Menikah, Tahun 1993</strong></p>
 <p>Setiap karyawan dibandingkan kategorinya dengan K013 menggunakan <strong>Simple Matching</strong> (sama = 0, beda = 1).</p>
 <p><strong>Contoh K001</strong> (IT, S1, Menikah) vs K013 (HR, D3, Menikah):</p>
@@ -648,7 +669,7 @@ Semua kategori identik, maka <span class="math notranslate nohighlight">\(P = 0,
 </section>
 <hr class="docutils" />
 <section id="langkah-2-hitung-jarak-numerik-khusus-kolom-t">
-<h3>Langkah 2: Hitung Jarak Numerik Khusus (Kolom T)<a class="headerlink" href="#langkah-2-hitung-jarak-numerik-khusus-kolom-t" title="Link to this heading">#</a></h3>
+<h2>Langkah 2: Hitung Jarak Numerik Khusus (Kolom T)<a class="headerlink" href="#langkah-2-hitung-jarak-numerik-khusus-kolom-t" title="Link to this heading">#</a></h2>
 <p>Karena atribut <strong>Gaji diasumsikan hilang</strong> (<em>missing</em>), maka jarak numerik <strong>hanya dihitung berdasarkan Tahun Lahir</strong> (yang sudah dinormalisasi).</p>
 <p><strong>Rumus:</strong>
 $<span class="math notranslate nohighlight">\(T = | \text{Norm\_Tahun\_Karyawan} - \text{Norm\_Tahun\_K013} |\)</span>$</p>
@@ -662,7 +683,7 @@ $<span class="math notranslate nohighlight">\(T = | 0,4375 - 0,5 | = 0,0625\)</s
 </section>
 <hr class="docutils" />
 <section id="langkah-3-hitung-jarak-final-ke-k013-kolom-u">
-<h3>Langkah 3: Hitung Jarak Final ke K013 (Kolom U)<a class="headerlink" href="#langkah-3-hitung-jarak-final-ke-k013-kolom-u" title="Link to this heading">#</a></h3>
+<h2>Langkah 3: Hitung Jarak Final ke K013 (Kolom U)<a class="headerlink" href="#langkah-3-hitung-jarak-final-ke-k013-kolom-u" title="Link to this heading">#</a></h2>
 <p><strong>Rumus:</strong>
 $<span class="math notranslate nohighlight">\(U = \sqrt{S^2 + T^2}\)</span>$</p>
 <p><strong>Contoh K001:</strong>
@@ -684,7 +705,7 @@ $<span class="math notranslate nohighlight">\(U = \sqrt{(0,3333)^2 + (0,125)^2} 
 </section>
 <hr class="docutils" />
 <section id="langkah-4-urutkan-dan-pilih-2-tetangga-terdekat">
-<h3>Langkah 4: Urutkan dan Pilih 2 Tetangga Terdekat<a class="headerlink" href="#langkah-4-urutkan-dan-pilih-2-tetangga-terdekat" title="Link to this heading">#</a></h3>
+<h2>Langkah 4: Urutkan dan Pilih 2 Tetangga Terdekat<a class="headerlink" href="#langkah-4-urutkan-dan-pilih-2-tetangga-terdekat" title="Link to this heading">#</a></h2>
 <p>Setelah semua nilai Kolom U dihitung, kita urutkan dari yang terkecil (paling mirip dengan K013):</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -732,16 +753,15 @@ $<span class="math notranslate nohighlight">\(U = \sqrt{(0,3333)^2 + (0,125)^2} 
 </section>
 <hr class="docutils" />
 <section id="langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga">
-<h3>Langkah 5: Estimasi Missing Value (Rata-rata Gaji Tetangga)<a class="headerlink" href="#langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga" title="Link to this heading">#</a></h3>
+<h2>Langkah 5: Estimasi Missing Value (Rata-rata Gaji Tetangga)<a class="headerlink" href="#langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga" title="Link to this heading">#</a></h2>
 <p>Karena atribut yang hilang bersifat <strong>Numerik</strong> (Gaji), maka kita gunakan <strong>rata-rata (Mean)</strong> dari gaji 2 tetangga terdekat:</p>
 <div class="math notranslate nohighlight">
 \[Gaji_{imputasi} = \frac{Gaji_{K016} + Gaji_{K018}}{2} = \frac{5.000.000 + 6.500.000}{2} = 5.750.000\]</div>
 </section>
 <hr class="docutils" />
 <section id="kesimpulan">
-<h3>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h3>
+<h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
 <p>Nilai Gaji K013 yang awalnya hilang diestimasi menjadi <strong>Rp 5.750.000</strong> berdasarkan rata-rata gaji dari 2 karyawan yang paling mirip karakteristiknya (departemen, pendidikan, status, dan usia) dengan K013. Nilai asli Gaji K013 sebelum dihapus adalah <strong>5.500.000</strong>, sehingga selisih antara tebakan KNN dan nilai asli hanya <strong>250.000</strong> — menunjukkan bahwa metode KNN cukup akurat dalam memperkirakan data yang hilang.</p>
-</section>
 </section>
 </section>
 
@@ -811,23 +831,27 @@ $<span class="math notranslate nohighlight">\(U = \sqrt{(0,3333)^2 + (0,125)^2} 
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-dataset">Download Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-1-kolom-a-f-dataset-asli-data-mentah">Blok 1 (Kolom A-F): Dataset Asli (Data Mentah)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik">Blok 2 (Kolom G-H): Hasil Normalisasi Min-Max untuk Atribut Numerik</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-3-kolom-i-k-perhitungan-jarak-kategorikal">Blok 3 (Kolom I-K): Perhitungan Jarak Kategorikal</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-4-kolom-l-jarak-kategorikal-gabungan">Blok 4 (Kolom L): Jarak Kategorikal Gabungan</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-5-kolom-m-perhitungan-jarak-numerik-euclidean">Blok 5 (Kolom M): Perhitungan Jarak Numerik (Euclidean)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-6-kolom-n-jarak-gabungan-final-distance">Blok 6 (Kolom N): Jarak Gabungan (Final Distance)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-7-kolom-p-v-penanganan-missing-value-metode-knn">Blok 7 (Kolom P-V): Penanganan Missing Value (Metode KNN)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013">Langkah 1: Hitung Jarak Kategorikal Setiap Karyawan ke K013</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-numerik-khusus-kolom-t">Langkah 2: Hitung Jarak Numerik Khusus (Kolom T)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-jarak-final-ke-k013-kolom-u">Langkah 3: Hitung Jarak Final ke K013 (Kolom U)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-urutkan-dan-pilih-2-tetangga-terdekat">Langkah 4: Urutkan dan Pilih 2 Tetangga Terdekat</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga">Langkah 5: Estimasi Missing Value (Rata-rata Gaji Tetangga)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-1-kolom-a-f-dataset-asli-data-mentah">Blok 1 (Kolom A-F): Dataset Asli (Data Mentah)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-2-kolom-g-h-hasil-normalisasi-min-max-untuk-atribut-numerik">Blok 2 (Kolom G-H): Hasil Normalisasi Min-Max untuk Atribut Numerik</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-3-kolom-i-k-perhitungan-jarak-kategorikal">Blok 3 (Kolom I-K): Perhitungan Jarak Kategorikal</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-4-kolom-l-jarak-kategorikal-gabungan">Blok 4 (Kolom L): Jarak Kategorikal Gabungan</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-5-kolom-m-perhitungan-jarak-numerik-euclidean">Blok 5 (Kolom M): Perhitungan Jarak Numerik (Euclidean)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-6-kolom-n-jarak-gabungan-final-distance">Blok 6 (Kolom N): Jarak Gabungan (Final Distance)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#blok-7-kolom-p-v-penanganan-missing-value-metode-knn">Blok 7 (Kolom P-V): Penanganan Missing Value (Metode KNN)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-kategorikal-setiap-karyawan-ke-k013">Langkah 1: Hitung Jarak Kategorikal Setiap Karyawan ke K013</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-jarak-numerik-khusus-kolom-t">Langkah 2: Hitung Jarak Numerik Khusus (Kolom T)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-jarak-final-ke-k013-kolom-u">Langkah 3: Hitung Jarak Final ke K013 (Kolom U)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-urutkan-dan-pilih-2-tetangga-terdekat">Langkah 4: Urutkan dan Pilih 2 Tetangga Terdekat</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-estimasi-missing-value-rata-rata-gaji-tetangga">Langkah 5: Estimasi Missing Value (Rata-rata Gaji Tetangga)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
 </ul>
 </li>
 </ul>
+
   </nav></div>
 
 </div></div>

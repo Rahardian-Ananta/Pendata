@@ -1,16 +1,9 @@
 # Tugas Klasifikasi: Decision Tree
 
----
-
 ## 1. Pendahuluan
 
 Tugas Klasifikasi: Prediksi Main Tennis (Decision Tree & KNIME)
 Tugas ini merupakan implementasi model klasifikasi **Decision Tree** untuk memprediksi apakah seseorang akan bermain tenis berdasarkan kondisi cuaca. Fokus utama tugas ini adalah melakukan konfigurasi setiap node secara detail agar workflow dapat berjalan dengan baik.
-
----
-
-
----
 
 ## 2. Dataset
 

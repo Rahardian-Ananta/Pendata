@@ -163,7 +163,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Rahardian Ananta , 240411100071
+                    Rahardian Ananta — 240411100071
                 </a>
             </li>
         </ul>
@@ -174,6 +174,13 @@
 <li class="toctree-l2"><a class="reference internal" href="data_collecting.html">📊 Collecting Data &amp; Pengukuran Jarak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="menghitung-jarak.html">Menghitung Jarak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Normalization_and_Missing_Value_Imputation.html">Normalisasi dan Pengisian Missing Value dalam Penambangan Data</a></li>
+
+
+
+
+
+
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="pre-processing-data.html">Pre-Processing Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -456,10 +463,8 @@
   <section class="tex2jax_ignore mathjax_ignore" id="forecaster-explainability-feature-importance-shap-values-dan-partial-dependence-plots">
 <h1>Forecaster Explainability: Feature Importance, SHAP Values, dan Partial Dependence Plots<a class="headerlink" href="#forecaster-explainability-feature-importance-shap-values-dan-partial-dependence-plots" title="Link to this heading">#</a></h1>
 <p>Notebook ini merupakan reproduksi dan pengembangan dari <a class="reference external" href="https://skforecast.org/0.15.1/user_guides/explainability.html">skforecast explainability guide</a> dengan tambahan penjelasan mendalam dan jawaban pertanyaan tugas.</p>
-<hr class="docutils" />
 <section id="jawaban-pertanyaan">
 <h2>JAWABAN PERTANYAAN<a class="headerlink" href="#jawaban-pertanyaan" title="Link to this heading">#</a></h2>
-<hr class="docutils" />
 <section id="pertanyaan-1-analisa-prediksi-tentang-apa">
 <h3>Pertanyaan 1: Analisa Prediksi Tentang Apa?<a class="headerlink" href="#pertanyaan-1-analisa-prediksi-tentang-apa" title="Link to this heading">#</a></h3>
 <p>Analisis dalam notebook ini adalah prediksi <strong>permintaan listrik harian (Electricity Demand)</strong> di negara bagian Victoria, Australia.</p>
@@ -472,7 +477,6 @@
 <li><p><strong>Relevansi:</strong> Permintaan listrik sangat dipengaruhi cuaca (panas = lebih banyak AC, dingin = lebih banyak pemanas), sehingga suhu menjadi fitur penting.</p></li>
 </ul>
 </section>
-<hr class="docutils" />
 <section id="pertanyaan-2-bagaimana-bentuk-data-training-nya">
 <h3>Pertanyaan 2: Bagaimana Bentuk Data Training-nya?<a class="headerlink" href="#pertanyaan-2-bagaimana-bentuk-data-training-nya" title="Link to this heading">#</a></h3>
 <p><strong>INPUT (X_train):</strong> Matriks fitur yang terdiri dari:</p>
@@ -524,7 +528,6 @@
 <div><p><strong>Ringkasan:</strong> Model belajar: <em>“Berdasarkan permintaan listrik 7 hari terakhir dan suhu hari ini, berapakah permintaan listrik hari ini?”</em></p>
 </div></blockquote>
 </section>
-<hr class="docutils" />
 <section id="pertanyaan-3-apa-itu-lag">
 <h3>Pertanyaan 3: Apa itu Lag?<a class="headerlink" href="#pertanyaan-3-apa-itu-lag" title="Link to this heading">#</a></h3>
 <p><strong>Lag</strong> adalah nilai dari deret waktu (time series) pada titik waktu <strong>sebelumnya</strong> yang digunakan sebagai fitur input untuk model.</p>
@@ -550,7 +553,6 @@
 </ol>
 <p><strong>Dalam skforecast:</strong> Parameter <code class="docutils literal notranslate"><span class="pre">lags=7</span></code> artinya model menggunakan 7 lag (lag_1 hingga lag_7) sebagai fitur.</p>
 </section>
-<hr class="docutils" />
 <section id="pertanyaan-4-proses-analisis-yang-dilakukan">
 <h3>Pertanyaan 4: Proses Analisis yang Dilakukan<a class="headerlink" href="#pertanyaan-4-proses-analisis-yang-dilakukan" title="Link to this heading">#</a></h3>
 <p>Analisis dilakukan melalui <strong>5 tahapan utama</strong>:</p>
@@ -587,7 +589,6 @@
 </div>
 </section>
 </section>
-<hr class="docutils" />
 <section id="bagian-1-instalasi-library-dan-import-data">
 <h2>Bagian 1: Instalasi Library dan Import Data<a class="headerlink" href="#bagian-1-instalasi-library-dan-import-data" title="Link to this heading">#</a></h2>
 <section id="instalasi-dan-import-library">
@@ -3099,7 +3100,6 @@ Semakin kecil error bar = estimasi kepentingan fitur lebih stabil
 <section id="kesimpulan">
 <h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
 <p>Berdasarkan berbagai metode interpretabilitas (Feature Importance, SHAP, dan PDP), kita dapat menyimpulkan bahwa <strong>Temperature</strong> dan <strong>Lag_1</strong> adalah faktor penentu utama dalam fluktuasi permintaan listrik di dataset ini.</p>
-<hr class="docutils" />
 <section id="rangkuman-jawaban-pertanyaan">
 <h3>Rangkuman Jawaban Pertanyaan<a class="headerlink" href="#rangkuman-jawaban-pertanyaan" title="Link to this heading">#</a></h3>
 <p><strong>1. Analisis prediksi tentang apa?</strong>
